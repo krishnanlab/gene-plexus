@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100">
+  <style>
+    .draw path {
+      animation: draw ease-in-out both;
+      animation-duration: var(--duration);
+      animation-delay: var(--delay);
+      stroke-dasharray: var(--length);
+    }
+
+    @keyframes draw {
+      from {
+        stroke-dashoffset: var(--length);
+      }
+
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+  <g
+    class="draw"
+    fill="none"
+    stroke="currentColor"
+    stroke-linejoin="round"
+    stroke-linecap="round"
+    stroke-width="5"
+  >
+    <!-- helix -->
+    <path
+      style="--length: 45.741; --duration: 0.5s; --delay: 0s"
+      d="
+        M -30 -45
+        C -30 -25 -10 -10 -10 -10
+      "
+    />
+    <path
+      style="--length: 45.741; --duration: 0.5s; --delay: 0.5s"
+      d="
+        M 10 10
+        C 10 10 30 25 30 45
+      "
+    />
+    <!-- slash -->
+    <path
+      style="--length: 67.882; --duration: 1s; --delay: 0s"
+      d="
+        M 24 -24
+        L -24 24
+      "
+    />
+    <!-- pairs -->
+    <path
+      style="--length: 47; --duration: 0.5s; --delay: 0.25s"
+      d="
+        M -28 -35
+        L 16 -35
+      "
+    />
+    <path
+      style="--length: 25; --duration: 0.5s; --delay: 0.5s"
+      d="
+        M -20 -21
+        L 2 -21
+      "
+    />
+    <path
+      style="--length: 25; --duration: 0.5s; --delay: 0.75s"
+      d="
+        M 20 21
+        L -2 21
+      "
+    />
+    <path
+      style="--length: 47; --duration: 0.5s; --delay: 1s"
+      d="
+        M 28 35
+        L -16 35
+      "
+    />
+  </g>
+</svg>

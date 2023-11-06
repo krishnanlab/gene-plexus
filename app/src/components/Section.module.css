@@ -1,0 +1,12 @@
+.section {
+  padding: 40px max(40px, (100% - var(--content)) / 2);
+  background: var(--white);
+}
+
+.fill {
+  background: var(--pale);
+}
+
+.section:nth-child(even) {
+  background: var(--off-white);
+}

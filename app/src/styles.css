@@ -1,0 +1,113 @@
+:root {
+  /* colors */
+  --accent: #d2587c;
+  --deep: #22577a;
+  --pale: #d4e7f5;
+  --black: #000000;
+  --dark-gray: #303030;
+  --gray: #686868;
+  --light-gray: #e0e0e0;
+  --off-white: #fafafa;
+  --white: #ffffff;
+
+  /* font weights */
+  --regular: 300;
+  --bold: 600;
+
+  /* effects */
+  --rounded: 3px;
+  --fast: 0.25s ease;
+  --shadow: 0 2px 5px #00000020;
+  --spacing: 2;
+  --compact: 1.5;
+
+  /** sizes */
+  --content: 1000px;
+
+  font-weight: var(--regular);
+  line-height: var(--compact);
+  font-family: "poppins", sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+}
+
+h1 {
+  margin: 40px 0 20px 0;
+  font-weight: var(--regular);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+h2 {
+  margin: 40px 0 20px 0;
+  font-weight: var(--bold);
+  font-size: 1.4rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+h3 {
+  margin: 40px 0 20px 0;
+  font-weight: var(--bold);
+  font-size: 1.3rem;
+}
+
+h4 {
+  margin: 40px 0 20px 0;
+  font-weight: var(--bold);
+  font-size: 1.2rem;
+}
+
+p {
+  margin: 20px 0;
+  line-height: var(--spacing);
+  text-align: justify;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: currentColor;
+}
+
+ul,
+ol {
+  margin: 20px 0;
+}
+
+li {
+  margin: 8px 0;
+}
+
+pre {
+  padding: 10px 20px;
+  overflow: auto;
+  border-radius: var(--rounded);
+  background: var(--dark-gray);
+  color: var(--white);
+}
+
+:not(pre) > code {
+  padding: 2px 5px;
+  border-radius: var(--rounded);
+  background: var(--light-gray);
+}
