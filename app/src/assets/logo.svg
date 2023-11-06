@@ -42,10 +42,10 @@
     />
     <!-- slash -->
     <path
-      style="--length: 67.882; --duration: 1s; --delay: 0s"
+      style="--length: 84.853; --duration: 1s; --delay: 0s"
       d="
-        M 24 -24
-        L -24 24
+        M 30 -30
+        L -30 30
       "
     />
     <!-- pairs -->

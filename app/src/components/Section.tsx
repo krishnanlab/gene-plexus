@@ -5,12 +5,19 @@ import classes from "./Section.module.css";
 type Props = {
   /** accent background fill */
   fill?: boolean;
+  /** full screen width */
+  full?: boolean;
   children: ReactNode;
 };
 
-function Section({ fill, children }: Props) {
+function Section({ fill, full, children }: Props) {
   return (
-    <section className={classNames(classes.section, { [classes.fill]: fill })}>
+    <section
+      className={classNames(classes.section, {
+        [classes.fill]: fill,
+        [classes.full]: full,
+      })}
+    >
       {children}
     </section>
   );

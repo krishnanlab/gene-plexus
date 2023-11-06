@@ -2,7 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 40px 20px;
   background: var(--deep);
   color: var(--white);
+}
+
+.footer a {
+  color: var(--white);
+}
+
+.footer a:hover {
+  color: var(--light-gray);
 }

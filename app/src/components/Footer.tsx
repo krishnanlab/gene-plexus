@@ -1,9 +1,14 @@
+import Link from "@/components/Link";
 import classes from "./Footer.module.css";
 
 function Footer() {
   return (
     <footer className={classes.footer}>
-      A project of the Krishnan Lab, &copy; 2023
+      <span>
+        A project of the{" "}
+        <Link to="https://www.thekrishnanlab.org/">Krishnan Lab</Link> &copy;
+        2023
+      </span>
     </footer>
   );
 }

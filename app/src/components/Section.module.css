@@ -3,10 +3,14 @@
   background: var(--white);
 }
 
+.section:nth-child(even) {
+  background: var(--off-white);
+}
+
 .fill {
   background: var(--pale);
 }
 
-.section:nth-child(even) {
-  background: var(--off-white);
+.full {
+  padding: 40px;
 }

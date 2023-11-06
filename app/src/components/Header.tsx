@@ -1,4 +1,5 @@
 import Logo from "@/assets/logo.svg?react";
+import Link from "@/components/Link";
 import classes from "./Header.module.css";
 
 function Header() {
@@ -6,18 +7,20 @@ function Header() {
     <header className={classes.header}>
       <div className={classes.title}>
         <Logo className={classes.logo} />
-        <h1>{import.meta.env.VITE_TITLE}</h1>
+        <Link className={classes.link} to="/">
+          <h1>{import.meta.env.VITE_TITLE}</h1>
+        </Link>
       </div>
       <nav className={classes.nav}>
-        <a className={classes.link} href="">
+        <Link className={classes.link} to="/new-analysis">
           New Analysis
-        </a>
-        <a className={classes.link} href="">
+        </Link>
+        <Link className={classes.link} to="/analyses">
           Analyses
-        </a>
-        <a className={classes.link} href="">
+        </Link>
+        <Link className={classes.link} to="/about">
           About
-        </a>
+        </Link>
       </nav>
     </header>
   );

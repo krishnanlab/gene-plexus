@@ -25,6 +25,7 @@
   --content: 1000px;
 
   font-weight: var(--regular);
+  font-size: 13pt;
   line-height: var(--compact);
   font-family: "poppins", sans-serif;
 }
@@ -44,16 +45,17 @@ main {
 }
 
 h1 {
-  margin: 40px 0 20px 0;
-  font-weight: var(--regular);
+  margin: 40px 0;
+  font-weight: var(--bold);
   font-size: 1.5rem;
+  text-align: center;
   text-transform: uppercase;
 }
 
 h2 {
   margin: 40px 0 20px 0;
   font-weight: var(--bold);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -61,13 +63,26 @@ h2 {
 h3 {
   margin: 40px 0 20px 0;
   font-weight: var(--bold);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 
 h4 {
   margin: 40px 0 20px 0;
   font-weight: var(--bold);
-  font-size: 1.2rem;
+  font-size: 1rem;
+}
+
+a {
+  color: var(--accent);
+  transition: color var(--fast);
+}
+
+a:hover {
+  color: currentColor;
+}
+
+p a:visited {
+  color: var(--deep);
 }
 
 p {
@@ -81,17 +96,10 @@ select {
   cursor: pointer;
 }
 
-a {
-  color: var(--accent);
-}
-
-a:hover {
-  color: currentColor;
-}
-
 ul,
-ol {
-  margin: 20px 0;
+ol,
+pre {
+  margin: 40px 0;
 }
 
 li {
@@ -110,4 +118,10 @@ pre {
   padding: 2px 5px;
   border-radius: var(--rounded);
   background: var(--light-gray);
+}
+
+.icon {
+  position: relative;
+  top: 2px;
+  height: 1em;
 }
