@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
+  gap: 10px;
   background: var(--deep);
   color: var(--white);
 }
@@ -13,4 +14,13 @@
 
 .footer a:hover {
   color: var(--light-gray);
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+}
+
+.icons > a {
+  padding: 5px;
 }

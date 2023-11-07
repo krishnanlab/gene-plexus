@@ -4,13 +4,16 @@ import { kebabCase } from "lodash";
 import classes from "./Heading.module.css";
 
 type Props = {
+  /** manually set hash link instead of automatically from children text */
+  hash?: string;
+  /** "indent" level */
   level: 1 | 2 | 3 | 4;
   children: ReactNode;
 };
 
-function Heading({ level, children }: Props) {
+function Heading({ hash, level, children }: Props) {
   const Tag: keyof JSX.IntrinsicElements = `h${level}`;
-  const id = typeof children === "string" ? kebabCase(children) : "";
+  const id = hash || (typeof children === "string" ? kebabCase(children) : "");
   return (
     <Tag id={id}>
       {children}
