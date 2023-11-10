@@ -2,7 +2,7 @@ import Heading from "@/components/Heading";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 
-function Analyses() {
+const Analyses = () => {
   return (
     <>
       <Meta title="Analyses" />
@@ -28,6 +28,6 @@ function Analyses() {
       </Section>
     </>
   );
-}
+};
 
 export default Analyses;

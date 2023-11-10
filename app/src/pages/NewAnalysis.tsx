@@ -2,7 +2,7 @@ import Heading from "@/components/Heading";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 
-function NewAnalysis() {
+const NewAnalysis = () => {
   return (
     <>
       <Meta title="New Analysis" />
@@ -21,6 +21,6 @@ function NewAnalysis() {
       </Section>
     </>
   );
-}
+};
 
 export default NewAnalysis;

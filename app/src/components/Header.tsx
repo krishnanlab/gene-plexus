@@ -3,7 +3,7 @@ import Logo from "@/assets/logo.svg?react";
 import Link from "@/components/Link";
 import classes from "./Header.module.css";
 
-function Header() {
+const Header = () => {
   return (
     <header className={classes.header}>
       <div className={classes.title}>
@@ -28,6 +28,6 @@ function Header() {
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

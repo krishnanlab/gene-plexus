@@ -18,18 +18,16 @@ import { scrollTo } from "@/util/dom";
 import "modern-normalize/modern-normalize.css";
 import "./styles.css";
 
-function App() {
-  return (
-    <IconContext.Provider value={{ className: "icon" }}>
-      <RouterProvider router={router} />
-    </IconContext.Provider>
-  );
-}
+const App = () => (
+  <IconContext.Provider value={{ className: "icon" }}>
+    <RouterProvider router={router} />
+  </IconContext.Provider>
+);
 
 export default App;
 
 /** route layout */
-function Layout() {
+const Layout = () => {
   const { hash } = useLocation();
 
   useEffect(() => {
@@ -50,7 +48,7 @@ function Layout() {
       <Footer />
     </>
   );
-}
+};
 
 /** route definitions */
 const router = createBrowserRouter([

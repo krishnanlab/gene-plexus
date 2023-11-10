@@ -1,9 +1,9 @@
 import { sleep } from "@/util/misc";
 
 /** wait for element matching selector to appear, checking periodically */
-export async function waitFor<El extends Element>(
+export const waitFor = async <El extends Element>(
   selector: string,
-): Promise<El | undefined> {
+): Promise<El | undefined> => {
   const waits = [
     0, 1, 5, 10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000, 2000, 3000,
   ];
@@ -12,10 +12,10 @@ export async function waitFor<El extends Element>(
     if (match) return match;
     await sleep(waits.shift());
   }
-}
+};
 
 /** scroll to element by selector */
-export async function scrollTo(selector: string) {
+export const scrollTo = async (selector: string) => {
   /** wait for element to appear */
   const element = await waitFor(selector);
   if (!element) return;
@@ -28,4 +28,4 @@ export async function scrollTo(selector: string) {
     top: element.getBoundingClientRect().top + window.scrollY,
     behavior: "smooth",
   });
-}
+};

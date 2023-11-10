@@ -2,7 +2,7 @@ import { FaEnvelope, FaGithub, FaHome, FaTwitter } from "react-icons/fa";
 import Link from "@/components/Link";
 import classes from "./Footer.module.css";
 
-function Footer() {
+const Footer = () => {
   return (
     <footer className={classes.footer}>
       <div className={classes.icons}>
@@ -27,6 +27,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

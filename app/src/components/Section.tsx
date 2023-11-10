@@ -10,7 +10,7 @@ type Props = {
   children: ReactNode;
 };
 
-function Section({ fill, full, children }: Props) {
+const Section = ({ fill, full, children }: Props) => {
   return (
     <section
       className={classNames(classes.section, {
@@ -21,6 +21,6 @@ function Section({ fill, full, children }: Props) {
       {children}
     </section>
   );
-}
+};
 
 export default Section;

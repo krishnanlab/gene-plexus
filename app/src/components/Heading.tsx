@@ -11,7 +11,7 @@ type Props = {
   children: ReactNode;
 };
 
-function Heading({ hash, level, children }: Props) {
+const Heading = ({ hash, level, children }: Props) => {
   const Tag: keyof JSX.IntrinsicElements = `h${level}`;
   const id = hash || (typeof children === "string" ? kebabCase(children) : "");
   return (
@@ -24,6 +24,6 @@ function Heading({ hash, level, children }: Props) {
       )}
     </Tag>
   );
-}
+};
 
 export default Heading;

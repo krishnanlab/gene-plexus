@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
+import { test, type Test } from "@/api/test";
 import Heading from "@/components/Heading";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 import classes from "./Home.module.css";
 
-function Home() {
+const Home = () => {
+  const [data, setData] = useState<Test>();
+
+  /** test api call */
+  useEffect(() => {
+    let latest = true;
+    test().then((response) => {
+      if (latest) setData(response);
+    });
+    return () => {
+      latest = false;
+    };
+  }, []);
+
   return (
     <>
       <Meta title="Home" />
@@ -75,8 +90,17 @@ function Home() {
           urna.
         </p>
       </Section>
+
+      <Section>
+        {!data && "Loading data"}
+        {data?.map((item, index) => (
+          <div key={index} style={{ opacity: item.id < 200 ? 1 : 0.5 }}>
+            {item.name} ({item.id})
+          </div>
+        ))}
+      </Section>
     </>
   );
-}
+};
 
 export default Home;

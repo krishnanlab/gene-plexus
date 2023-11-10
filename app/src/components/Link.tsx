@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-function Link({ to, children, ...props }: Props) {
+const Link = ({ to, children, ...props }: Props) => {
   const external = to.startsWith("http");
 
   if (external)
@@ -21,6 +21,6 @@ function Link({ to, children, ...props }: Props) {
         {children}
       </RouterLink>
     );
-}
+};
 
 export default Link;

@@ -2,7 +2,7 @@ import Heading from "@/components/Heading";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 
-function About() {
+const About = () => {
   return (
     <>
       <Meta title="About" />
@@ -32,6 +32,6 @@ function About() {
       </Section>
     </>
   );
-}
+};
 
 export default About;
