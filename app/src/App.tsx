@@ -14,6 +14,7 @@ import About from "@/pages/About";
 import Analyses from "@/pages/Analyses";
 import Home from "@/pages/Home";
 import NewAnalysis from "@/pages/NewAnalysis";
+import Testbed from "@/pages/Testbed";
 import { scrollTo } from "@/util/dom";
 import "modern-normalize/modern-normalize.css";
 import "./styles.css";
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "testbed",
+        element: <Testbed />,
       },
     ],
   },

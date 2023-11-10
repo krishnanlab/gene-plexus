@@ -46,16 +46,17 @@ main {
 
 h1 {
   margin: 40px 0;
+  color: var(--deep);
   font-weight: var(--bold);
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-align: center;
   text-transform: uppercase;
 }
 
 h2 {
-  margin: 40px 0 20px 0;
+  margin: 40px;
   font-weight: var(--bold);
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -63,7 +64,7 @@ h2 {
 h3 {
   margin: 40px 0 20px 0;
   font-weight: var(--bold);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 h4 {
@@ -89,6 +90,10 @@ p {
   margin: 20px 0;
   line-height: var(--spacing);
   text-align: justify;
+}
+
+button {
+  border: none;
 }
 
 button,
@@ -121,7 +126,14 @@ pre {
 }
 
 .icon {
-  position: relative;
-  top: 2px;
   height: 1em;
+}
+
+.spaced {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 0;
+  gap: 20px;
 }

@@ -1,0 +1,49 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 5px 20px;
+  gap: 10px;
+  border-radius: var(--rounded);
+  text-decoration: none;
+  vertical-align: middle;
+  transition:
+    background var(--fast),
+    color var(--fast);
+}
+
+.square {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.normal {
+  background: none;
+  color: var(--accent);
+}
+
+.normal:hover {
+  color: var(--black);
+}
+
+.accent {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.accent:hover {
+  background: var(--deep);
+  color: var(--white);
+}
+
+.critical {
+  background: var(--black);
+  color: var(--white);
+}
+
+.critical:hover {
+  background: var(--deep);
+  color: var(--white);
+}

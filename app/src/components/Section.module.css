@@ -8,7 +8,7 @@
 }
 
 .fill {
-  background: var(--pale);
+  background: var(--pale) !important;
 }
 
 .full {

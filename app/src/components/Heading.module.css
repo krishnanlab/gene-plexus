@@ -1,5 +1,14 @@
+.icon {
+  position: relative;
+  top: 0.1em;
+  margin-right: 0.75em;
+  opacity: 0.5;
+}
+
 .anchor {
   display: inline-block;
+  position: relative;
+  top: 0.1em;
   width: 0;
   margin-left: 0.75em;
   color: var(--accent);

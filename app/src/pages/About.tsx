@@ -1,3 +1,4 @@
+import { FaPenNib } from "react-icons/fa";
 import Heading from "@/components/Heading";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
@@ -8,7 +9,9 @@ const About = () => {
       <Meta title="About" />
 
       <Section>
-        <Heading level={1}>About</Heading>
+        <Heading level={1} icon={<FaPenNib />}>
+          About
+        </Heading>
 
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
