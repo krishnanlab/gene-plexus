@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Logo from "@/assets/logo.svg?react";
 import Link from "@/components/Link";
 import classes from "./Header.module.css";
@@ -7,8 +8,11 @@ function Header() {
     <header className={classes.header}>
       <div className={classes.title}>
         <Logo className={classes.logo} />
-        <Link className={classes.link} to="/">
-          <h1>{import.meta.env.VITE_TITLE}</h1>
+        <Link
+          className={classNames([classes.link, classes["title-link"]])}
+          to="/"
+        >
+          {import.meta.env.VITE_TITLE}
         </Link>
       </div>
       <nav className={classes.nav}>

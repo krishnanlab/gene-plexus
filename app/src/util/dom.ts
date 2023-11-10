@@ -1,7 +1,4 @@
-/** wait ms */
-export async function sleep(ms = 0): Promise<void> {
-  return new Promise((resolve) => globalThis.setTimeout(resolve, ms));
-}
+import { sleep } from "@/util/misc";
 
 /** wait for element matching selector to appear, checking periodically */
 export async function waitFor<El extends Element>(

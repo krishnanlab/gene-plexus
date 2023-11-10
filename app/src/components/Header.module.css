@@ -14,11 +14,13 @@
   gap: 10px;
 }
 
-.title h1 {
+.title-link {
   margin: 0;
   font-weight: var(--regular);
   font-size: 1.2rem;
   letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .logo {
@@ -40,10 +42,9 @@
 
 .link::after {
   position: absolute;
-  right: 0;
+  right: 5px;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 5px;
   height: 1px;
   transform: scaleX(0);
   background: var(--white);
