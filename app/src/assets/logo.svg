@@ -27,14 +27,14 @@
   >
     <!-- helix -->
     <path
-      style="--length: 45.741; --duration: 0.5s; --delay: 0s"
+      style="--length: 45.741; --duration: 0.5s; --delay: 0.1s"
       d="
         M -30 -45
         C -30 -25 -10 -10 -10 -10
       "
     />
     <path
-      style="--length: 45.741; --duration: 0.5s; --delay: 0.5s"
+      style="--length: 45.741; --duration: 0.5s; --delay: 0.7s"
       d="
         M 10 10
         C 10 10 30 25 30 45
@@ -42,7 +42,7 @@
     />
     <!-- slash -->
     <path
-      style="--length: 84.853; --duration: 1s; --delay: 0s"
+      style="--length: 84.853; --duration: 1s; --delay: 0.1s"
       d="
         M 30 -30
         L -30 30
@@ -50,28 +50,28 @@
     />
     <!-- pairs -->
     <path
-      style="--length: 47; --duration: 0.5s; --delay: 0.25s"
+      style="--length: 47; --duration: 0.5s; --delay: 0.5s"
       d="
         M -28 -35
         L 16 -35
       "
     />
     <path
-      style="--length: 25; --duration: 0.5s; --delay: 0.5s"
+      style="--length: 25; --duration: 0.5s; --delay: 0.7s"
       d="
         M -20 -21
         L 2 -21
       "
     />
     <path
-      style="--length: 25; --duration: 0.5s; --delay: 0.75s"
+      style="--length: 25; --duration: 0.5s; --delay: 1s"
       d="
         M 20 21
         L -2 21
       "
     />
     <path
-      style="--length: 47; --duration: 0.5s; --delay: 1s"
+      style="--length: 47; --duration: 0.5s; --delay: 1.2s"
       d="
         M 28 35
         L -16 35

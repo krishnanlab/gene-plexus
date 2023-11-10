@@ -1,4 +1,4 @@
-import { FaArrowRight, FaBullhorn, FaShapes } from "react-icons/fa";
+import { FaArrowRight, FaBullhorn, FaFlask, FaShapes } from "react-icons/fa";
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Meta from "@/components/Meta";
@@ -10,7 +10,9 @@ const Testbed = () => {
       <Meta title="Testbed" />
 
       <Section>
-        <Heading level={1}>Testbed</Heading>
+        <Heading level={1} icon={<FaFlask />}>
+          Testbed
+        </Heading>
       </Section>
 
       <Section fill={true}>
