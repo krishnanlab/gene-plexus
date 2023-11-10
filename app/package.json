@@ -4,16 +4,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .tsx,.ts,.jsx,.js --fix && prettier --write \"**/*.{tsx,ts,jsx,ts,css,html,svg,md,json,yaml}\""
+    "lint": "FIX=true ./lint.sh",
+    "test:types": "tsc",
+    "test:lint": "./lint.sh"
   },
   "dependencies": {
     "classnames": "^2.3.2",
+    "eslint-plugin-prettier": "^5.0.1",
     "lodash": "^4.17.21",
     "modern-normalize": "^2.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0", 
+    "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router": "^6.18.0",
     "react-router-dom": "^6.18.0",

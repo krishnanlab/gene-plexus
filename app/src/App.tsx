@@ -30,7 +30,7 @@ export default App;
 
 /** route layout */
 function Layout() {
-  let { hash } = useLocation();
+  const { hash } = useLocation();
 
   useEffect(() => {
     if (hash) scrollTo(hash);
