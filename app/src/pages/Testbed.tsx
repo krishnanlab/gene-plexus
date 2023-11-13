@@ -85,7 +85,7 @@ const Testbed = () => {
         </Heading>
 
         <div className="spaced">
-          <Button to="/about" text="About" />
+          <Button to="/about" text="About" tooltip={<>hello</>} />
           <Button
             to="/about"
             text="Learn More"

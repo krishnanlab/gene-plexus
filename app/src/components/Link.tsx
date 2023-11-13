@@ -1,4 +1,9 @@
-import { AnchorHTMLAttributes, ReactNode } from "react";
+import {
+  AnchorHTMLAttributes,
+  ForwardedRef,
+  forwardRef,
+  ReactNode,
+} from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 type Props = {
@@ -6,21 +11,23 @@ type Props = {
   children: ReactNode;
 } & AnchorHTMLAttributes<HTMLAnchorElement>;
 
-const Link = ({ to, children, ...props }: Props) => {
-  const external = to.startsWith("http");
+const Link = forwardRef(
+  ({ to, children, ...props }: Props, ref: ForwardedRef<HTMLAnchorElement>) => {
+    const external = to.startsWith("http");
 
-  if (external)
-    return (
-      <a href={to} target={external ? "_blank" : ""} {...props}>
-        {children}
-      </a>
-    );
-  else
-    return (
-      <RouterLink to={to} {...props}>
-        {children}
-      </RouterLink>
-    );
-};
+    if (external)
+      return (
+        <a ref={ref} href={to} target={external ? "_blank" : ""} {...props}>
+          {children}
+        </a>
+      );
+    else
+      return (
+        <RouterLink ref={ref} to={to} {...props}>
+          {children}
+        </RouterLink>
+      );
+  },
+);
 
 export default Link;

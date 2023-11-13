@@ -1,0 +1,25 @@
+.content {
+  padding: 10px 15px;
+  border-radius: var(--rounded);
+  background: var(--black);
+  box-shadow: var(--shadow);
+  color: var(--white);
+  transition: opacity var(--fast);
+}
+
+.arrow {
+  fill: var(--black);
+}
+
+.content[data-state="delayed-open"] {
+  animation: fade 200ms;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

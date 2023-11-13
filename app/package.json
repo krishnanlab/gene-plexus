@@ -1,22 +1,10 @@
 {
-  "name": "gene-plexus",
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "lint": "FIX=true ./lint.sh",
-    "test:types": "tsc",
-    "test:lint": "./lint.sh"
-  },
   "dependencies": {
+    "@radix-ui/react-tooltip": "^1.0.7",
     "classnames": "^2.3.2",
-    "eslint-plugin-prettier": "^5.0.1",
     "lodash": "^4.17.21",
     "modern-normalize": "^2.0.0",
     "react": "^18.2.0",
-    "react-aria-components": "^1.0.0-rc.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-router": "^6.18.0",
@@ -35,6 +23,7 @@
     "@vitejs/plugin-react-swc": "^3.3.2",
     "eslint": "^8.45.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "msw": "^2.0.5",
@@ -47,5 +36,16 @@
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "name": "gene-plexus",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "lint": "FIX=true ./lint.sh",
+    "preview": "vite preview",
+    "test:lint": "./lint.sh",
+    "test:types": "tsc"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }

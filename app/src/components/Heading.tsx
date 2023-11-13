@@ -1,4 +1,4 @@
-import { cloneElement, JSX, ReactNode } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 import { FaLink } from "react-icons/fa";
 import { kebabCase } from "lodash";
 import classes from "./Heading.module.css";
@@ -6,7 +6,7 @@ import classes from "./Heading.module.css";
 type Props = {
   /** "indent" level */
   level: 1 | 2 | 3 | 4;
-  icon?: JSX.Element;
+  icon?: ReactElement;
   /** manually set hash link instead of automatically from children text */
   hash?: string;
   children: ReactNode;

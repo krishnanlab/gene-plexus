@@ -1,6 +1,13 @@
-import { ButtonHTMLAttributes, ComponentProps, JSX } from "react";
+import {
+  ButtonHTMLAttributes,
+  ComponentProps,
+  ForwardedRef,
+  forwardRef,
+  ReactNode,
+} from "react";
 import classNames from "classnames";
 import Link from "@/components/Link";
+import Tooltip from "@/components/Tooltip";
 import classes from "./Button.module.css";
 
 type LinkProps = ComponentProps<typeof Link>;
@@ -10,23 +17,28 @@ type ButtonProps = {
 
 type Props = {
   text?: string;
-  icon?: JSX.Element;
+  icon?: ReactNode;
   design?: "normal" | "accent" | "critical";
+  tooltip?: ReactNode;
 } & (Omit<LinkProps, "children"> | Omit<ButtonProps, "children">);
 
-const Button = ({ text, icon, design = "normal", ...props }: Props) => {
-  const children = (
-    <>
-      {text}
-      {icon}
-    </>
-  );
+const Button = forwardRef(
+  (
+    { text, icon, design = "normal", tooltip, ...props }: Props,
+    ref: ForwardedRef<unknown>,
+  ) => {
+    const children = (
+      <>
+        {text}
+        {icon}
+      </>
+    );
 
-  const square = !text && !!icon;
+    const square = !text && !!icon;
 
-  if (props.onClick)
-    return (
+    const tag = props.onClick ? (
       <button
+        ref={ref as ForwardedRef<HTMLButtonElement>}
         className={classNames([
           classes.button,
           classes[design],
@@ -36,10 +48,9 @@ const Button = ({ text, icon, design = "normal", ...props }: Props) => {
       >
         {children}
       </button>
-    );
-  else
-    return (
+    ) : (
       <Link
+        ref={ref as ForwardedRef<HTMLAnchorElement>}
         className={classNames([
           classes.button,
           classes[design],
@@ -50,6 +61,9 @@ const Button = ({ text, icon, design = "normal", ...props }: Props) => {
         {children}
       </Link>
     );
-};
+
+    return <Tooltip content={tooltip}>{tag}</Tooltip>;
+  },
+);
 
 export default Button;
