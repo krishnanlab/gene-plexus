@@ -16,8 +16,8 @@ import Home from "@/pages/Home";
 import NewAnalysis from "@/pages/NewAnalysis";
 import Testbed from "@/pages/Testbed";
 import { scrollTo } from "@/util/dom";
-import "modern-normalize/modern-normalize.css";
 import "./styles.css";
+import "./util.css";
 
 const App = () => (
   <IconContext.Provider value={{ className: "icon" }}>

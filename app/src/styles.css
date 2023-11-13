@@ -17,7 +17,7 @@
   /* effects */
   --rounded: 3px;
   --fast: 0.25s ease;
-  --shadow: 0 2px 5px #00000020;
+  --shadow: 0 0 3px #00000030, 2px 2px 10px #00000030;
   --spacing: 2;
   --compact: 1.5;
 
@@ -28,6 +28,13 @@
   font-size: 13pt;
   line-height: var(--compact);
   font-family: "poppins", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
 }
 
 body {
@@ -92,13 +99,39 @@ p {
   text-align: justify;
 }
 
-button {
-  border: none;
+b,
+strong {
+  font-weight: var(--bold);
 }
 
-button,
-select {
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+button {
+  display: flex;
+  -webkit-appearance: none;
+  appearance: none;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: none;
+  background: none;
+  font: inherit;
   cursor: pointer;
+}
+
+input {
+  font: inherit;
+}
+
+textarea {
+  font: inherit;
+}
+
+select {
+  font: inherit;
 }
 
 ul,
@@ -127,13 +160,4 @@ pre {
 
 .icon {
   height: 1em;
-}
-
-.spaced {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 40px 0;
-  gap: 20px;
 }

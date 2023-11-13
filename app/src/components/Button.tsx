@@ -10,17 +10,20 @@ import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Button.module.css";
 
-type LinkProps = ComponentProps<typeof Link>;
-type ButtonProps = {
-  onClick: () => void;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+type LinkProps = Omit<ComponentProps<typeof Link>, "children">;
+type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children">;
 
-type Props = {
-  text?: string;
-  icon?: ReactNode;
-  design?: "normal" | "accent" | "critical";
-  tooltip?: ReactNode;
-} & (Omit<LinkProps, "children"> | Omit<ButtonProps, "children">);
+type CustomProps =
+  /** require text and/or tooltip, for accessibility */
+  (
+    | { text: string; tooltip?: ReactNode }
+    | { text?: string; tooltip: ReactNode }
+  ) & {
+    icon?: ReactNode;
+    design?: "normal" | "accent" | "critical";
+  };
+
+type Props = CustomProps & (LinkProps | ButtonProps);
 
 const Button = forwardRef(
   (

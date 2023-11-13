@@ -1,6 +1,7 @@
 import { FaArrowRight, FaBullhorn, FaFlask, FaShapes } from "react-icons/fa";
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";
+import Link from "@/components/Link";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 
@@ -84,26 +85,44 @@ const Testbed = () => {
           Components
         </Heading>
 
-        <div className="spaced">
-          <Button to="/about" text="About" tooltip={<>hello</>} />
+        <div className="flex">
+          <Button to="/about" text="About" tooltip={<>Hello World</>} />
           <Button
             to="/about"
             text="Learn More"
             icon={<FaArrowRight />}
             design="accent"
+            tooltip={
+              <>
+                <b>Hello</b> <i>World</i>
+              </>
+            }
           />
-          <Button to="/about" icon={<FaBullhorn />} design="critical" />
-          <Button onClick={() => window.alert("Hello World")} text="About" />
+          <Button
+            to="/about"
+            icon={<FaBullhorn />}
+            design="critical"
+            tooltip={
+              <Link to="https://medschool.cuanschutz.edu/dbmi">Test Link</Link>
+            }
+          />
+          <Button
+            onClick={() => window.alert("Hello World")}
+            text="About"
+            tooltip={<>Hello World</>}
+          />
           <Button
             onClick={() => window.alert("Hello World")}
             text="Learn More"
             icon={<FaArrowRight />}
             design="accent"
+            tooltip={<>Hello World</>}
           />
           <Button
             onClick={() => window.alert("Hello World")}
             icon={<FaBullhorn />}
             design="critical"
+            tooltip={<>Hello World</>}
           />
         </div>
       </Section>

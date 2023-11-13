@@ -7,15 +7,14 @@
   gap: 10px;
   border-radius: var(--rounded);
   text-decoration: none;
-  vertical-align: middle;
   transition:
     background var(--fast),
     color var(--fast);
 }
 
 .square {
-  width: 40px;
-  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   padding: 0;
 }
 

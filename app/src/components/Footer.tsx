@@ -6,24 +6,26 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <div className={classes.icons}>
-        <Link to="">
+        <Link to="" tooltip="Krishnan Lab website">
           <FaHome />
         </Link>
-        <Link to="">
+        <Link to="" tooltip="Email us">
           <FaEnvelope />
         </Link>
-        <Link to="">
+        <Link to="" tooltip="GitHub">
           <FaGithub />
         </Link>
-        <Link to="">
+        <Link to="" tooltip="Twitter">
           <FaTwitter />
         </Link>
       </div>
 
       <div>
         A project of the{" "}
-        <Link to="https://www.thekrishnanlab.org/">Krishnan Lab</Link> &copy;
-        2023
+        <Link to="https://www.thekrishnanlab.org/" noIcon={true}>
+          Krishnan Lab
+        </Link>{" "}
+        &copy; 2023
       </div>
     </footer>
   );

@@ -1,14 +1,28 @@
 .content {
   padding: 10px 15px;
   border-radius: var(--rounded);
-  background: var(--black);
+  background: var(--white);
   box-shadow: var(--shadow);
-  color: var(--white);
-  transition: opacity var(--fast);
+  color: var(--black);
 }
 
 .arrow {
-  fill: var(--black);
+  fill: var(--white);
+  /* var(--shadow) */
+  filter: drop-shadow(0 0 3px #00000030) drop-shadow(2px 2px 10px #00000030);
+}
+
+.content[data-side="top"] .arrow {
+  clip-path: inset(0 -10px -10px -10px);
+}
+.content[data-side="right"] .arrow {
+  clip-path: inset(-10px 0 -10px -10px);
+}
+.content[data-side="bottom"] .arrow {
+  clip-path: inset(-10px -10px 0 -10px);
+}
+.content[data-side="left"] .arrow {
+  clip-path: inset(-10px -10px -10px 0);
 }
 
 .content[data-state="delayed-open"] {
