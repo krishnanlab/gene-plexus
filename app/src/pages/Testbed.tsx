@@ -1,4 +1,5 @@
 import { FaArrowRight, FaBullhorn, FaFlask, FaShapes } from "react-icons/fa";
+import Ago from "@/components/Ago";
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Link from "@/components/Link";
@@ -137,6 +138,12 @@ const Testbed = () => {
             placeholder="Search"
             tooltip="Help text"
           />
+        </div>
+
+        <div className="flex">
+          <Ago date="" />
+          <Ago date="Nov 12 2023" />
+          <Ago date="Jun 1 2020" />
         </div>
       </Section>
     </>

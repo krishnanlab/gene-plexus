@@ -35,6 +35,7 @@
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  overflow-wrap: anywhere;
 }
 
 body {
@@ -159,6 +160,14 @@ pre {
   background: var(--light-gray);
 }
 
-.icon {
-  height: 1em;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  border-radius: 99999px;
+  background-color: var(--light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 99999px;
+  background-color: var(--gray);
 }

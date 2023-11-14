@@ -1,5 +1,6 @@
-/* util style classes */
-/* naming inspired by tailwind css */
+.icon {
+  height: 1em;
+}
 
 .left {
   text-align: left;
@@ -46,4 +47,23 @@
 
 .gap-lg {
   gap: 40px;
+}
+
+.mini-table {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 5px 15px;
+  text-align: left;
+}
+
+.mini-table :nth-child(odd) {
+  font-weight: 500;
+}
+
+.truncate:not(:focus) {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
