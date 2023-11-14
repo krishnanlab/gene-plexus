@@ -20,7 +20,7 @@ const Heading = ({ level, icon = <></>, hash, children }: Props) => {
       {cloneElement(icon, { className: classes.icon })}
       {children}
       {id && (
-        <a href={"#" + id} className={classes.anchor}>
+        <a href={"#" + id} className={classes.anchor} aria-label="Heading link">
           <FaLink />
         </a>
       )}

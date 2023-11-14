@@ -16,14 +16,10 @@ import Home from "@/pages/Home";
 import NewAnalysis from "@/pages/NewAnalysis";
 import Testbed from "@/pages/Testbed";
 import { scrollTo } from "@/util/dom";
-import "./styles.css";
 import "./util.css";
+import "./styles.css";
 
-const App = () => (
-  <IconContext.Provider value={{ className: "icon" }}>
-    <RouterProvider router={router} />
-  </IconContext.Provider>
-);
+const App = () => <RouterProvider router={router} />;
 
 export default App;
 
@@ -36,18 +32,18 @@ const Layout = () => {
   }, [hash]);
 
   return (
-    <>
-      <Header />
-      <main>
-        <QueryParamProvider
-          adapter={ReactRouter6Adapter}
-          options={{ updateType: "replaceIn" }}
-        >
+    <IconContext.Provider value={{ className: "icon" }}>
+      <QueryParamProvider
+        adapter={ReactRouter6Adapter}
+        options={{ updateType: "replaceIn" }}
+      >
+        <Header />
+        <main>
           <Outlet />
-        </QueryParamProvider>
-      </main>
-      <Footer />
-    </>
+        </main>
+        <Footer />
+      </QueryParamProvider>
+    </IconContext.Provider>
   );
 };
 

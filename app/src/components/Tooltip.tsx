@@ -1,4 +1,5 @@
 import { ReactElement, ReactNode } from "react";
+import reactToText from "react-to-text";
 import {
   Arrow,
   Content,
@@ -19,7 +20,16 @@ const Tooltip = ({ content, children }: Props) => {
     return (
       <Provider delayDuration={200}>
         <Root>
-          <Trigger asChild>{children}</Trigger>
+          <Trigger
+            asChild
+            aria-label={
+              !reactToText(children).trim() && !children.props["aria-label"]
+                ? reactToText(content)
+                : undefined
+            }
+          >
+            {children}
+          </Trigger>
           <Portal>
             <Content className={classes.content} sideOffset={5}>
               {content}

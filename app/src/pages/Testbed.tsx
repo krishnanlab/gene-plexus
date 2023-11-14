@@ -4,6 +4,7 @@ import Heading from "@/components/Heading";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
+import Textbox from "@/components/Textbox";
 
 const Testbed = () => {
   return (
@@ -123,6 +124,18 @@ const Testbed = () => {
             icon={<FaBullhorn />}
             design="critical"
             tooltip={<>Hello World</>}
+          />
+        </div>
+
+        <div className="grid gap-lg">
+          <Textbox placeholder="Search" />
+          <Textbox placeholder="Search" multi={true} />
+          <Textbox label="Textbox" placeholder="Search" tooltip="Help text" />
+          <Textbox
+            label="Textbox"
+            multi={true}
+            placeholder="Search"
+            tooltip="Help text"
           />
         </div>
       </Section>

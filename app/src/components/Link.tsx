@@ -26,7 +26,7 @@ const Link = forwardRef(
     /** whether link is external (some other site) or internal (within router) */
     const external = to.startsWith("http");
 
-    const tag = external ? (
+    const element = external ? (
       <a ref={ref} href={to} target={external ? "_blank" : ""} {...props}>
         {children}
         {!noIcon && <FaExternalLinkAlt className={classes.icon} />}
@@ -37,7 +37,7 @@ const Link = forwardRef(
       </RouterLink>
     );
 
-    return <Tooltip content={tooltip}>{tag}</Tooltip>;
+    return <Tooltip content={tooltip}>{element}</Tooltip>;
   },
 );
 

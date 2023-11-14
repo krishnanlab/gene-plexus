@@ -37,16 +37,16 @@ const Button = forwardRef(
       </>
     );
 
-    const square = !text && !!icon;
+    const className = classNames([
+      classes.button,
+      classes[design],
+      { [classes.square]: !text && !!icon },
+    ]);
 
-    const tag = props.onClick ? (
+    const element = props.onClick ? (
       <button
         ref={ref as ForwardedRef<HTMLButtonElement>}
-        className={classNames([
-          classes.button,
-          classes[design],
-          { [classes.square]: square },
-        ])}
+        className={className}
         {...(props as ButtonProps)}
       >
         {children}
@@ -54,18 +54,14 @@ const Button = forwardRef(
     ) : (
       <Link
         ref={ref as ForwardedRef<HTMLAnchorElement>}
-        className={classNames([
-          classes.button,
-          classes[design],
-          { [classes.square]: square },
-        ])}
+        className={className}
         {...(props as LinkProps)}
       >
         {children}
       </Link>
     );
 
-    return <Tooltip content={tooltip}>{tag}</Tooltip>;
+    return <Tooltip content={tooltip}>{element}</Tooltip>;
   },
 );
 

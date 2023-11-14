@@ -1,11 +1,11 @@
 :root {
   /* colors */
-  --accent: #d2587c;
+  --accent: #ba3960;
   --deep: #22577a;
   --pale: #d4e7f5;
   --black: #000000;
   --dark-gray: #303030;
-  --gray: #686868;
+  --gray: #a0a0a0;
   --light-gray: #e0e0e0;
   --off-white: #fafafa;
   --white: #ffffff;
@@ -115,22 +115,22 @@ button {
   appearance: none;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0;
   border: none;
   background: none;
   font: inherit;
   cursor: pointer;
 }
 
-input {
-  font: inherit;
-}
-
+input,
 textarea {
+  min-width: 0;
+  padding: 5px;
   font: inherit;
 }
 
 select {
+  min-width: 0;
   font: inherit;
 }
 
@@ -138,6 +138,7 @@ ul,
 ol,
 pre {
   margin: 40px 0;
+  line-height: var(--spacing);
 }
 
 li {
