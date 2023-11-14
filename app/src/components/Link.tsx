@@ -1,10 +1,10 @@
 import {
-  AnchorHTMLAttributes,
+  ComponentPropsWithoutRef,
   ForwardedRef,
   forwardRef,
   ReactNode,
 } from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link as RouterLink } from "react-router-dom";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Link.module.css";
@@ -16,7 +16,7 @@ type Props = {
   /** disable arrow icon for external links */
   noIcon?: boolean;
   tooltip?: ReactNode;
-} & AnchorHTMLAttributes<HTMLAnchorElement>;
+} & ComponentPropsWithoutRef<"a">;
 
 const Link = forwardRef(
   (
@@ -29,7 +29,7 @@ const Link = forwardRef(
     const element = external ? (
       <a ref={ref} href={to} target={external ? "_blank" : ""} {...props}>
         {children}
-        {!noIcon && <FaExternalLinkAlt className={classes.icon} />}
+        {!noIcon && <FaArrowUpRightFromSquare className={classes.icon} />}
       </a>
     ) : (
       <RouterLink ref={ref} to={to} {...props}>

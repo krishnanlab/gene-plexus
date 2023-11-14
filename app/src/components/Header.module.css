@@ -16,7 +16,6 @@
 }
 
 .title-link {
-  margin: 0;
   font-weight: var(--regular);
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -30,7 +29,13 @@
 
 .toggle {
   display: none;
+  padding: 10px;
   color: var(--white);
+  transition: opacity var(--fast);
+}
+
+.toggle:hover {
+  opacity: 0.5;
 }
 
 .nav {

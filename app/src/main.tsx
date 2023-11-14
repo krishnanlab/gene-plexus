@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 
 /** mock api */
 // if (new URLSearchParams(window.location.search).get("mock") === "true") {

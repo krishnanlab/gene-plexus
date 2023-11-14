@@ -13,10 +13,14 @@ type Props = {
 const Section = ({ fill, full, children }: Props) => {
   return (
     <section
-      className={classNames(classes.section, {
-        [classes.fill]: fill,
-        [classes.full]: full,
-      })}
+      className={classNames(
+        classes.section,
+        {
+          [classes.fill!]: fill,
+          [classes.full!]: full,
+        },
+        "flex-col gap-lg",
+      )}
     >
       {children}
     </section>

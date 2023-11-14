@@ -1,4 +1,10 @@
-import { ReactElement, ReactNode } from "react";
+import {
+  cloneElement,
+  ForwardedRef,
+  forwardRef,
+  ReactElement,
+  ReactNode,
+} from "react";
 import reactToText from "react-to-text";
 import {
   Arrow,
@@ -15,31 +21,33 @@ type Props = {
   children: ReactElement;
 };
 
-const Tooltip = ({ content, children }: Props) => {
-  if (content)
-    return (
-      <Provider delayDuration={200}>
-        <Root>
-          <Trigger
-            asChild
-            aria-label={
-              !reactToText(children).trim() && !children.props["aria-label"]
-                ? reactToText(content)
-                : undefined
-            }
-          >
-            {children}
-          </Trigger>
-          <Portal>
-            <Content className={classes.content} sideOffset={5}>
-              {content}
-              <Arrow className={classes.arrow} />
-            </Content>
-          </Portal>
-        </Root>
-      </Provider>
-    );
-  else return children;
-};
+const Tooltip = forwardRef(
+  ({ content, children, ...props }: Props, ref: ForwardedRef<unknown>) => {
+    if (content)
+      return (
+        <Provider delayDuration={200}>
+          <Root>
+            <Trigger
+              asChild
+              aria-label={
+                !reactToText(children).trim() && !children.props["aria-label"]
+                  ? reactToText(content)
+                  : undefined
+              }
+            >
+              {cloneElement(children, { ref, ...props })}
+            </Trigger>
+            <Portal>
+              <Content className={classes.content} sideOffset={5}>
+                {content}
+                <Arrow className={classes.arrow} />
+              </Content>
+            </Portal>
+          </Root>
+        </Provider>
+      );
+    else return children;
+  },
+);
 
 export default Tooltip;

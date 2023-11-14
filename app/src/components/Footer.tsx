@@ -1,13 +1,14 @@
-import { FaEnvelope, FaGithub, FaHome, FaTwitter } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaHouse, FaTwitter } from "react-icons/fa6";
+import classNames from "classnames";
 import Link from "@/components/Link";
 import classes from "./Footer.module.css";
 
 const Footer = () => {
   return (
-    <footer className={classes.footer}>
-      <div className={classes.icons}>
+    <footer className={classNames(classes.footer, "flex-col", "gap-sm")}>
+      <div className={classNames(classes.icons, "flex-row", "gap-xs")}>
         <Link to="" tooltip="Krishnan Lab website">
-          <FaHome />
+          <FaHouse />
         </Link>
         <Link to="" tooltip="Email us">
           <FaEnvelope />

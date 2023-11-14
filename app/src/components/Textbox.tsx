@@ -1,18 +1,13 @@
-import {
-  InputHTMLAttributes,
-  ReactNode,
-  TextareaHTMLAttributes,
-  useId,
-} from "react";
-import { FaQuestionCircle } from "react-icons/fa";
+import { ComponentProps, ReactNode, useId } from "react";
+import { FaRegCircleQuestion } from "react-icons/fa6";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Textbox.module.css";
 
-type InputProps = { multi?: false } & InputHTMLAttributes<HTMLInputElement>;
+type InputProps = { multi?: false } & ComponentProps<"input">;
 type TextareaProps = {
   /** multi-line input */
   multi: true;
-} & TextareaHTMLAttributes<HTMLTextAreaElement>;
+} & ComponentProps<"textarea">;
 
 type Props = {
   label?: string;
@@ -48,7 +43,7 @@ const Textbox = ({
           {tooltip && (
             <Tooltip content={tooltip}>
               <button className={classes.help} aria-label="Help">
-                <FaQuestionCircle />
+                <FaRegCircleQuestion />
               </button>
             </Tooltip>
           )}

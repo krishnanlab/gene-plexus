@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
 import Logo from "@/assets/logo.svg?react";
-import Button from "@/components/Button";
 import Link from "@/components/Link";
+import Tooltip from "@/components/Tooltip";
 import classes from "./Header.module.css";
 
 const Header = () => {
@@ -14,21 +14,23 @@ const Header = () => {
       <div className={classes.title}>
         <Logo className={classes.logo} />
         <Link
-          className={classNames([classes.link, classes["title-link"]])}
+          className={classNames(classes.link, classes["title-link"])}
           to="/"
         >
           {import.meta.env.VITE_TITLE}
         </Link>
       </div>
 
-      <Button
-        className={classes.toggle}
-        icon={open ? <FaTimes /> : <FaBars />}
-        onClick={() => setOpen(!open)}
-        tooltip={open ? "Collapse menu" : "Expand menu"}
-        aria-expanded={open}
-        aria-controls="nav"
-      />
+      <Tooltip content={open ? "Collapse menu" : "Expand menu"}>
+        <button
+          className={classes.toggle}
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="nav"
+        >
+          {open ? <FaXmark /> : <FaBars />}
+        </button>
+      </Tooltip>
 
       <nav id="nav" className={classes.nav} data-open={open}>
         <Link className={classes.link} to="/new-analysis">

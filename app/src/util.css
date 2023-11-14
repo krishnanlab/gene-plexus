@@ -1,6 +1,4 @@
-.icon {
-  height: 1em;
-}
+/** text */
 
 .left {
   text-align: left;
@@ -12,41 +10,99 @@
   text-align: right;
 }
 
-.flex {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 40px 0;
-  gap: 20px;
+.bold {
+  font-weight: var(--bold);
 }
 
-.flex-vertical {
+.secondary {
+  color: var(--gray);
+}
+
+.truncate:not(:focus) {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+:is(.truncate-2, .truncate-3, .truncate-4, .truncate-5):not(:focus) {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--lines);
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.truncate-2 {
+  --lines: 2;
+}
+.truncate-3 {
+  --lines: 3;
+}
+.truncate-4 {
+  --lines: 4;
+}
+.truncate-5 {
+  --lines: 5;
+}
+
+/** layout */
+
+.narrow {
+  max-width: calc(var(--content) / 2) !important;
+}
+
+.flex-row,
+.flex-col {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 40px 0;
-  gap: 20px;
+}
+
+.flex-row {
+  flex-wrap: wrap;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+:is(.flex-row, .flex-col, .grid) > * {
+  max-width: 100%;
+  margin: 0;
 }
 
 .grid {
+  --cols: 2;
+  --cell: calc(var(--content) / var(--cols) - 100px);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--cell), 1fr));
   justify-items: center;
   gap: 20px;
+}
+
+.cols-3 {
+  --cols: 3;
 }
 
 .gap-none {
   gap: 0;
 }
 
+.gap-xs {
+  gap: 5px 10px;
+}
+
 .gap-sm {
-  gap: 10px;
+  gap: 10px 20px;
+}
+
+.gap-md {
+  gap: 20px 40px;
 }
 
 .gap-lg {
-  gap: 40px;
+  gap: 40px 60px;
 }
 
 .mini-table {
@@ -59,11 +115,4 @@
 
 .mini-table :nth-child(odd) {
   font-weight: 500;
-}
-
-.truncate:not(:focus) {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }

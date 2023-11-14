@@ -1,0 +1,28 @@
+.button {
+  padding: 5px 10px;
+  gap: 10px;
+  border-bottom: solid 1px currentColor;
+  border-radius: var(--rounded) var(--rounded) 0 0;
+  color: var(--gray);
+  transition:
+    background var(--fast),
+    color var(--fast);
+}
+
+.button[data-state="inactive"]:hover {
+  border-width: 1px;
+  background: #f0f0f0;
+}
+
+.button[data-state="active"] {
+  border-width: 3px;
+  color: var(--accent);
+}
+
+.content {
+  width: 100%;
+}
+
+.content[data-state="inactive"] {
+  display: none;
+}

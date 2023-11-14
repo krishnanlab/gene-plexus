@@ -1,17 +1,11 @@
-import {
-  ButtonHTMLAttributes,
-  ComponentProps,
-  ForwardedRef,
-  forwardRef,
-  ReactNode,
-} from "react";
+import { ComponentProps, ForwardedRef, forwardRef, ReactNode } from "react";
 import classNames from "classnames";
 import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Button.module.css";
 
 type LinkProps = Omit<ComponentProps<typeof Link>, "children">;
-type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children">;
+type ButtonProps = Omit<ComponentProps<"button">, "children">;
 
 type CustomProps =
   /** require text and/or tooltip, for accessibility */
@@ -37,11 +31,9 @@ const Button = forwardRef(
       </>
     );
 
-    const className = classNames([
-      classes.button,
-      classes[design],
-      { [classes.square]: !text && !!icon },
-    ]);
+    const className = classNames(classes.button, classes[design], {
+      [classes.square!]: !text && !!icon,
+    });
 
     const element = props.onClick ? (
       <button

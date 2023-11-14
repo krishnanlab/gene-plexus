@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { IconContext } from "react-icons";
 import {
   createBrowserRouter,
+  Navigate,
   Outlet,
   RouterProvider,
   useLocation,
@@ -72,6 +73,11 @@ const router = createBrowserRouter([
       {
         path: "testbed",
         element: <Testbed />,
+      },
+      {
+        /** not found */
+        path: "*",
+        element: <Navigate to="/" replace />,
       },
     ],
   },

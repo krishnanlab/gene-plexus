@@ -8,8 +8,15 @@ export const shortenUrl = (value: string) => {
   }
 };
 
+/** format number to string */
+export const formatNumber = (value: number, compact = false): string =>
+  value.toLocaleString(undefined, {
+    notation: compact ? "compact" : undefined,
+    maximumFractionDigits: Math.abs(value) < 1 ? 2 : undefined,
+  });
+
 /** format date to string */
-export const dateString = (date: string | Date) =>
+export const formatDate = (date: string | Date) =>
   parseDate(date).toLocaleString(undefined, {
     dateStyle: "medium",
     timeStyle: "short",

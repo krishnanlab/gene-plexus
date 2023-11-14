@@ -1,23 +1,42 @@
-import { cloneElement, ReactElement, ReactNode } from "react";
-import { FaLink } from "react-icons/fa";
+import {
+  cloneElement,
+  ComponentProps,
+  ReactElement,
+  ReactNode,
+  useRef,
+} from "react";
+import { FaLink } from "react-icons/fa6";
+import reactToText from "react-to-text";
 import { kebabCase } from "lodash";
+import Badge from "@/components/Badge";
 import classes from "./Heading.module.css";
 
 type Props = {
   /** "indent" level */
   level: 1 | 2 | 3 | 4;
-  icon?: ReactElement;
+  /** icon element or intials to show in badge */
+  icon?: ReactElement | string;
   /** manually set hash link instead of automatically from children text */
   hash?: string;
   children: ReactNode;
-};
+} & ComponentProps<"h1" | "h2" | "h3" | "h4">;
 
-const Heading = ({ level, icon = <></>, hash, children }: Props) => {
+const Heading = ({ level, icon = <></>, hash, children, ...props }: Props) => {
+  const ref = useRef<HTMLHeadingElement>(null);
+
+  /** heading tag */
   const Tag: keyof JSX.IntrinsicElements = `h${level}`;
-  const id = hash || (typeof children === "string" ? kebabCase(children) : "");
+
+  /** url-compatible, "slugified" id */
+  const id = kebabCase(hash || reactToText(children));
+
   return (
-    <Tag id={id}>
-      {cloneElement(icon, { className: classes.icon })}
+    <Tag id={id} ref={ref} {...props}>
+      {typeof icon === "string" ? (
+        <Badge text={icon} className={classes.badge} />
+      ) : (
+        cloneElement(icon, { className: classes.icon })
+      )}
       {children}
       {id && (
         <a href={"#" + id} className={classes.anchor} aria-label="Heading link">
