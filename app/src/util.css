@@ -14,6 +14,10 @@
   font-weight: var(--bold);
 }
 
+.primary {
+  color: var(--dark-gray);
+}
+
 .secondary {
   color: var(--gray);
 }
@@ -44,6 +48,13 @@
 }
 .truncate-5 {
   --lines: 5;
+}
+
+/** effects */
+
+.shadow {
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
 }
 
 /** layout */

@@ -8,6 +8,7 @@ import {
 } from "react";
 import { mergeRefs } from "react-merge-refs";
 import reactToText from "react-to-text";
+import classNames from "classnames";
 import {
   Arrow,
   Content,
@@ -46,7 +47,10 @@ const Tooltip = forwardRef(
               {newChildren}
             </Trigger>
             <Portal>
-              <Content className={classes.content} sideOffset={5}>
+              <Content
+                className={classNames(classes.content, "shadow")}
+                sideOffset={5}
+              >
                 {content}
                 <Arrow className={classes.arrow} />
               </Content>

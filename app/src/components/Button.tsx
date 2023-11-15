@@ -19,6 +19,10 @@ type CustomProps =
 
 type Props = CustomProps & (LinkProps | ButtonProps);
 
+/**
+ * looks like a button and either goes somewhere (anchor) or does something
+ * (button)
+ */
 const Button = forwardRef(
   (
     { text, icon, design = "normal", tooltip, ...props }: Props,

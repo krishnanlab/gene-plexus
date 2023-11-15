@@ -6,6 +6,7 @@ import {
 } from "react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link as RouterLink } from "react-router-dom";
+import classNames from "classnames";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Link.module.css";
 
@@ -18,6 +19,7 @@ type Props = {
   tooltip?: ReactNode;
 } & ComponentPropsWithoutRef<"a">;
 
+/** link to internal route or external url */
 const Link = forwardRef(
   (
     { to, children, noIcon, tooltip, ...props }: Props,
@@ -29,7 +31,11 @@ const Link = forwardRef(
     const element = external ? (
       <a ref={ref} href={to} target={external ? "_blank" : ""} {...props}>
         {children}
-        {!noIcon && <FaArrowUpRightFromSquare className={classes.icon} />}
+        {!noIcon && (
+          <FaArrowUpRightFromSquare
+            className={classNames(classes.icon, "inline-icon")}
+          />
+        )}
       </a>
     ) : (
       <RouterLink ref={ref} to={to} {...props}>

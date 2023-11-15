@@ -1,0 +1,11 @@
+.tile {
+  color: var(--deep);
+}
+
+.tile svg {
+  height: 40px;
+}
+
+.primary {
+  font-size: 1.1rem;
+}

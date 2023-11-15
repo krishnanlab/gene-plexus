@@ -1,3 +1,5 @@
+import "./styles.css";
+import "./util.css";
 import { useEffect } from "react";
 import { IconContext } from "react-icons";
 import {
@@ -17,8 +19,6 @@ import Home from "@/pages/Home";
 import NewAnalysis from "@/pages/NewAnalysis";
 import Testbed from "@/pages/Testbed";
 import { scrollTo } from "@/util/dom";
-import "./util.css";
-import "./styles.css";
 
 const App = () => <RouterProvider router={router} />;
 

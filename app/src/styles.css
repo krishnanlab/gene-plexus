@@ -9,6 +9,9 @@
   --light-gray: #e0e0e0;
   --off-white: #fafafa;
   --white: #ffffff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #f43f5e;
 
   /* font weights */
   --regular: 300;
@@ -188,5 +191,14 @@ blockquote {
 }
 
 .icon {
+  flex-shrink: 0;
+  width: unset;
   height: 1em;
+  overflow: visible;
+}
+
+.inline-icon {
+  position: relative;
+  top: -0.075em;
+  vertical-align: middle;
 }

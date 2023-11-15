@@ -1,4 +1,4 @@
-import { ReactNode, useRef } from "react";
+import { ReactNode } from "react";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 import Tooltip from "@/components/Tooltip";
 import { sleep } from "@/util/misc";

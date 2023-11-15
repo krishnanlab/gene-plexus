@@ -1,4 +1,6 @@
 import { ComponentProps, ReactNode, useId } from "react";
+import { FaAsterisk } from "react-icons/fa6";
+import classNames from "classnames";
 import Help from "@/components/Help";
 import classes from "./Textbox.module.css";
 
@@ -27,11 +29,15 @@ const Textbox = ({
   const element = multi ? (
     <textarea
       id={id}
-      className={classes.textarea}
+      className={classNames(classes.textarea, "shadow")}
       {...(props as TextareaProps)}
     />
   ) : (
-    <input id={id} className={classes.input} {...(props as InputProps)} />
+    <input
+      id={id}
+      className={classNames(classes.input, "shadow")}
+      {...(props as InputProps)}
+    />
   );
 
   return (
@@ -40,6 +46,7 @@ const Textbox = ({
         <label htmlFor={id} className={classes.label}>
           {label}
           {tooltip && <Help tooltip={tooltip} />}
+          {props.required && <FaAsterisk className={classes.required} />}
         </label>
       )}
       {element}

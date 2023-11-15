@@ -1,12 +1,17 @@
 import {
   FaArrowRight,
+  FaBars,
   FaBullhorn,
+  FaCircleInfo,
   FaFlaskVial,
   FaFont,
+  FaPersonRunning,
   FaRegCircleDot,
   FaRegHourglass,
+  FaRegNoteSticky,
 } from "react-icons/fa6";
 import Ago from "@/components/Ago";
+import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Link from "@/components/Link";
@@ -14,6 +19,7 @@ import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 import Tabs, { Tab } from "@/components/Tabs";
 import Textbox from "@/components/Textbox";
+import Tile from "@/components/Tile";
 import { formatDate, formatNumber } from "@/util/string";
 
 /** test and example usage of formatting, elements, components, etc. */
@@ -23,7 +29,7 @@ const Testbed = () => {
       <Meta title="Testbed" />
 
       <Section>
-        <Heading level={1} icon={<FaFlaskVial />} anchor="">
+        <Heading level={1} icon={<FaFlaskVial />}>
           Testbed
         </Heading>
       </Section>
@@ -54,6 +60,10 @@ const Testbed = () => {
 
         <Heading level={4}>Heading 4</Heading>
 
+        <Link to="/">Internal Link</Link>
+
+        <Link to="https://medschool.cuanschutz.edu/dbmi">External Link</Link>
+
         <p>Only use one heading 1 per page.</p>
 
         <p>Don't skip heading levels.</p>
@@ -68,7 +78,7 @@ const Testbed = () => {
       </Section>
 
       <Section>
-        <p className="narrow center secondary bold">
+        <p className="narrow center primary bold">
           Key sentence at start of section.
         </p>
 
@@ -120,7 +130,7 @@ const Testbed = () => {
 
         <Tabs syncWithUrl="component">
           <Tab
-            name="Buttons"
+            name="Button"
             icon={<FaRegCircleDot />}
             tooltip="Lorem ipsum"
             className="flex-row gap-sm"
@@ -167,32 +177,69 @@ const Testbed = () => {
             />
           </Tab>
 
-          <Tab
-            name="Textbox"
-            icon={<FaFont />}
-            tooltip="Lorem ipsum"
-            className="grid"
-          >
+          <Tab name="Textbox" icon={<FaFont />} className="grid">
             <Textbox placeholder="Search" />
             <Textbox placeholder="Search" multi={true} />
-            <Textbox label="Textbox" placeholder="Search" tooltip="Help text" />
+            <Textbox
+              label="Textbox"
+              placeholder="Search"
+              tooltip="Help text"
+              required={true}
+            />
             <Textbox
               label="Textbox"
               multi={true}
               placeholder="Search"
               tooltip="Help text"
+              required={true}
             />
           </Tab>
 
-          <Tab
-            name="Ago"
-            icon={<FaRegHourglass />}
-            tooltip="Lorem ipsum"
-            className="flex-row gap-sm"
-          >
+          <Tab name="Ago" icon={<FaRegHourglass />} className="flex-row gap-sm">
             <Ago date="" />
             <Ago date="Nov 12 2023" />
             <Ago date="Jun 1 2020" />
+          </Tab>
+
+          <Tab
+            name="Tile"
+            icon={<FaRegNoteSticky />}
+            className="flex-row gap-md"
+          >
+            <Tile
+              icon={<FaRegHourglass />}
+              primary={formatNumber(1234)}
+              secondary="Sequences"
+            />
+            <Tile
+              icon={<FaPersonRunning />}
+              primary={formatNumber(5678)}
+              secondary="Proteins"
+            />
+            <Tile
+              icon={<FaBars />}
+              primary={formatNumber(99999)}
+              secondary="Analyses"
+            />
+          </Tab>
+
+          <Tab name="Alert" icon={<FaCircleInfo />} className="flex-col gap-md">
+            <Alert>
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Alert>
+            <Alert type="success">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Alert>
+            <Alert type="warning">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Alert>
+            <Alert type="error">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Alert>
           </Tab>
         </Tabs>
       </Section>
