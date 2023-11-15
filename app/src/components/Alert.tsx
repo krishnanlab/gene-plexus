@@ -9,10 +9,12 @@ import Loading from "@/assets/loading.svg?react";
 import classes from "./Alert.module.css";
 
 type Props = {
+  /** category of alert */
   type?: keyof typeof types;
   children: ReactNode;
 };
 
+/** available categories of alerts and associated styles */
 const types = {
   info: { color: "var(--deep)", icon: <FaCircleInfo /> },
   loading: { color: "var(--deep)", icon: <Loading className="icon" /> },
@@ -21,6 +23,7 @@ const types = {
   error: { color: "var(--error)", icon: <FaTriangleExclamation /> },
 };
 
+/** static box of certain type with icon and text contents */
 const Alert = ({ type = "info", children }: Props) => {
   const { icon, color } = types[type];
   return (

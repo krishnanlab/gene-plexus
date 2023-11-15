@@ -93,6 +93,10 @@ p a:visited {
   color: var(--deep);
 }
 
+p a:visited:hover {
+  color: currentColor;
+}
+
 p {
   line-height: var(--spacing);
   text-align: justify;

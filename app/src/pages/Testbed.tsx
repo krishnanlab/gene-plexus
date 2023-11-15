@@ -15,6 +15,7 @@ import Ago from "@/components/Ago";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
 import Collapsible from "@/components/Collapsible";
+import Form from "@/components/Form";
 import Heading from "@/components/Heading";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
@@ -65,20 +66,28 @@ const Testbed = () => {
 
         <Heading level={4}>Heading 4</Heading>
 
-        <Link to="/">Internal Link</Link>
+        <p className="center">
+          <Link to="/">Internal Link</Link>
+          <br />
+          <Link to="https://medschool.cuanschutz.edu/dbmi">External Link</Link>
+        </p>
 
-        <Link to="https://medschool.cuanschutz.edu/dbmi">External Link</Link>
+        <div className="mini-table">
+          <span>Prop 1</span>
+          <span>123</span>
+          <span>Prop 2</span>
+          <span>abc</span>
+          <span>Prop 3</span>
+          <span>xyz</span>
+        </div>
 
-        <p>Only use one heading 1 per page.</p>
-
-        <p>Don't skip heading levels.</p>
-
-        <p>Don't use heading levels below 4.</p>
-
-        <p>
-          Always format values with util functions as appropriate, like{" "}
-          {formatNumber(123456)} and {formatNumber(1234567, true)} and{" "}
-          {formatDate(new Date())}.
+        {/* always format values with util functions as appropriate */}
+        <p className="center">
+          {formatNumber(123456)}
+          <br />
+          {formatNumber(1234567, true)}
+          <br />
+          {formatDate(new Date())}
         </p>
       </Section>
 
@@ -135,7 +144,7 @@ const Testbed = () => {
 
         <Tabs syncWithUrl="component">
           <Tab
-            name="Button"
+            text="Button"
             icon={<FaRegCircleDot />}
             tooltip="Lorem ipsum"
             className="flex-row gap-sm"
@@ -182,31 +191,35 @@ const Testbed = () => {
             />
           </Tab>
 
-          <Tab name="Textbox" icon={<FaFont />} className="grid">
-            <Textbox placeholder="Search" />
-            <Textbox placeholder="Search" multi={true} />
-            <Textbox
-              label="Textbox"
-              placeholder="Search"
-              tooltip="Help text"
-              required={true}
-            />
-            <Textbox
-              label="Textbox"
-              multi={true}
-              placeholder="Search"
-              tooltip="Help text"
-              required={true}
-            />
+          <Tab text="Textbox" icon={<FaFont />} className="grid">
+            <Form onSubmit={console.log}>
+              <Textbox placeholder="Search" tooltip="Help text" />
+              <Textbox placeholder="Search" multi={true} tooltip="Help text" />
+              <Textbox
+                label="Textbox"
+                placeholder="Search"
+                tooltip="Help text"
+                required={true}
+              />
+              <Textbox
+                label="Textbox"
+                multi={true}
+                placeholder="Search"
+                tooltip="Help text"
+                required={true}
+                name="testField"
+              />
+              <Button text="Submit" />
+            </Form>
           </Tab>
 
-          <Tab name="Ago" icon={<FaRegHourglass />} className="flex-row gap-sm">
+          <Tab text="Ago" icon={<FaRegHourglass />} className="flex-row gap-sm">
             <Ago date="" />
             <Ago date="Nov 12 2023" />
             <Ago date="Jun 1 2020" />
           </Tab>
 
-          <Tab name="Tile" icon={<CustomIcon />} className="flex-row gap-md">
+          <Tab text="Tile" icon={<CustomIcon />} className="flex-row gap-md">
             <Tile
               icon={<FaRegHourglass />}
               primary={formatNumber(1234)}
@@ -224,7 +237,7 @@ const Testbed = () => {
             />
           </Tab>
 
-          <Tab name="Alert" icon={<FaCircleInfo />} className="flex-col gap-md">
+          <Tab text="Alert" icon={<FaCircleInfo />} className="flex-col gap-md">
             <Alert>
               Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -248,7 +261,7 @@ const Testbed = () => {
           </Tab>
 
           <Tab
-            name="Toast"
+            text="Toast"
             icon={<FaChampagneGlasses />}
             className="flex-row gap-sm"
           >
@@ -281,11 +294,15 @@ const Testbed = () => {
           </Tab>
 
           <Tab
-            name="Collapsible"
+            text="Collapsible"
             icon={<FaArrowsUpDown />}
             className="narrow flex-col gap-md"
           >
-            <Collapsible text="Raw Text" className="flex-col gap-md">
+            <Collapsible
+              text="Raw Text"
+              className="flex-col gap-md"
+              tooltip="Lorem ipsum"
+            >
               Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus

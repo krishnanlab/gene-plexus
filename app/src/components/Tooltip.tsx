@@ -20,12 +20,18 @@ import {
 import classes from "./Tooltip.module.css";
 
 type Props = {
+  /** text/jsx/etc. content of tooltip */
   content?: ReactNode;
   children: ReactElement & { ref?: Ref<unknown> };
 };
 
+/**
+ * shows a popup of minimal and non-interactive contextual info when hovering or
+ * focusing children
+ */
 const Tooltip = forwardRef(
   ({ content, children, ...props }: Props, ref: ForwardedRef<unknown>) => {
+    /** forward refs to children */
     const newChildren = cloneElement(children, {
       ref: mergeRefs([ref, children.ref]),
       ...props,
@@ -35,9 +41,14 @@ const Tooltip = forwardRef(
       return (
         <Provider delayDuration={200}>
           <Root>
+            {/* children elements that trigger opening on hover/focus */}
             <Trigger
               asChild
               aria-label={
+                /**
+                 * set aria label to tooltip content if trigger has no visible
+                 * text, e.g. button with only icon
+                 */
                 !reactToText(newChildren).trim() &&
                 !newChildren.props["aria-label"]
                   ? reactToText(content)
@@ -46,6 +57,8 @@ const Tooltip = forwardRef(
             >
               {newChildren}
             </Trigger>
+
+            {/* tooltip and content */}
             <Portal>
               <Content
                 className={classNames(classes.content, "shadow")}

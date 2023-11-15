@@ -6,9 +6,11 @@ import { sleep } from "@/util/misc";
 import classes from "./Help.module.css";
 
 type Props = {
+  /** tooltip content */
   tooltip: ReactNode;
 } & ComponentProps<"button">;
 
+/** ? button to hover/click for help tooltip */
 const Help = ({ tooltip, className }: Props) => {
   return (
     <Tooltip content={tooltip}>

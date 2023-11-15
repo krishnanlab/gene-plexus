@@ -3,7 +3,9 @@ import { groupLog } from "@/util/debug";
 /** base api url */
 export const api = "http://localhost:8000";
 
+/** primitive param type */
 type Param = string | number | boolean | undefined | null;
+/** collection of params */
 export type Params = { [key: string]: Param | Param[] };
 
 /** generic fetch request wrapper */

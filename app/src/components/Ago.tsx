@@ -4,6 +4,7 @@ import en from "javascript-time-ago/locale/en";
 import Tooltip from "@/components/Tooltip";
 import { formatDate, parseDate } from "@/util/string";
 
+/** init library with english */
 TimeAgo.addDefaultLocale(en);
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
   date: string | Date;
 };
 
-/** show time in "ago" format */
+/** show datetime in "ago" format, e.g. "20 min ago" */
 const Ago = ({ date }: Props) => {
   return (
     <Tooltip content={formatDate(date)}>

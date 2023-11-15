@@ -1,16 +1,20 @@
-import { ComponentProps, ReactNode } from "react";
+import { ComponentProps } from "react";
 import classNames from "classnames";
 import classes from "./Section.module.css";
 
 type Props = {
-  /** accent background fill */
+  /** accent background color */
   fill?: boolean;
-  /** full screen width */
+  /** contents fill full available screen width */
   full?: boolean;
-  children: ReactNode;
 } & ComponentProps<"section">;
 
-const Section = ({ fill, full, className, children, ...props }: Props) => {
+/**
+ * vertically stacked section. background color spans full width of screen, but
+ * contents limited to readable width by default. alternating background
+ * colors.
+ */
+const Section = ({ fill, full, className, ...props }: Props) => {
   return (
     <section
       className={classNames(
@@ -23,9 +27,7 @@ const Section = ({ fill, full, className, children, ...props }: Props) => {
         "flex-col gap-lg",
       )}
       {...props}
-    >
-      {children}
-    </section>
+    />
   );
 };
 

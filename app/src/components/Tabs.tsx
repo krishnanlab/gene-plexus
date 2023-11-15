@@ -13,7 +13,10 @@ import Tooltip from "@/components/Tooltip";
 import classes from "./Tabs.module.css";
 
 type Props = {
-  /** keep selected tab synced with url param of this name */
+  /**
+   * keep selected tab synced with url param of this name (leave undefined for
+   * no sync)
+   */
   syncWithUrl?: string;
   children: ReactElement<TabProps>[];
 };
@@ -31,22 +34,25 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
       value={syncWithUrl && value ? value : undefined}
       onValueChange={(value) => syncWithUrl && setValue(value)}
     >
+      {/* tab list */}
       <List className="flex-row gap-sm">
-        {tabs.map(({ name, icon, tooltip }, index) => (
-          <Trigger key={index} asChild value={kebabCase(name)}>
+        {tabs.map(({ text, icon, tooltip }, index) => (
+          <Trigger key={index} asChild value={kebabCase(text)}>
             <Tooltip content={tooltip}>
               <button className={classes.button}>
-                {name}
+                {text}
                 {icon && cloneElement(icon, { className: "icon" })}
               </button>
             </Tooltip>
           </Trigger>
         ))}
       </List>
-      {tabs.map(({ name, className, ...props }, index) => (
+
+      {/* tab content panels */}
+      {tabs.map(({ text, className, ...props }, index) => (
         <Content
           key={index}
-          value={kebabCase(name)}
+          value={kebabCase(text)}
           className={classNames(classes.content, className)}
           {...omit(props, ["icon", "tooltip"])}
         />
@@ -58,11 +64,15 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
 export default Tabs;
 
 type TabProps = {
-  name: string;
+  /** tab button text */
+  text: string;
+  /** tab button icon */
   icon?: ReactElement;
+  /** tab button tooltip content */
   tooltip?: ReactNode;
 } & ComponentPropsWithoutRef<"div">;
 
+/** use within a Tabs component */
 const Tab = (props: TabProps) => {
   return <Fragment {...props} />;
 };

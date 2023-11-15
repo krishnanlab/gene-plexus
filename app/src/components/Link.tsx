@@ -13,10 +13,11 @@ import classes from "./Link.module.css";
 type Props = {
   /** url to link to, local or external */
   to: string;
-  children: ReactNode;
   /** disable arrow icon for external links */
   noIcon?: boolean;
+  /** tooltip content */
   tooltip?: ReactNode;
+  children: ReactNode;
 } & ComponentPropsWithoutRef<"a">;
 
 /** link to internal route or external url */
@@ -28,6 +29,7 @@ const Link = forwardRef(
     /** whether link is external (some other site) or internal (within router) */
     const external = to.startsWith("http");
 
+    /** full element to render */
     const element = external ? (
       <a ref={ref} href={to} target={external ? "_blank" : ""} {...props}>
         {children}

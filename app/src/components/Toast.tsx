@@ -13,15 +13,23 @@ import { Close, Provider, Root, Title, Viewport } from "@radix-ui/react-toast";
 import Loading from "@/assets/loading.svg?react";
 import classes from "./Toast.module.css";
 
+/**
+ * singleton component that displays list of "toasts" (notifications) in corner
+ * of screen
+ */
 const Toast = () => {
+  /** keep track of list of active toasts */
   const [list, setList] = useState<ToastEvent[]>([]);
 
   /** listen for global toast window event */
   useEvent("toast", (event: CustomEvent) => {
     const newToast = event.detail as ToastEvent;
     let newList = [...list];
+
+    /** remove toasts with matching name, i.e. "overwrite" */
     if (newToast.name !== undefined)
       newList = newList.filter(({ name }) => name !== newToast.name);
+
     newList.push(newToast);
     setList(newList);
   });
@@ -37,8 +45,13 @@ const Toast = () => {
             setList(list.filter(({ key }) => key !== toast.key));
           }}
         >
+          {/* type icon */}
           {types[toast.type].icon}
+
+          {/* content */}
           <Title>{toast.text}</Title>
+
+          {/* x */}
           <Close asChild>
             <button>
               <FaXmark />
@@ -46,6 +59,8 @@ const Toast = () => {
           </Close>
         </Root>
       ))}
+
+      {/* toast list container */}
       <Viewport
         className={classNames(classes.viewport, "flex-col", "gap-md")}
         data-debug={list.length}
@@ -56,6 +71,7 @@ const Toast = () => {
 
 export default Toast;
 
+/** available categories of toasts and associated styles */
 const types = {
   info: { color: "var(--deep)", icon: <FaCircleInfo /> },
   loading: { color: "var(--deep)", icon: <Loading className="icon" /> },

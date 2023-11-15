@@ -11,16 +11,20 @@ import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Button.module.css";
 
+/** <a> or <RouterLink> */
 type LinkProps = Omit<ComponentProps<typeof Link>, "children">;
+/** <button> */
 type ButtonProps = Omit<ComponentProps<"button">, "children">;
 
 type CustomProps =
-  /** require text and/or tooltip, for accessibility */
+  /** require text and/or tooltip for accessibility */
   (
     | { text: string; tooltip?: ReactNode }
     | { text?: string; tooltip: ReactNode }
   ) & {
+    /** icon to show next to text */
     icon?: ReactElement;
+    /** look */
     design?: "normal" | "accent" | "critical";
   };
 
@@ -35,6 +39,7 @@ const Button = forwardRef(
     { text, icon, design = "normal", tooltip, ...props }: Props,
     ref: ForwardedRef<unknown>,
   ) => {
+    /** contents of main element */
     const children = (
       <>
         {text}
@@ -42,10 +47,12 @@ const Button = forwardRef(
       </>
     );
 
+    /** class name string */
     const className = classNames(classes.button, classes[design], {
       [classes.square!]: !text && !!icon,
     });
 
+    /** full element to render */
     const element =
       "to" in props ? (
         <Link
@@ -65,6 +72,7 @@ const Button = forwardRef(
         </button>
       );
 
+    /** wrap in tooltip */
     return <Tooltip content={tooltip}>{element}</Tooltip>;
   },
 );

@@ -131,7 +131,8 @@
 }
 
 .mini-table :nth-child(odd) {
-  font-weight: 500;
+  color: var(--dark-gray);
+  font-weight: var(--bold);
 }
 
 /** animation */

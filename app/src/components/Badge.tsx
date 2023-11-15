@@ -6,6 +6,7 @@ type Props = {
   text: string;
 } & ComponentProps<"span">;
 
+/** small circle with a few chars of text */
 const Badge = ({ text, className, ...props }: Props) => {
   return (
     <span className={classNames(classes.badge, className)} {...props}>

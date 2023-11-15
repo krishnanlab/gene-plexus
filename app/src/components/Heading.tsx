@@ -22,6 +22,10 @@ type Props = {
   children: ReactNode;
 } & ComponentProps<"h1" | "h2" | "h3" | "h4">;
 
+/**
+ * demarcates a new section/level of content. only use one level 1 per page.
+ * don't skip levels. don't use levels below 4.
+ */
 const Heading = ({
   level,
   icon = <></>,
@@ -50,7 +54,11 @@ const Heading = ({
   return (
     <Tag id={id} ref={ref} {...props}>
       {iconElement}
+
+      {/* content */}
       {children}
+
+      {/* link to section */}
       {id && (
         <a href={"#" + id} className={classes.anchor} aria-label="Heading link">
           <FaLink className="inline-icon" />

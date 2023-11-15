@@ -6,11 +6,14 @@ import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Header.module.css";
 
+/** at top of every page */
 const Header = () => {
+  /** nav menu expanded/collapsed state */
   const [open, setOpen] = useState(false);
 
   return (
     <header className={classes.header}>
+      {/* logo and text */}
       <div className={classes.title}>
         <Logo className={classes.logo} />
         <Link
@@ -21,6 +24,7 @@ const Header = () => {
         </Link>
       </div>
 
+      {/* nav toggle */}
       <Tooltip content={open ? "Collapse menu" : "Expand menu"}>
         <button
           className={classes.toggle}
@@ -32,6 +36,7 @@ const Header = () => {
         </button>
       </Tooltip>
 
+      {/* nav menu */}
       <nav id="nav" className={classes.nav} data-open={open}>
         <Link className={classes.link} to="/new-analysis">
           New Analysis
