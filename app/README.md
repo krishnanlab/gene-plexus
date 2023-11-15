@@ -21,6 +21,10 @@ This project was scaffolded using Vite, and has the following key features:
 | `bun preview` | Serve built version of app (must run build first) |
 | `bun lint`    | Fix linting and formatting                        |
 
+## Usage
+
+See the "testbed" page for an overview of what formatting/elements/components/etc. you can use and how.
+
 ## Background
 
 - **[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference)**.

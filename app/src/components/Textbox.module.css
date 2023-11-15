@@ -30,9 +30,3 @@
   max-width: 100%;
   min-height: 3.5lh;
 }
-
-.help {
-  display: inline-flex;
-  color: var(--gray);
-  cursor: help;
-}

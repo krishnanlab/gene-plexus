@@ -14,40 +14,36 @@ import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 import Tabs, { Tab } from "@/components/Tabs";
 import Textbox from "@/components/Textbox";
-import { formatNumber } from "@/util/string";
+import { formatDate, formatNumber } from "@/util/string";
 
+/** test and example usage of formatting, elements, components, etc. */
 const Testbed = () => {
   return (
     <>
       <Meta title="Testbed" />
 
       <Section>
-        <Heading level={1} icon={<FaFlaskVial />}>
+        <Heading level={1} icon={<FaFlaskVial />} anchor="">
           Testbed
         </Heading>
       </Section>
 
-      <Section fill={true}>
-        <Heading level={2}>Heading 2</Heading>
-
-        <div className="flex-col gap-sm">
-          <p>
-            {formatNumber(1234567, true)} ({formatNumber(1234567)}){" "}
-          </p>
-
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus
-            eget nunc scelerisque viverra mauris in aliquam. Elementum integer
-            enim neque volutpat ac tincidunt vitae semper quis. Non diam
-            phasellus vestibulum lorem sed risus. Amet luctus venenatis lectus
-            magna.
-          </p>
-        </div>
-      </Section>
-
       <Section>
+        <Heading level={2} icon="B">
+          Basic Formatting
+        </Heading>
+
+        <Heading level={3}>Heading 3</Heading>
+
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Facilisis sed odio
+          morbi quis commodo odio aenean sed. Urna cursus eget nunc scelerisque
+          viverra mauris in aliquam. Elementum integer enim neque volutpat ac
+          tincidunt vitae semper quis. Non diam phasellus vestibulum lorem sed
+          risus. Amet luctus venenatis lectus magna.
+        </p>
+
         <p>
           Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt.
           Turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet.
@@ -56,58 +52,71 @@ const Testbed = () => {
           adipiscing diam donec.
         </p>
 
+        <Heading level={4}>Heading 4</Heading>
+
+        <p>Only use one heading 1 per page.</p>
+
+        <p>Don't skip heading levels.</p>
+
+        <p>Don't use heading levels below 4.</p>
+
         <p>
-          Ut pharetra sit amet aliquam. Amet cursus sit amet dictum sit amet
-          justo donec. Porttitor massa id neque aliquam vestibulum morbi blandit
-          cursus. Nunc eget lorem dolor sed viverra ipsum nunc. Amet est
-          placerat in egestas erat. Suscipit tellus mauris a diam maecenas sed.
-          Egestas fringilla phasellus faucibus scelerisque eleifend donec.
-          Mauris pharetra et ultrices neque ornare. Phasellus egestas tellus
-          rutrum tellus pellentesque eu tincidunt tortor aliquam.
+          Always format values with util functions as appropriate, like{" "}
+          {formatNumber(123456)} and {formatNumber(1234567, true)} and{" "}
+          {formatDate(new Date())}.
         </p>
+      </Section>
 
-        <Heading level={3} icon="1" className="center">
-          Heading 3
-        </Heading>
-
+      <Section>
         <p className="narrow center secondary bold">
-          Lorem ipsum ipso facto lorem ipsum ipso facto lorem ipsum ipso facto
+          Key sentence at start of section.
         </p>
+
+        <hr />
 
         <ul>
-          <li>Ac tincidunt vitae semper quis lectus nulla at volutpat diam.</li>
-          <li>Morbi quis commodo odio aenean sed adipiscing diam.</li>
-          <li>Vitae semper quis lectus nulla at volutpat diam ut venenatis.</li>
+          <li>List item 1</li>
+          <li>List item 2</li>
+          <li>
+            <ol>
+              <li>Nested list item 3a</li>
+              <li>Nested list item 3b</li>
+              <li>Nested list item 3c</li>
+            </ol>
+          </li>
         </ul>
 
-        <Heading level={4} icon="2">
-          Heading 4
-        </Heading>
+        <blockquote>
+          It was the best of times, it was the worst of times, it was the age of
+          wisdom, it was the age of foolishness, it was the epoch of belief, it
+          was the epoch of incredulity, it was the season of light, it was the
+          season of darkness, it was the spring of hope, it was the winter of
+          despair.
+        </blockquote>
+
+        <hr />
 
         <p>
-          <code>Vitae semper quis</code> lectus nulla at volutpat diam ut
-          venenatis.
+          Some <code>inline code</code>.
         </p>
 
         <pre>
           <code>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            const popup = document.querySelector("#popup");
             <br />
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
+            popup.style.width = "100%";
             <br />
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur.
-            <br />
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-            officia deserunt mollit anim id est laborum.
+            popup.innerText = "Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.";
           </code>
         </pre>
       </Section>
 
       <Section>
-        <Heading level={2}>Components</Heading>
+        <Heading level={2} icon="C">
+          Components
+        </Heading>
 
         <Tabs syncWithUrl="component">
           <Tab
@@ -186,6 +195,14 @@ const Testbed = () => {
             <Ago date="Jun 1 2020" />
           </Tab>
         </Tabs>
+      </Section>
+
+      <Section fill={true}>
+        <div className="placeholder" />
+      </Section>
+
+      <Section full={true}>
+        <div className="placeholder" />
       </Section>
     </>
   );

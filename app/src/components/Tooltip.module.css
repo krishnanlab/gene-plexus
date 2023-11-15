@@ -9,7 +9,7 @@
 .arrow {
   fill: var(--white);
   /* var(--shadow) */
-  filter: drop-shadow(0 0 3px #00000030) drop-shadow(2px 2px 10px #00000030);
+  filter: drop-shadow(0 0 3px #00000020) drop-shadow(2px 2px 8px #00000020);
 }
 
 .content[data-side="top"] .arrow {

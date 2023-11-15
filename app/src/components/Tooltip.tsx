@@ -4,7 +4,9 @@ import {
   forwardRef,
   ReactElement,
   ReactNode,
+  Ref,
 } from "react";
+import { mergeRefs } from "react-merge-refs";
 import reactToText from "react-to-text";
 import {
   Arrow,
@@ -18,11 +20,16 @@ import classes from "./Tooltip.module.css";
 
 type Props = {
   content?: ReactNode;
-  children: ReactElement;
+  children: ReactElement & { ref?: Ref<unknown> };
 };
 
 const Tooltip = forwardRef(
   ({ content, children, ...props }: Props, ref: ForwardedRef<unknown>) => {
+    const newChildren = cloneElement(children, {
+      ref: mergeRefs([ref, children.ref]),
+      ...props,
+    });
+
     if (content)
       return (
         <Provider delayDuration={200}>
@@ -30,12 +37,13 @@ const Tooltip = forwardRef(
             <Trigger
               asChild
               aria-label={
-                !reactToText(children).trim() && !children.props["aria-label"]
+                !reactToText(newChildren).trim() &&
+                !newChildren.props["aria-label"]
                   ? reactToText(content)
                   : undefined
               }
             >
-              {cloneElement(children, { ref, ...props })}
+              {newChildren}
             </Trigger>
             <Portal>
               <Content className={classes.content} sideOffset={5}>
@@ -46,7 +54,7 @@ const Tooltip = forwardRef(
           </Root>
         </Provider>
       );
-    else return children;
+    else return newChildren;
   },
 );
 

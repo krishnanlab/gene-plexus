@@ -1,6 +1,5 @@
 import { ComponentProps, ReactNode, useId } from "react";
-import { FaRegCircleQuestion } from "react-icons/fa6";
-import Tooltip from "@/components/Tooltip";
+import Help from "@/components/Help";
 import classes from "./Textbox.module.css";
 
 type InputProps = { multi?: false } & ComponentProps<"input">;
@@ -40,13 +39,7 @@ const Textbox = ({
       {label && (
         <label htmlFor={id} className={classes.label}>
           {label}
-          {tooltip && (
-            <Tooltip content={tooltip}>
-              <button className={classes.help} aria-label="Help">
-                <FaRegCircleQuestion />
-              </button>
-            </Tooltip>
-          )}
+          {tooltip && <Help tooltip={tooltip} />}
         </label>
       )}
       {element}

@@ -48,6 +48,12 @@
 
 /** layout */
 
+.placeholder {
+  aspect-ratio: 3 / 1;
+  width: 100%;
+  background: var(--light-gray);
+}
+
 .narrow {
   max-width: calc(var(--content) / 2) !important;
 }

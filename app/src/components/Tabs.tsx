@@ -25,7 +25,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
 
   return (
     <Root
-      className="flex-col gap-lg"
+      className={classNames(classes.root, "flex-col", "gap-lg")}
       value={syncWithUrl && value ? value : undefined}
       onValueChange={(value) => syncWithUrl && setValue(value)}
     >
@@ -34,8 +34,8 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
           <Trigger key={index} asChild value={kebabCase(name)}>
             <Tooltip content={tooltip}>
               <button className={classes.button}>
-                {icon}
                 {name}
+                {icon}
               </button>
             </Tooltip>
           </Trigger>

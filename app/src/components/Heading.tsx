@@ -16,19 +16,25 @@ type Props = {
   level: 1 | 2 | 3 | 4;
   /** icon element or intials to show in badge */
   icon?: ReactElement | string;
-  /** manually set hash link instead of automatically from children text */
-  hash?: string;
+  /** manually set anchor link instead of automatically from children text */
+  anchor?: string;
   children: ReactNode;
 } & ComponentProps<"h1" | "h2" | "h3" | "h4">;
 
-const Heading = ({ level, icon = <></>, hash, children, ...props }: Props) => {
+const Heading = ({
+  level,
+  icon = <></>,
+  anchor,
+  children,
+  ...props
+}: Props) => {
   const ref = useRef<HTMLHeadingElement>(null);
 
   /** heading tag */
   const Tag: keyof JSX.IntrinsicElements = `h${level}`;
 
   /** url-compatible, "slugified" id */
-  const id = kebabCase(hash || reactToText(children));
+  const id = kebabCase(anchor ?? reactToText(children));
 
   return (
     <Tag id={id} ref={ref} {...props}>

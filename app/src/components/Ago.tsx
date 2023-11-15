@@ -12,12 +12,14 @@ type Props = {
 };
 
 /** show time in "ago" format */
-const Ago = ({ date }: Props) => (
-  <Tooltip content={formatDate(date)}>
-    <span>
-      <ReactTimeAgo date={parseDate(date)} locale="en-US" />
-    </span>
-  </Tooltip>
-);
+const Ago = ({ date }: Props) => {
+  return (
+    <Tooltip content={formatDate(date)}>
+      <span>
+        <ReactTimeAgo date={parseDate(date)} locale="en-US" />
+      </span>
+    </Tooltip>
+  );
+};
 
 export default Ago;
