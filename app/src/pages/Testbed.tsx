@@ -1,20 +1,20 @@
 import {
   FaArrowRight,
+  FaArrowsUpDown,
   FaBars,
-  FaBullhorn,
   FaChampagneGlasses,
   FaCircleInfo,
   FaFlaskVial,
   FaFont,
-  FaPersonRunning,
   FaRegCircleDot,
   FaRegHourglass,
-  FaRegNoteSticky,
 } from "react-icons/fa6";
 import { sample } from "lodash";
+import CustomIcon from "@/assets/custom-icon.svg?react";
 import Ago from "@/components/Ago";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
+import Collapsible from "@/components/Collapsible";
 import Heading from "@/components/Heading";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
@@ -32,7 +32,7 @@ const Testbed = () => {
       <Meta title="Testbed" />
 
       <Section>
-        <Heading level={1} icon={<FaFlaskVial />}>
+        <Heading level={1} icon={<CustomIcon />}>
           Testbed
         </Heading>
       </Section>
@@ -42,7 +42,9 @@ const Testbed = () => {
           Basic Formatting
         </Heading>
 
-        <Heading level={3}>Heading 3</Heading>
+        <Heading level={3} icon={<FaFlaskVial />}>
+          Heading 3
+        </Heading>
 
         <p>
           Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod
@@ -152,7 +154,7 @@ const Testbed = () => {
             />
             <Button
               to="/about"
-              icon={<FaBullhorn />}
+              icon={<CustomIcon />}
               design="critical"
               tooltip={
                 <Link to="https://medschool.cuanschutz.edu/dbmi">
@@ -174,7 +176,7 @@ const Testbed = () => {
             />
             <Button
               onClick={() => window.alert("Hello World")}
-              icon={<FaBullhorn />}
+              icon={<CustomIcon />}
               design="critical"
               tooltip={<>Hello World</>}
             />
@@ -204,18 +206,14 @@ const Testbed = () => {
             <Ago date="Jun 1 2020" />
           </Tab>
 
-          <Tab
-            name="Tile"
-            icon={<FaRegNoteSticky />}
-            className="flex-row gap-md"
-          >
+          <Tab name="Tile" icon={<CustomIcon />} className="flex-row gap-md">
             <Tile
               icon={<FaRegHourglass />}
               primary={formatNumber(1234)}
               secondary="Sequences"
             />
             <Tile
-              icon={<FaPersonRunning />}
+              icon={<CustomIcon />}
               primary={formatNumber(5678)}
               secondary="Proteins"
             />
@@ -280,6 +278,34 @@ const Testbed = () => {
                 )
               }
             />
+          </Tab>
+
+          <Tab
+            name="Collapsible"
+            icon={<FaArrowsUpDown />}
+            className="narrow flex-col gap-md"
+          >
+            <Collapsible text="Raw Text" className="flex-col gap-md">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus
+              eget nunc scelerisque viverra mauris in aliquam. Elementum integer
+              enim neque volutpat ac tincidunt vitae semper quis. Non diam
+              phasellus vestibulum lorem sed risus. Amet luctus venenatis lectus
+              magna.
+            </Collapsible>
+
+            <Collapsible text="Elements" className="flex-col gap-md">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Facilisis sed odio morbi quis commodo odio aenean sed. Urna
+                cursus eget nunc scelerisque viverra mauris in aliquam.
+                Elementum integer enim neque volutpat ac tincidunt vitae semper
+                quis. Non diam phasellus vestibulum lorem sed risus. Amet luctus
+                venenatis lectus magna.
+              </p>
+            </Collapsible>
           </Tab>
         </Tabs>
       </Section>

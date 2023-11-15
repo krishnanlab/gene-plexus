@@ -1,4 +1,5 @@
 import {
+  cloneElement,
   ComponentPropsWithoutRef,
   Fragment,
   ReactElement,
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const Tabs = ({ syncWithUrl = "", children }: Props) => {
+  /** sync selected tab with url */
   const [value, setValue] = useQueryParam(syncWithUrl, StringParam);
 
   /** tab props */
@@ -35,7 +37,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
             <Tooltip content={tooltip}>
               <button className={classes.button}>
                 {name}
-                {icon}
+                {icon && cloneElement(icon, { className: "icon" })}
               </button>
             </Tooltip>
           </Trigger>
@@ -57,9 +59,8 @@ export default Tabs;
 
 type TabProps = {
   name: string;
-  icon?: ReactNode;
+  icon?: ReactElement;
   tooltip?: ReactNode;
-  children: ReactNode;
 } & ComponentPropsWithoutRef<"div">;
 
 const Tab = (props: TabProps) => {

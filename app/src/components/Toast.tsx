@@ -58,7 +58,7 @@ export default Toast;
 
 const types = {
   info: { color: "var(--deep)", icon: <FaCircleInfo /> },
-  loading: { color: "var(--deep)", icon: <Loading /> },
+  loading: { color: "var(--deep)", icon: <Loading className="icon" /> },
   success: { color: "var(--success)", icon: <FaCircleCheck /> },
   warning: { color: "var(--warning)", icon: <FaCircleExclamation /> },
   error: { color: "var(--error)", icon: <FaTriangleExclamation /> },

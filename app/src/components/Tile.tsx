@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import { cloneElement, ReactElement, ReactNode } from "react";
 import classNames from "classnames";
 import classes from "./Tile.module.css";
 
 type Props = {
-  icon: ReactNode;
+  icon: ReactElement;
   primary: ReactNode;
   secondary: ReactNode;
 };
@@ -11,7 +11,7 @@ type Props = {
 const Tile = ({ icon, primary, secondary }: Props) => {
   return (
     <div className={classNames(classes.tile, "flex-col gap-md center")}>
-      {icon}
+      {cloneElement(icon, { className: "icon" })}
       <div>
         <div className={classNames(classes.primary, "bold")}>{primary}</div>
         <div className="secondary">{secondary}</div>

@@ -37,15 +37,19 @@ const Heading = ({
   /** url-compatible, "slugified" id */
   const id = kebabCase(anchor ?? reactToText(children));
 
+  /** icon or badge */
+  const iconElement =
+    typeof icon === "string" ? (
+      <Badge text={icon} className={classes.badge} />
+    ) : (
+      cloneElement(icon, {
+        className: classNames(classes.icon, "inline-icon"),
+      })
+    );
+
   return (
     <Tag id={id} ref={ref} {...props}>
-      {typeof icon === "string" ? (
-        <Badge text={icon} className={classes.badge} />
-      ) : (
-        cloneElement(icon, {
-          className: classNames(classes.icon, "inline-icon"),
-        })
-      )}
+      {iconElement}
       {children}
       {id && (
         <a href={"#" + id} className={classes.anchor} aria-label="Heading link">

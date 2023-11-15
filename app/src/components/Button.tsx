@@ -1,4 +1,11 @@
-import { ComponentProps, ForwardedRef, forwardRef, ReactNode } from "react";
+import {
+  cloneElement,
+  ComponentProps,
+  ForwardedRef,
+  forwardRef,
+  ReactElement,
+  ReactNode,
+} from "react";
 import classNames from "classnames";
 import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";
@@ -13,7 +20,7 @@ type CustomProps =
     | { text: string; tooltip?: ReactNode }
     | { text?: string; tooltip: ReactNode }
   ) & {
-    icon?: ReactNode;
+    icon?: ReactElement;
     design?: "normal" | "accent" | "critical";
   };
 
@@ -31,7 +38,7 @@ const Button = forwardRef(
     const children = (
       <>
         {text}
-        {icon}
+        {icon && cloneElement(icon, { className: "icon" })}
       </>
     );
 
