@@ -45,8 +45,8 @@ const Textbox = ({
       {label && (
         <label htmlFor={id} className={classes.label}>
           {label}
-          {tooltip && <Help tooltip={tooltip} />}
           {props.required && <FaAsterisk className={classes.required} />}
+          {tooltip && <Help tooltip={tooltip} className={classes.help} />}
         </label>
       )}
       {element}

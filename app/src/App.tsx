@@ -13,6 +13,7 @@ import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Toast from "@/components/Toast";
 import About from "@/pages/About";
 import Analyses from "@/pages/Analyses";
 import Home from "@/pages/Home";
@@ -43,6 +44,7 @@ const Layout = () => {
           <Outlet />
         </main>
         <Footer />
+        <Toast />
       </QueryParamProvider>
     </IconContext.Provider>
   );

@@ -2,6 +2,7 @@ import {
   FaArrowRight,
   FaBars,
   FaBullhorn,
+  FaChampagneGlasses,
   FaCircleInfo,
   FaFlaskVial,
   FaFont,
@@ -10,6 +11,7 @@ import {
   FaRegHourglass,
   FaRegNoteSticky,
 } from "react-icons/fa6";
+import { sample } from "lodash";
 import Ago from "@/components/Ago";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
@@ -20,6 +22,7 @@ import Section from "@/components/Section";
 import Tabs, { Tab } from "@/components/Tabs";
 import Textbox from "@/components/Textbox";
 import Tile from "@/components/Tile";
+import { toast } from "@/components/Toast";
 import { formatDate, formatNumber } from "@/util/string";
 
 /** test and example usage of formatting, elements, components, etc. */
@@ -228,6 +231,10 @@ const Testbed = () => {
               Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Alert>
+            <Alert type="loading">
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Alert>
             <Alert type="success">
               Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -240,6 +247,39 @@ const Testbed = () => {
               Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </Alert>
+          </Tab>
+
+          <Tab
+            name="Toast"
+            icon={<FaChampagneGlasses />}
+            className="flex-row gap-sm"
+          >
+            <Button
+              text="Unique Toast"
+              design="accent"
+              onClick={() =>
+                toast(
+                  sample([
+                    "Apple",
+                    "Banana",
+                    "Cumquat",
+                    "Durian",
+                    "Elderberry",
+                  ]),
+                )
+              }
+            />
+            <Button
+              text="Overwriting Toast"
+              design="accent"
+              onClick={() =>
+                toast(
+                  `ABC`,
+                  sample(["info", "loading", "success", "warning", "error"]),
+                  "abc",
+                )
+              }
+            />
           </Tab>
         </Tabs>
       </Section>

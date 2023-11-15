@@ -1,18 +1,19 @@
-import { ReactNode } from "react";
+import { ComponentProps, ReactNode } from "react";
 import { FaRegCircleQuestion } from "react-icons/fa6";
+import classNames from "classnames";
 import Tooltip from "@/components/Tooltip";
 import { sleep } from "@/util/misc";
 import classes from "./Help.module.css";
 
 type Props = {
   tooltip: ReactNode;
-};
+} & ComponentProps<"button">;
 
-const Help = ({ tooltip }: Props) => {
+const Help = ({ tooltip, className }: Props) => {
   return (
     <Tooltip content={tooltip}>
       <button
-        className={classes.help}
+        className={classNames(classes.help, className)}
         aria-label="Help"
         onClick={async (event) => {
           const target = event.currentTarget;

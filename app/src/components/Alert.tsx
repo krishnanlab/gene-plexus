@@ -5,6 +5,7 @@ import {
   FaCircleInfo,
   FaTriangleExclamation,
 } from "react-icons/fa6";
+import Loading from "@/assets/loading.svg?react";
 import classes from "./Alert.module.css";
 
 type Props = {
@@ -14,6 +15,7 @@ type Props = {
 
 const types = {
   info: { color: "var(--deep)", icon: <FaCircleInfo /> },
+  loading: { color: "var(--deep)", icon: <Loading /> },
   success: { color: "var(--success)", icon: <FaCircleCheck /> },
   warning: { color: "var(--warning)", icon: <FaCircleExclamation /> },
   error: { color: "var(--error)", icon: <FaTriangleExclamation /> },

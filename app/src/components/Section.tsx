@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ComponentProps, ReactNode } from "react";
 import classNames from "classnames";
 import classes from "./Section.module.css";
 
@@ -8,19 +8,21 @@ type Props = {
   /** full screen width */
   full?: boolean;
   children: ReactNode;
-};
+} & ComponentProps<"section">;
 
-const Section = ({ fill, full, children }: Props) => {
+const Section = ({ fill, full, className, children, ...props }: Props) => {
   return (
     <section
       className={classNames(
         classes.section,
+        className,
         {
           [classes.fill!]: fill,
           [classes.full!]: full,
         },
         "flex-col gap-lg",
       )}
+      {...props}
     >
       {children}
     </section>

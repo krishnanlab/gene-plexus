@@ -12,7 +12,7 @@
 .label {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .input,
@@ -29,7 +29,13 @@
   min-height: 3.5lh;
 }
 
+.help {
+  margin-left: 5px;
+}
+
 .required {
+  align-self: flex-start;
+  height: 10px;
+
   color: var(--accent);
-  height: 15px;
 }

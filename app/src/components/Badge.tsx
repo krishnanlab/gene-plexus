@@ -6,9 +6,9 @@ type Props = {
   text: string;
 } & ComponentProps<"span">;
 
-const Badge = ({ text, className }: Props) => {
+const Badge = ({ text, className, ...props }: Props) => {
   return (
-    <span className={classNames(classes.badge, className)}>
+    <span className={classNames(classes.badge, className)} {...props}>
       {text.slice(0, 2)}
     </span>
   );
