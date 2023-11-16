@@ -1,4 +1,4 @@
-import { ComponentPropsWithRef, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import classNames from "classnames";
 import { Content, Root, Trigger } from "@radix-ui/react-collapsible";
@@ -10,10 +10,12 @@ type Props = {
   text: string;
   /** tooltip content */
   tooltip?: ReactNode;
-} & ComponentPropsWithRef<"div">;
+  className: string;
+  children: ReactNode;
+};
 
 /** button with content beneath expandable/collapsible */
-const Collapsible = ({ text, tooltip, ...props }: Props) => {
+const Collapsible = ({ text, tooltip, className, children }: Props) => {
   /** track open state */
   const [open, setOpen] = useState(false);
 
@@ -31,7 +33,7 @@ const Collapsible = ({ text, tooltip, ...props }: Props) => {
           </button>
         </Tooltip>
       </Trigger>
-      <Content {...props} />
+      <Content className={className}>{children}</Content>
     </Root>
   );
 };

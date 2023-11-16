@@ -4,16 +4,20 @@ import {
   FaBars,
   FaChampagneGlasses,
   FaCircleInfo,
+  FaClipboardList,
   FaFlaskVial,
   FaFont,
+  FaMagnifyingGlass,
   FaRegCircleDot,
   FaRegHourglass,
+  FaRegSquareCheck,
 } from "react-icons/fa6";
 import { sample } from "lodash";
 import CustomIcon from "@/assets/custom-icon.svg?react";
 import Ago from "@/components/Ago";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
+import Checkbox from "@/components/Checkbox";
 import Collapsible from "@/components/Collapsible";
 import Form from "@/components/Form";
 import Heading from "@/components/Heading";
@@ -149,11 +153,15 @@ const Testbed = () => {
             tooltip="Lorem ipsum"
             className="flex-row gap-sm"
           >
-            <Button to="/about" text="About" tooltip={<>Hello World</>} />
+            <Button
+              to="/about"
+              text="About"
+              icon={<FaArrowRight />}
+              tooltip={<>Hello World</>}
+            />
             <Button
               to="/about"
               text="Learn More"
-              icon={<FaArrowRight />}
               design="accent"
               tooltip={
                 <>
@@ -191,15 +199,24 @@ const Testbed = () => {
             />
           </Tab>
 
-          <Tab text="Textbox" icon={<FaFont />} className="grid">
-            <Form onSubmit={console.log}>
-              <Textbox placeholder="Search" tooltip="Help text" />
-              <Textbox placeholder="Search" multi={true} tooltip="Help text" />
+          <Tab text="Textbox" icon={<FaFont />} className="flex-col gap-lg">
+            <div className="grid">
+              <Textbox
+                placeholder="Search"
+                tooltip="Help text"
+                required={true}
+                icon="clear"
+              />
+              <Textbox
+                placeholder="Search"
+                multi={true}
+                tooltip="Help text"
+                icon={<FaMagnifyingGlass />}
+              />
               <Textbox
                 label="Textbox"
                 placeholder="Search"
                 tooltip="Help text"
-                required={true}
               />
               <Textbox
                 label="Textbox"
@@ -207,10 +224,8 @@ const Testbed = () => {
                 placeholder="Search"
                 tooltip="Help text"
                 required={true}
-                name="testField"
               />
-              <Button text="Submit" />
-            </Form>
+            </div>
           </Tab>
 
           <Tab text="Ago" icon={<FaRegHourglass />} className="flex-row gap-sm">
@@ -273,7 +288,7 @@ const Testbed = () => {
                   sample([
                     "Apple",
                     "Banana",
-                    "Cumquat",
+                    "Cantaloupe",
                     "Durian",
                     "Elderberry",
                   ]),
@@ -298,21 +313,7 @@ const Testbed = () => {
             icon={<FaArrowsUpDown />}
             className="narrow flex-col gap-md"
           >
-            <Collapsible
-              text="Raw Text"
-              className="flex-col gap-md"
-              tooltip="Lorem ipsum"
-            >
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus
-              eget nunc scelerisque viverra mauris in aliquam. Elementum integer
-              enim neque volutpat ac tincidunt vitae semper quis. Non diam
-              phasellus vestibulum lorem sed risus. Amet luctus venenatis lectus
-              magna.
-            </Collapsible>
-
-            <Collapsible text="Elements" className="flex-col gap-md">
+            <Collapsible text="Expand Me" className="flex-col gap-md">
               <p>
                 Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -322,13 +323,45 @@ const Testbed = () => {
                 quis. Non diam phasellus vestibulum lorem sed risus. Amet luctus
                 venenatis lectus magna.
               </p>
+              <div className="flex-row gap-md">
+                <span>abc</span>
+                <span>123</span>
+                <span>xyz</span>
+              </div>
             </Collapsible>
+          </Tab>
+
+          <Tab
+            text="Checkbox"
+            icon={<FaRegSquareCheck />}
+            className="flex-col gap-md"
+          >
+            <Checkbox label="Accept terms and conditions" name="accept" />
+          </Tab>
+
+          <Tab
+            text="Form"
+            icon={<FaClipboardList />}
+            className="flex-col gap-md"
+          >
+            <Form onSubmit={console.log}>
+              <Textbox placeholder="Name" name="name" tooltip="Help text" />
+              <Textbox
+                label="Describe your issue"
+                multi={true}
+                name="description"
+                required={true}
+                tooltip="Help text"
+              />
+              <Checkbox label="Send me a copy of my response" name="copy" />
+              <Button text="Submit" design="accent" />
+            </Form>
           </Tab>
         </Tabs>
       </Section>
 
       <Section fill={true}>
-        <div className="placeholder" />
+        <div className="placeholder pulse" />
       </Section>
 
       <Section full={true}>

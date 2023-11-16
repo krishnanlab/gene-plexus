@@ -9,7 +9,7 @@ type Props = {
 
 /** util form component to put around fields */
 const Form = ({ children, onSubmit }: Props) => {
-  /** page-unique id to refer to from fields */
+  /** unique id to connect form to fields */
   const id = useId();
 
   return (
@@ -19,7 +19,7 @@ const Form = ({ children, onSubmit }: Props) => {
         .flat()
         .map((child, index) => cloneElement(child, { key: index, form: id }))}
 
-      {/* attach actual form element to body and hide so form doesn't affect local layout */}
+      {/* attach actual form element to body and hide so form doesn't affect local layout and style selectors */}
       {createPortal(
         <form
           style={{ display: "contents" }}

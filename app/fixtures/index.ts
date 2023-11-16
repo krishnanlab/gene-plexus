@@ -1,7 +1,7 @@
 import { http, HttpResponse, passthrough } from "msw";
 import test from "./test.json";
 
-/** api calls to be mocked with fixture data */
+/** api calls to be mocked (faked) with fixture data */
 export const handlers = [
   http.get("*/test", () => HttpResponse.json(test)),
 

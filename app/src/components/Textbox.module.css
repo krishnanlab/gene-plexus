@@ -15,6 +15,35 @@
   gap: 5px;
 }
 
+.field {
+  display: flex;
+  position: relative;
+}
+
+.icon {
+  display: flex;
+  position: absolute;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--gray);
+}
+
+.icon svg {
+  width: 50%;
+}
+
+button.icon {
+  color: var(--accent);
+  transition: color var(--fast);
+}
+
+button.icon:hover {
+  color: var(--black);
+}
+
 .input,
 .textarea {
   width: 100%;
@@ -36,6 +65,5 @@
 .required {
   align-self: flex-start;
   height: 10px;
-
   color: var(--accent);
 }

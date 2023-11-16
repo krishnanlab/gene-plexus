@@ -1,7 +1,7 @@
 import { groupLog } from "@/util/debug";
 
 /** base api url */
-export const api = "http://localhost:8000";
+export const api = import.meta.env.VITE_API;
 
 /** primitive param type */
 type Param = string | number | boolean | undefined | null;

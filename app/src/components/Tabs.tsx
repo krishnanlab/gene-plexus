@@ -70,7 +70,7 @@ type TabProps = {
   icon?: ReactElement;
   /** tab button tooltip content */
   tooltip?: ReactNode;
-} & ComponentPropsWithoutRef<"div">;
+} & Pick<ComponentPropsWithoutRef<"div">, "children" | "className">;
 
 /** use within a Tabs component */
 const Tab = (props: TabProps) => {
