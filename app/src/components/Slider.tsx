@@ -1,7 +1,8 @@
-import { ReactNode, useId } from "react";
+import { ComponentProps } from "react";
 import { Range, Root, SliderProps, Thumb, Track } from "@radix-ui/react-slider";
-import Help from "@/components/Help";
+import Field from "@/components/Field";
 import { useLocal } from "@/util/hooks";
+import { formatNumber } from "@/util/string";
 import classes from "./Slider.module.css";
 
 type Single = {
@@ -22,65 +23,62 @@ type Multi = {
   onChange?: (value: number[]) => void;
 };
 
-type Props = {
-  /** label content */
-  label?: ReactNode;
-  /** whether to put label above, to left, or have no wrapping element at all */
-  layout?: "horizontal" | "vertical" | "none";
-  /** tooltip content */
-  tooltip?: ReactNode;
-} & (Single | Multi) &
+type Props = Omit<ComponentProps<typeof Field>, "children"> &
+  (Single | Multi) &
   Omit<SliderProps, "value" | "onChange">;
 
 /** single value number slider */
 const Slider = ({
   label,
-  layout = "vertical",
+  layout,
   tooltip,
   multi,
   value,
   onChange,
   ...props
 }: Props) => {
-  /** unique id to connect label and field */
-  const id = useId();
+  const min = props.min ?? 0;
+  const max = props.max ?? 100;
 
   /** local copy of state */
   const [numbers, setNumbers] = useLocal<number | number[]>(
-    multi ? [0, 100] : 0,
+    multi ? [min, max || 100] : 0,
     value,
     // @ts-expect-error ts not smart enough
     onChange,
     100,
   );
 
+  /** force numbers to array */
+  const _numbers = [numbers].flat();
+
+  /** whether to show min/max marks */
+  const showMin = (_numbers[0] || 0) > (max - min) * 0.2;
+  const showMax = (_numbers.at(-1) || 0) < (max - min) * 0.8;
+
   return (
-    <div className={classes[layout]}>
-      {label && (
-        <label htmlFor={id} className={classes.label}>
-          {/* label */}
-          {label}
-
-          {/* tooltip help icon */}
-          {tooltip && <Help tooltip={tooltip} className={classes.help} />}
-        </label>
-      )}
-
+    <Field label={label} layout={layout} tooltip={tooltip}>
       {/* slider */}
       <Root
         className={classes.root}
-        value={[numbers].flat()}
+        value={_numbers}
         onValueChange={(values) => setNumbers(multi ? values : values[0] || 0)}
+        data-min={showMin ? formatNumber(min, true) : ""}
+        data-max={showMax ? formatNumber(max, true) : ""}
         {...props}
       >
         <Track className={classes.track}>
           <Range className={classes.range} />
         </Track>
-        {[numbers].flat().map((_, i) => (
-          <Thumb key={i} className={classes.thumb} />
+        {_numbers.map((number, index) => (
+          <Thumb
+            key={index}
+            className={classes.thumb}
+            data-value={formatNumber(number, true)}
+          />
         ))}
       </Root>
-    </div>
+    </Field>
   );
 };
 

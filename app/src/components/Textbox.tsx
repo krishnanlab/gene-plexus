@@ -1,10 +1,9 @@
-import { ComponentProps, ReactElement, ReactNode, useId } from "react";
-import { FaAsterisk, FaXmark } from "react-icons/fa6";
+import { ComponentProps, ReactElement, useId } from "react";
+import { FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
-import Help from "@/components/Help";
-import Tooltip from "@/components/Tooltip";
+import Field from "@/components/Field";
 import { useLocal } from "@/util/hooks";
-import classes from "./Textbox.module.css";
+import classes from "./TextBox.module.css";
 
 type InputProps = { multi?: false } & Omit<
   ComponentProps<"input">,
@@ -16,12 +15,6 @@ type TextareaProps = {
 } & Omit<ComponentProps<"textarea">, "value" | "onChange">;
 
 type Props = {
-  /** label content */
-  label?: ReactNode;
-  /** whether to put label above, to left, or have no wrapping element at all */
-  layout?: "horizontal" | "vertical" | "none";
-  /** tooltip content */
-  tooltip?: ReactNode;
   /** hint icon to show on side or clear button */
   icon?: ReactElement | "clear";
   /** text state */
@@ -30,12 +23,13 @@ type Props = {
   onChange?: (value: string) => void;
   /** wait this many ms for user to stop typing to trigger onChange */
   debounce?: number;
-} & (InputProps | TextareaProps);
+} & Omit<ComponentProps<typeof Field>, "children"> &
+  (InputProps | TextareaProps);
 
 /** single or multi-line text input box */
-const Textbox = ({
+const TextBox = ({
   label,
-  layout = "vertical",
+  layout,
   multi,
   tooltip,
   icon,
@@ -51,7 +45,7 @@ const Textbox = ({
   const [text, setText] = useLocal("", value, onChange, debounce);
 
   /** input field */
-  const field = multi ? (
+  const input = multi ? (
     <textarea
       id={id}
       className={classNames(classes.textarea, "shadow")}
@@ -80,34 +74,20 @@ const Textbox = ({
   else if (icon) iconElement = <div className={classes.icon}>{icon}</div>;
 
   return (
-    <div className={classes[layout]}>
-      {/* if label */}
-      {label && (
-        <label htmlFor={id} className={classes.label}>
-          {/* label */}
-          {label}
-
-          {/* "required" icon */}
-          {props.required && <FaAsterisk className={classes.required} />}
-
-          {/* if label and tooltip, show help icon */}
-          {tooltip && <Help tooltip={tooltip} className={classes.help} />}
-        </label>
-      )}
-
+    <Field
+      label={label}
+      layout={layout}
+      tooltip={tooltip}
+      required={props.required}
+    >
       <div className={classes.field}>
-        {/* if no label but need to show tooltip, put tooltip around field instead */}
-        {!label && tooltip ? (
-          <Tooltip content={tooltip}>{field}</Tooltip>
-        ) : (
-          field
-        )}
+        {input}
 
         {/* side icon */}
         {iconElement}
       </div>
-    </div>
+    </Field>
   );
 };
 
-export default Textbox;
+export default TextBox;

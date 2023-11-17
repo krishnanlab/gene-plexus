@@ -27,7 +27,7 @@ import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 import Slider from "@/components/Slider";
 import Tabs, { Tab } from "@/components/Tabs";
-import Textbox from "@/components/Textbox";
+import TextBox from "@/components/TextBox";
 import Tile from "@/components/Tile";
 import { toast } from "@/components/Toast";
 import { formatDate, formatNumber } from "@/util/string";
@@ -203,9 +203,9 @@ const Testbed = () => {
           </Tab>
 
           {/* textbox */}
-          <Tab text="Textbox" icon={<FaFont />} className="flex-col gap-lg">
+          <Tab text="TextBox" icon={<FaFont />} className="flex-col gap-lg">
             <div className="grid">
-              <Textbox
+              <TextBox
                 placeholder="Search"
                 tooltip="Help text"
                 required={true}
@@ -213,19 +213,19 @@ const Testbed = () => {
                 debounce={1000}
                 onChange={console.info}
               />
-              <Textbox
+              <TextBox
                 placeholder="Search"
                 multi={true}
                 tooltip="Help text"
                 icon={<FaMagnifyingGlass />}
               />
-              <Textbox
-                label="Textbox"
+              <TextBox
+                label="TextBox"
                 placeholder="Search"
                 tooltip="Help text"
               />
-              <Textbox
-                label="Textbox"
+              <TextBox
+                label="TextBox"
                 multi={true}
                 placeholder="Search"
                 tooltip="Help text"
@@ -259,7 +259,7 @@ const Testbed = () => {
               layout="horizontal"
               tooltip="Help text"
               min={0}
-              max={100}
+              max={10000}
               step={1}
               onChange={console.info}
             />
@@ -380,8 +380,8 @@ const Testbed = () => {
             className="flex-col gap-md"
           >
             <Form onSubmit={console.info}>
-              <Textbox placeholder="Name" name="name" tooltip="Help text" />
-              <Textbox
+              <TextBox placeholder="Name" name="name" tooltip="Help text" />
+              <TextBox
                 label="Describe your issue"
                 multi={true}
                 name="description"

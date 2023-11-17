@@ -1,25 +1,3 @@
-.horizontal {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.none {
-  display: contents;
-}
-
-.label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .root {
   display: flex;
   position: relative;
@@ -29,6 +7,30 @@
   cursor: pointer;
   touch-action: none;
   user-select: none;
+}
+
+.root::before,
+.root::after {
+  position: absolute;
+  bottom: -20px;
+  width: max-content;
+  opacity: 0;
+  transition: opacity var(--fast);
+}
+
+.root::before {
+  left: 0;
+  content: attr(data-min);
+}
+
+.root::after {
+  right: 0;
+  content: attr(data-max);
+}
+
+.root:is(:hover, :focus)::before,
+.root:is(:hover, :focus)::after {
+  opacity: 1;
 }
 
 .track {
@@ -47,9 +49,28 @@
 
 .thumb {
   display: block;
+  position: relative;
   width: 15px;
   height: 15px;
   border-radius: 999px;
+}
+
+.thumb::before {
+  position: absolute;
+  bottom: -23px;
+  left: 50%;
+  width: max-content;
+  padding: 0 5px;
+  transform: translate(-50%);
+  border-radius: 999px;
+  content: attr(data-value);
+  opacity: 0.5;
+  transition: opacity var(--fast);
+}
+
+.thumb:focus::before,
+.root:hover .thumb::before {
+  opacity: 1;
 }
 
 .range,
