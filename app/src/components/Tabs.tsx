@@ -52,8 +52,8 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
       {tabs.map(({ text, className, ...props }, index) => (
         <Content
           key={index}
-          value={kebabCase(text)}
           className={classNames(classes.content, className)}
+          value={kebabCase(text)}
           {...omit(props, ["icon", "tooltip"])}
         />
       ))}

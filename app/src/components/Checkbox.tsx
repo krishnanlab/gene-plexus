@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useId, useState } from "react";
+import { ReactNode, useId } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { CheckboxProps, Indicator, Root } from "@radix-ui/react-checkbox";
 import Help from "@/components/Help";
+import { useLocal } from "@/util/hooks";
 import classes from "./Checkbox.module.css";
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
   value?: boolean;
   /** on checked state change */
   onChange?: (value: boolean) => void;
-} & CheckboxProps;
+} & Omit<CheckboxProps, "value" | "onChange">;
 
 /** simple checkbox with label */
 const Checkbox = ({ label, tooltip, value, onChange, ...props }: Props) => {
@@ -22,21 +23,15 @@ const Checkbox = ({ label, tooltip, value, onChange, ...props }: Props) => {
 
   /** https://github.com/radix-ui/primitives/issues/2530 */
   /** local copy of state */
-  const [checked, setChecked] = useState(value || false);
-  useEffect(() => {
-    if (value !== undefined) setChecked(value);
-  }, [value]);
-  useEffect(() => {
-    onChange?.(checked);
-  }, [onChange, checked]);
+  const [checked, setChecked] = useLocal(false, value, onChange, 100);
 
   return (
     <div className={classes.wrapper}>
       {/* checkbox */}
       <Root
         {...props}
-        className={classes.root}
         id={id}
+        className={classes.root}
         checked={checked}
         onCheckedChange={(checked) => setChecked(!!checked)}
       >

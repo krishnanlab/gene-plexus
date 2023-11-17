@@ -1,15 +1,9 @@
-import {
-  ComponentProps,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useId,
-  useState,
-} from "react";
+import { ComponentProps, ReactElement, ReactNode, useId } from "react";
 import { FaAsterisk, FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
 import Help from "@/components/Help";
 import Tooltip from "@/components/Tooltip";
+import { useLocal } from "@/util/hooks";
 import classes from "./Textbox.module.css";
 
 type InputProps = { multi?: false } & Omit<
@@ -24,8 +18,8 @@ type TextareaProps = {
 type Props = {
   /** label content */
   label?: ReactNode;
-  /** whether to layout label above, label to left, or no wrapping element */
-  layout?: "vertical" | "none";
+  /** whether to put label above, to left, or have no wrapping element at all */
+  layout?: "horizontal" | "vertical" | "none";
   /** tooltip content */
   tooltip?: ReactNode;
   /** hint icon to show on side or clear button */
@@ -34,6 +28,8 @@ type Props = {
   value?: string;
   /** on text state change */
   onChange?: (value: string) => void;
+  /** wait this many ms for user to stop typing to trigger onChange */
+  debounce?: number;
 } & (InputProps | TextareaProps);
 
 /** single or multi-line text input box */
@@ -45,19 +41,14 @@ const Textbox = ({
   icon,
   value,
   onChange,
+  debounce,
   ...props
 }: Props) => {
   /** unique id to connect label and field */
   const id = useId();
 
   /** local copy of state */
-  const [text, setText] = useState(value || "");
-  useEffect(() => {
-    if (value !== undefined) setText(value);
-  }, [value]);
-  useEffect(() => {
-    onChange?.(text);
-  }, [onChange, text]);
+  const [text, setText] = useLocal("", value, onChange, debounce);
 
   /** input field */
   const field = multi ? (

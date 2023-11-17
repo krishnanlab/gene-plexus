@@ -1,8 +1,13 @@
+.horizontal {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .vertical {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 5px;
+  gap: 10px;
 }
 
 .none {
@@ -41,15 +46,18 @@ button.icon {
 }
 
 button.icon:hover {
-  color: var(--black);
+  color: var(--deep);
 }
 
 .input,
 .textarea {
   width: 100%;
-  min-height: 40px;
   padding: 5px 10px;
   border: none;
+}
+
+.input {
+  height: 40px;
 }
 
 .textarea {

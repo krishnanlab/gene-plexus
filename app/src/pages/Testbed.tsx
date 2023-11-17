@@ -11,6 +11,7 @@ import {
   FaRegCircleDot,
   FaRegHourglass,
   FaRegSquareCheck,
+  FaSliders,
 } from "react-icons/fa6";
 import { sample } from "lodash";
 import CustomIcon from "@/assets/custom-icon.svg?react";
@@ -24,6 +25,7 @@ import Heading from "@/components/Heading";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
+import Slider from "@/components/Slider";
 import Tabs, { Tab } from "@/components/Tabs";
 import Textbox from "@/components/Textbox";
 import Tile from "@/components/Tile";
@@ -147,6 +149,7 @@ const Testbed = () => {
         </Heading>
 
         <Tabs syncWithUrl="component">
+          {/* button */}
           <Tab
             text="Button"
             icon={<FaRegCircleDot />}
@@ -199,6 +202,7 @@ const Testbed = () => {
             />
           </Tab>
 
+          {/* textbox */}
           <Tab text="Textbox" icon={<FaFont />} className="flex-col gap-lg">
             <div className="grid">
               <Textbox
@@ -206,6 +210,8 @@ const Testbed = () => {
                 tooltip="Help text"
                 required={true}
                 icon="clear"
+                debounce={1000}
+                onChange={console.info}
               />
               <Textbox
                 placeholder="Search"
@@ -228,30 +234,45 @@ const Testbed = () => {
             </div>
           </Tab>
 
+          {/* checkbox */}
+          <Tab
+            text="Checkbox"
+            icon={<FaRegSquareCheck />}
+            className="flex-col gap-md"
+          >
+            <Checkbox label="Accept terms and conditions" name="accept" />
+          </Tab>
+
+          {/* slider */}
+          <Tab text="Slider" icon={<FaSliders />} className="flex-col gap-md">
+            <Slider
+              label="Single"
+              tooltip="Help text"
+              min={0}
+              max={100}
+              step={1}
+              onChange={console.info}
+            />
+            <Slider
+              label="Range"
+              multi={true}
+              layout="horizontal"
+              tooltip="Help text"
+              min={0}
+              max={100}
+              step={1}
+              onChange={console.info}
+            />
+          </Tab>
+
+          {/* ago */}
           <Tab text="Ago" icon={<FaRegHourglass />} className="flex-row gap-sm">
             <Ago date="" />
             <Ago date="Nov 12 2023" />
             <Ago date="Jun 1 2020" />
           </Tab>
 
-          <Tab text="Tile" icon={<CustomIcon />} className="flex-row gap-md">
-            <Tile
-              icon={<FaRegHourglass />}
-              primary={formatNumber(1234)}
-              secondary="Sequences"
-            />
-            <Tile
-              icon={<CustomIcon />}
-              primary={formatNumber(5678)}
-              secondary="Proteins"
-            />
-            <Tile
-              icon={<FaBars />}
-              primary={formatNumber(99999)}
-              secondary="Analyses"
-            />
-          </Tab>
-
+          {/* alert */}
           <Tab text="Alert" icon={<FaCircleInfo />} className="flex-col gap-md">
             <Alert>
               Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
@@ -275,6 +296,7 @@ const Testbed = () => {
             </Alert>
           </Tab>
 
+          {/* toast */}
           <Tab
             text="Toast"
             icon={<FaChampagneGlasses />}
@@ -308,6 +330,7 @@ const Testbed = () => {
             />
           </Tab>
 
+          {/* collapsible */}
           <Tab
             text="Collapsible"
             icon={<FaArrowsUpDown />}
@@ -331,20 +354,32 @@ const Testbed = () => {
             </Collapsible>
           </Tab>
 
-          <Tab
-            text="Checkbox"
-            icon={<FaRegSquareCheck />}
-            className="flex-col gap-md"
-          >
-            <Checkbox label="Accept terms and conditions" name="accept" />
+          {/* tile */}
+          <Tab text="Tile" icon={<CustomIcon />} className="flex-row gap-md">
+            <Tile
+              icon={<FaRegHourglass />}
+              primary={formatNumber(1234)}
+              secondary="Sequences"
+            />
+            <Tile
+              icon={<CustomIcon />}
+              primary={formatNumber(5678)}
+              secondary="Proteins"
+            />
+            <Tile
+              icon={<FaBars />}
+              primary={formatNumber(99999)}
+              secondary="Analyses"
+            />
           </Tab>
 
+          {/* form */}
           <Tab
             text="Form"
             icon={<FaClipboardList />}
             className="flex-col gap-md"
           >
-            <Form onSubmit={console.log}>
+            <Form onSubmit={console.info}>
               <Textbox placeholder="Name" name="name" tooltip="Help text" />
               <Textbox
                 label="Describe your issue"

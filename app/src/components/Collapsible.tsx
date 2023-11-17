@@ -21,9 +21,9 @@ const Collapsible = ({ text, tooltip, className, children }: Props) => {
 
   return (
     <Root
+      className={classNames(classes.root, "flex-col", "gap-md")}
       open={open}
       onOpenChange={setOpen}
-      className={classNames(classes.root, "flex-col", "gap-md")}
     >
       <Trigger asChild>
         <Tooltip content={tooltip}>
