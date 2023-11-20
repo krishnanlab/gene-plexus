@@ -1,10 +1,12 @@
-import { ReactElement, ReactNode, useId } from "react";
+import { ReactElement, ReactNode } from "react";
 import { FaAsterisk } from "react-icons/fa6";
 import Help from "@/components/Help";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Field.module.css";
 
 type Props = {
+  /** id to connect label and input */
+  id: string;
   /** label content */
   label?: ReactNode;
   /** whether to put label above, to left, or have no wrapping element at all */
@@ -18,15 +20,13 @@ type Props = {
 
 /** adds label and help text to wrapped input component. do not use directly. */
 const Field = ({
+  id,
   label,
   layout = "vertical",
   tooltip,
   required,
   children,
 }: Props) => {
-  /** unique id to connect label and field */
-  const id = useId();
-
   return (
     <div className={classes[layout]}>
       {/* if label */}

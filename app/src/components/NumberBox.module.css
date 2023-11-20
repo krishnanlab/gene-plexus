@@ -1,0 +1,6 @@
+.input {
+  border: none;
+  border-bottom: solid 2px var(--accent);
+  border-radius: var(--rounded) var(--rounded) 0 0;
+  background: none;
+}

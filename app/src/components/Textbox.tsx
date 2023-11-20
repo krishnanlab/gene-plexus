@@ -21,9 +21,7 @@ type Props = {
   value?: string;
   /** on text state change */
   onChange?: (value: string) => void;
-  /** wait this many ms for user to stop typing to trigger onChange */
-  debounce?: number;
-} & Omit<ComponentProps<typeof Field>, "children"> &
+} & Omit<ComponentProps<typeof Field>, "id" | "children"> &
   (InputProps | TextareaProps);
 
 /** single or multi-line text input box */
@@ -35,14 +33,13 @@ const TextBox = ({
   icon,
   value,
   onChange,
-  debounce,
   ...props
 }: Props) => {
-  /** unique id to connect label and field */
+  /** unique id to connect label and input */
   const id = useId();
 
   /** local copy of state */
-  const [text, setText] = useLocal("", value, onChange, debounce);
+  const [text, setText] = useLocal("", value, onChange);
 
   /** input field */
   const input = multi ? (
@@ -75,6 +72,7 @@ const TextBox = ({
 
   return (
     <Field
+      id={id}
       label={label}
       layout={layout}
       tooltip={tooltip}

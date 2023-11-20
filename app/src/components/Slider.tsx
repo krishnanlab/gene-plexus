@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { ComponentProps, useId } from "react";
 import { Range, Root, SliderProps, Thumb, Track } from "@radix-ui/react-slider";
 import Field from "@/components/Field";
 import { useLocal } from "@/util/hooks";
@@ -23,8 +23,8 @@ type Multi = {
   onChange?: (value: number[]) => void;
 };
 
-type Props = Omit<ComponentProps<typeof Field>, "children"> &
-  (Single | Multi) &
+type Props = (Single | Multi) &
+  Omit<ComponentProps<typeof Field>, "id" | "children"> &
   Omit<SliderProps, "value" | "onChange">;
 
 /** single value number slider */
@@ -37,6 +37,9 @@ const Slider = ({
   onChange,
   ...props
 }: Props) => {
+  /** unique id to connect label and input */
+  const id = useId();
+
   const min = props.min ?? 0;
   const max = props.max ?? 100;
 
@@ -46,7 +49,6 @@ const Slider = ({
     value,
     // @ts-expect-error ts not smart enough
     onChange,
-    100,
   );
 
   /** force numbers to array */
@@ -57,9 +59,10 @@ const Slider = ({
   const showMax = (_numbers.at(-1) || 0) < (max - min) * 0.8;
 
   return (
-    <Field label={label} layout={layout} tooltip={tooltip}>
+    <Field id={id} label={label} layout={layout} tooltip={tooltip}>
       {/* slider */}
       <Root
+        id={id}
         className={classes.root}
         value={_numbers}
         onValueChange={(values) => setNumbers(multi ? values : values[0] || 0)}

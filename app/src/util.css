@@ -95,8 +95,9 @@
   --cell: calc(var(--content) / var(--cols) - 100px);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--cell), 1fr));
-  justify-items: center;
-  gap: 20px;
+  justify-items: stretch;
+  width: 100%;
+  gap: 40px;
 }
 
 .cols-3 {

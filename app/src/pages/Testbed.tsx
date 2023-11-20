@@ -7,6 +7,7 @@ import {
   FaClipboardList,
   FaFlaskVial,
   FaFont,
+  FaHashtag,
   FaMagnifyingGlass,
   FaRegCircleDot,
   FaRegHourglass,
@@ -18,12 +19,13 @@ import CustomIcon from "@/assets/custom-icon.svg?react";
 import Ago from "@/components/Ago";
 import Alert from "@/components/Alert";
 import Button from "@/components/Button";
-import Checkbox from "@/components/Checkbox";
+import CheckBox from "@/components/CheckBox";
 import Collapsible from "@/components/Collapsible";
 import Form from "@/components/Form";
 import Heading from "@/components/Heading";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
+import NumberBox from "@/components/NumberBox";
 import Section from "@/components/Section";
 import Slider from "@/components/Slider";
 import Tabs, { Tab } from "@/components/Tabs";
@@ -95,9 +97,7 @@ const Testbed = () => {
           <br />
           {formatDate(new Date())}
         </p>
-      </Section>
 
-      <Section>
         <p className="narrow center primary bold">
           Key sentence at start of section.
         </p>
@@ -203,14 +203,13 @@ const Testbed = () => {
           </Tab>
 
           {/* textbox */}
-          <Tab text="TextBox" icon={<FaFont />} className="flex-col gap-lg">
+          <Tab text="Text" icon={<FaFont />} className="flex-col gap-lg">
             <div className="grid">
               <TextBox
                 placeholder="Search"
                 tooltip="Help text"
                 required={true}
                 icon="clear"
-                debounce={1000}
                 onChange={console.info}
               />
               <TextBox
@@ -236,11 +235,15 @@ const Testbed = () => {
 
           {/* checkbox */}
           <Tab
-            text="Checkbox"
+            text="Check"
             icon={<FaRegSquareCheck />}
             className="flex-col gap-md"
           >
-            <Checkbox label="Accept terms and conditions" name="accept" />
+            <CheckBox
+              label="Accept terms and conditions"
+              name="accept"
+              onChange={console.info}
+            />
           </Tab>
 
           {/* slider */}
@@ -261,6 +264,26 @@ const Testbed = () => {
               min={0}
               max={10000}
               step={1}
+              onChange={console.info}
+            />
+          </Tab>
+
+          {/* number box */}
+          <Tab text="Number" icon={<FaHashtag />} className="flex-col gap-md">
+            <NumberBox
+              tooltip="Help text"
+              min={0}
+              max={100}
+              step={1}
+              onChange={console.info}
+            />
+            <NumberBox
+              label="Range"
+              layout="horizontal"
+              tooltip="Help text"
+              min={-10000}
+              max={10000}
+              step={100}
               onChange={console.info}
             />
           </Tab>
@@ -380,15 +403,22 @@ const Testbed = () => {
             className="flex-col gap-md"
           >
             <Form onSubmit={console.info}>
-              <TextBox placeholder="Name" name="name" tooltip="Help text" />
-              <TextBox
-                label="Describe your issue"
-                multi={true}
-                name="description"
-                required={true}
-                tooltip="Help text"
-              />
-              <Checkbox label="Send me a copy of my response" name="copy" />
+              <div className="grid">
+                <TextBox
+                  label="Name"
+                  placeholder="Name"
+                  name="name"
+                  tooltip="Help text"
+                />
+                <TextBox
+                  label="Describe your issue"
+                  multi={true}
+                  name="description"
+                  required={true}
+                  tooltip="Help text"
+                />
+              </div>
+              <CheckBox label="Send me a copy of my response" name="copy" />
               <Button text="Submit" design="accent" />
             </Form>
           </Tab>
