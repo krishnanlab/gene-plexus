@@ -1,4 +1,5 @@
 .input {
+  width: 100px;
   border: none;
   border-bottom: solid 2px currentColor;
   border-radius: var(--rounded) var(--rounded) 0 0;
@@ -6,7 +7,6 @@
   color: var(--gray);
   text-align: center;
   transition: color var(--fast);
-  width: unset;
 }
 
 .input:hover {

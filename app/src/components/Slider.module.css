@@ -13,7 +13,6 @@
 .root::after {
   position: absolute;
   bottom: -20px;
-  width: max-content;
   opacity: 0;
   transition: opacity var(--fast);
 }

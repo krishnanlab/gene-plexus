@@ -21,7 +21,7 @@ type Props = {
   value?: string;
   /** on text state change */
   onChange?: (value: string) => void;
-} & Omit<ComponentProps<typeof Field>, "id" | "children"> &
+} & Omit<ComponentProps<typeof Field>, "children"> &
   (InputProps | TextareaProps);
 
 /** single or multi-line text input box */
@@ -59,7 +59,11 @@ const TextBox = ({
   let iconElement = <></>;
   if (icon === "clear")
     iconElement = (
-      <button className={classes.icon} onClick={() => setText("")}>
+      <button
+        className={classes.icon}
+        onClick={() => setText("")}
+        aria-label="Clear text"
+      >
         <FaXmark />
       </button>
     );

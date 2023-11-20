@@ -1,15 +1,19 @@
 import { cloneElement, ReactElement, ReactNode } from "react";
 import { FaCircle } from "react-icons/fa6";
+import reactToText from "react-to-text";
 import {
   Indicator,
   Item,
   RadioGroupProps,
   Root,
 } from "@radix-ui/react-radio-group";
+import Field from "@/components/Field";
 import { useLocal } from "@/util/hooks";
 import classes from "./Radios.module.css";
 
 type Props<Value extends string> = {
+  /** label content */
+  label: ReactNode;
   /** selected option id */
   value?: Value;
   /** when selected option changes */
@@ -32,6 +36,7 @@ type Props<Value extends string> = {
  * all need to be simultaneously visible, otherwise use select.
  */
 const Radios = <Value extends string>({
+  label,
   value,
   onChange,
   options,
@@ -45,35 +50,46 @@ const Radios = <Value extends string>({
   );
 
   return (
-    <Root
-      className={classes.root}
-      value={selected}
-      onValueChange={(value) => setSelected(value as Value)}
-      {...props}
-    >
-      {options.map((option, index) => (
-        <label
-          key={index}
-          className={classes.option}
-          data-checked={selected === option.id}
-        >
-          <Item className={classes.item} value={option.id}>
-            <Indicator className={classes.indicator}>
-              <FaCircle />
-            </Indicator>
-          </Item>
-          <div>
-            <span className="primary">{option.primary}</span>
-            <br />
-            {option.secondary && (
-              <span className="secondary">{option.secondary}</span>
-            )}
-          </div>
-          {option.icon &&
-            cloneElement(option.icon, { className: classes.icon })}
-        </label>
-      ))}
-    </Root>
+    <Field layout="vertical" label={label}>
+      <Root
+        className={classes.root}
+        value={selected}
+        onValueChange={(value) => setSelected(value as Value)}
+        {...props}
+      >
+        {options.map((option, index) => (
+          <label
+            key={index}
+            className={classes.option}
+            data-checked={selected === option.id}
+          >
+            {/* check */}
+            <Item
+              className={classes.item}
+              value={option.id}
+              aria-label={reactToText(option.primary)}
+            >
+              <Indicator className={classes.indicator}>
+                <FaCircle />
+              </Indicator>
+            </Item>
+
+            {/* text content */}
+            <div>
+              <span className="primary">{option.primary}</span>
+              <br />
+              {option.secondary && (
+                <span className="secondary">{option.secondary}</span>
+              )}
+            </div>
+
+            {/* icon */}
+            {option.icon &&
+              cloneElement(option.icon, { className: classes.icon })}
+          </label>
+        ))}
+      </Root>
+    </Field>
   );
 };
 

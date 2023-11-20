@@ -291,7 +291,7 @@ const Testbed = () => {
             onChange={console.info}
           />
           <NumberBox
-            label="Range"
+            label="Big"
             layout="horizontal"
             tooltip="Help text"
             min={-10000}
@@ -309,6 +309,7 @@ const Testbed = () => {
         </Heading>
         <div className="flex-row">
           <Radios
+            label="Choice"
             options={[
               { id: "first", primary: "Primary lorem ipsum" },
               {
@@ -495,7 +496,7 @@ const Testbed = () => {
         <Heading level={3} icon={<FaClipboardList />}>
           Form
         </Heading>
-        <div className="flex-col gap-md">
+        <div className="flex-col gap-lg">
           <Form onSubmit={console.info}>
             <div className="grid">
               <TextBox label="Name" name="name" />
@@ -508,12 +509,13 @@ const Testbed = () => {
               <NumberBox label="Age" name="age" />
               <Slider label="Cutoff" name="cutoff" />
               <Radios
+                label="Order"
                 options={[
                   { id: "1", primary: "One" },
                   { id: "2", primary: "Two" },
                   { id: "3", primary: "Three" },
                 ]}
-                name="radio"
+                name="order"
               />
             </div>
             <CheckBox label="I consent" name="consent" />

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { FaCheck } from "react-icons/fa6";
+import reactToText from "react-to-text";
 import { CheckboxProps, Indicator, Root } from "@radix-ui/react-checkbox";
 import Help from "@/components/Help";
 import { useLocal } from "@/util/hooks";
@@ -28,6 +29,7 @@ const CheckBox = ({ label, tooltip, value, onChange, ...props }: Props) => {
         className={classes.root}
         checked={checked}
         onCheckedChange={(checked) => setChecked(!!checked)}
+        aria-label={reactToText(label)}
       >
         <Indicator className={classes.indicator}>
           <FaCheck />

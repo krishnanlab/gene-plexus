@@ -1,4 +1,5 @@
 import { ComponentProps } from "react";
+import reactToText from "react-to-text";
 import { Range, Root, SliderProps, Thumb, Track } from "@radix-ui/react-slider";
 import Field from "@/components/Field";
 import { useLocal } from "@/util/hooks";
@@ -55,8 +56,8 @@ const Slider = ({
   const _numbers = [numbers].flat();
 
   /** whether to show min/max marks */
-  const showMin = (_numbers[0] || 0) > (max - min) * 0.2;
-  const showMax = (_numbers.at(-1) || 0) < (max - min) * 0.8;
+  const showMin = (_numbers[0] || 0) > (max - min) * 0.1;
+  const showMax = (_numbers.at(-1) || 0) < (max - min) * 0.7;
 
   return (
     <Field label={label} layout={layout} tooltip={tooltip}>
@@ -77,6 +78,7 @@ const Slider = ({
             key={index}
             className={classes.thumb}
             data-value={formatNumber(number, true)}
+            aria-label={reactToText(label)}
           />
         ))}
       </Root>

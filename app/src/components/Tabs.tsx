@@ -39,10 +39,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
     <Root
       className={classNames(classes.root, "flex-col", "gap-lg")}
       value={syncWithUrl && value ? value : tabs[0]?.id}
-      onValueChange={(value) => {
-        syncWithUrl && setValue(value);
-        console.log(value);
-      }}
+      onValueChange={(value) => syncWithUrl && setValue(value)}
     >
       {/* tab list */}
       <List className="flex-row gap-sm">
@@ -64,7 +61,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
           key={index}
           className={classNames(classes.content, className)}
           value={kebabCase(text)}
-          {...omit(props, ["icon", "tooltip"])}
+          {...omit(props, ["id", "icon", "tooltip"])}
         />
       ))}
     </Root>
