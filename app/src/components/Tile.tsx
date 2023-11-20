@@ -14,7 +14,7 @@ type Props = {
 /** big icon and primary and secondary content/text */
 const Tile = ({ icon, primary, secondary }: Props) => {
   return (
-    <div className={classNames(classes.tile, "flex-col gap-md center")}>
+    <div className={classes.tile}>
       {cloneElement(icon, { className: "icon" })}
       <div>
         <div className={classNames(classes.primary, "bold")}>{primary}</div>

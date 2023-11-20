@@ -2,6 +2,8 @@ import {
   FaArrowRight,
   FaArrowsUpDown,
   FaBars,
+  FaBeerMugEmpty,
+  FaCat,
   FaChampagneGlasses,
   FaCircleInfo,
   FaClipboardList,
@@ -9,10 +11,13 @@ import {
   FaFont,
   FaHashtag,
   FaMagnifyingGlass,
+  FaPalette,
   FaRegCircleDot,
+  FaRegFolder,
   FaRegHourglass,
   FaRegSquareCheck,
   FaSliders,
+  FaStop,
 } from "react-icons/fa6";
 import { sample } from "lodash";
 import CustomIcon from "@/assets/custom-icon.svg?react";
@@ -26,6 +31,7 @@ import Heading from "@/components/Heading";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
 import NumberBox from "@/components/NumberBox";
+import Radios from "@/components/Radios";
 import Section from "@/components/Section";
 import Slider from "@/components/Slider";
 import Tabs, { Tab } from "@/components/Tabs";
@@ -147,282 +153,373 @@ const Testbed = () => {
         <Heading level={2} icon="C">
           Components
         </Heading>
+      </Section>
 
-        <Tabs syncWithUrl="component">
-          {/* button */}
+      {/* button */}
+      <Section>
+        <Heading level={3} icon={<FaStop />}>
+          Button
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Button
+            to="/about"
+            text="About"
+            icon={<FaArrowRight />}
+            tooltip={<>Hello World</>}
+          />
+          <Button
+            to="/about"
+            text="Learn More"
+            design="accent"
+            tooltip={
+              <>
+                <b>Hello</b> <i>World</i>
+              </>
+            }
+          />
+          <Button
+            to="/about"
+            icon={<CustomIcon />}
+            design="critical"
+            tooltip={
+              <Link to="https://medschool.cuanschutz.edu/dbmi">Test Link</Link>
+            }
+          />
+          <Button
+            onClick={() => window.alert("Hello World")}
+            text="About"
+            tooltip={<>Hello World</>}
+          />
+          <Button
+            onClick={() => window.alert("Hello World")}
+            text="Learn More"
+            icon={<FaArrowRight />}
+            design="accent"
+            tooltip={<>Hello World</>}
+          />
+          <Button
+            onClick={() => window.alert("Hello World")}
+            icon={<CustomIcon />}
+            design="critical"
+            tooltip={<>Hello World</>}
+          />
+        </div>
+      </Section>
+
+      {/* textbox */}
+      <Section>
+        <Heading level={3} icon={<FaFont />}>
+          Text Box
+        </Heading>
+        <div className="grid">
+          <TextBox
+            placeholder="Search"
+            tooltip="Help text"
+            required={true}
+            icon="clear"
+            onChange={console.info}
+          />
+          <TextBox
+            placeholder="Search"
+            multi={true}
+            tooltip="Help text"
+            icon={<FaMagnifyingGlass />}
+          />
+          <TextBox label="TextBox" placeholder="Search" tooltip="Help text" />
+          <TextBox
+            label="TextBox"
+            multi={true}
+            placeholder="Search"
+            tooltip="Help text"
+            required={true}
+          />
+        </div>
+      </Section>
+
+      {/* checkbox */}
+      <Section>
+        <Heading level={3} icon={<FaRegSquareCheck />}>
+          Check Box
+        </Heading>
+        <div className="flex-col gap-md">
+          <CheckBox
+            label="Accept terms and conditions"
+            name="accept"
+            onChange={console.info}
+          />
+        </div>
+      </Section>
+
+      {/* slider */}
+      <Section>
+        <Heading level={3} icon={<FaSliders />}>
+          Slider
+        </Heading>
+        <div className="flex-col gap-md">
+          <Slider
+            label="Single"
+            tooltip="Help text"
+            min={0}
+            max={100}
+            step={1}
+            onChange={console.info}
+          />
+          <Slider
+            label="Range"
+            multi={true}
+            layout="horizontal"
+            tooltip="Help text"
+            min={0}
+            max={10000}
+            step={1}
+            onChange={console.info}
+          />
+        </div>
+      </Section>
+
+      {/* number box */}
+      <Section>
+        <Heading level={3} icon={<FaHashtag />}>
+          Number Box
+        </Heading>
+        <div className="flex-col gap-md">
+          <NumberBox
+            tooltip="Help text"
+            min={0}
+            max={100}
+            step={1}
+            onChange={console.info}
+          />
+          <NumberBox
+            label="Range"
+            layout="horizontal"
+            tooltip="Help text"
+            min={-10000}
+            max={10000}
+            step={100}
+            onChange={console.info}
+          />
+        </div>
+      </Section>
+
+      {/* radios */}
+      <Section>
+        <Heading level={3} icon={<FaRegCircleDot />}>
+          Radios
+        </Heading>
+        <div className="flex-row">
+          <Radios
+            options={[
+              { id: "first", primary: "Primary lorem ipsum" },
+              {
+                id: "second",
+                primary: "Primary lorem ipsum",
+                secondary: "Secondary lorem ipsum",
+              },
+              {
+                id: "third",
+                primary: "Primar lorem ipsumy",
+                icon: <FaCat />,
+              },
+            ]}
+            onChange={console.info}
+          />
+        </div>
+      </Section>
+
+      {/* ago */}
+      <Section>
+        <Heading level={3} icon={<FaRegHourglass />}>
+          Ago
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Ago date="" />
+          <Ago date="Nov 12 2023" />
+          <Ago date="Jun 1 2020" />
+        </div>
+      </Section>
+
+      {/* alert */}
+      <Section>
+        <Heading level={3} icon={<FaCircleInfo />}>
+          Alert
+        </Heading>
+        <div className="flex-col gap-md">
+          <Alert>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Alert>
+          <Alert type="loading">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Alert>
+          <Alert type="success">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Alert>
+          <Alert type="warning">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Alert>
+          <Alert type="error">
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </Alert>
+        </div>
+      </Section>
+
+      {/* tabs */}
+      <Section>
+        <Heading level={3} icon={<FaRegFolder />}>
+          Tabs
+        </Heading>
+        <Tabs syncWithUrl="tab">
+          <Tab text="Animals" icon={<FaCat />} tooltip="Help text">
+            <ul>
+              <li>Cat</li>
+              <li>Dog</li>
+              <li>Bird</li>
+            </ul>
+          </Tab>
           <Tab
-            text="Button"
-            icon={<FaRegCircleDot />}
-            tooltip="Lorem ipsum"
-            className="flex-row gap-sm"
+            text="Drinks"
+            icon={<FaBeerMugEmpty />}
+            tooltip={
+              <>
+                <b>Help</b> text
+              </>
+            }
           >
-            <Button
-              to="/about"
-              text="About"
-              icon={<FaArrowRight />}
-              tooltip={<>Hello World</>}
-            />
-            <Button
-              to="/about"
-              text="Learn More"
-              design="accent"
-              tooltip={
-                <>
-                  <b>Hello</b> <i>World</i>
-                </>
-              }
-            />
-            <Button
-              to="/about"
-              icon={<CustomIcon />}
-              design="critical"
-              tooltip={
-                <Link to="https://medschool.cuanschutz.edu/dbmi">
-                  Test Link
-                </Link>
-              }
-            />
-            <Button
-              onClick={() => window.alert("Hello World")}
-              text="About"
-              tooltip={<>Hello World</>}
-            />
-            <Button
-              onClick={() => window.alert("Hello World")}
-              text="Learn More"
-              icon={<FaArrowRight />}
-              design="accent"
-              tooltip={<>Hello World</>}
-            />
-            <Button
-              onClick={() => window.alert("Hello World")}
-              icon={<CustomIcon />}
-              design="critical"
-              tooltip={<>Hello World</>}
-            />
+            <ul>
+              <li>Soda</li>
+              <li>Beer</li>
+              <li>Water</li>
+            </ul>
           </Tab>
-
-          {/* textbox */}
-          <Tab text="Text" icon={<FaFont />} className="flex-col gap-lg">
-            <div className="grid">
-              <TextBox
-                placeholder="Search"
-                tooltip="Help text"
-                required={true}
-                icon="clear"
-                onChange={console.info}
-              />
-              <TextBox
-                placeholder="Search"
-                multi={true}
-                tooltip="Help text"
-                icon={<FaMagnifyingGlass />}
-              />
-              <TextBox
-                label="TextBox"
-                placeholder="Search"
-                tooltip="Help text"
-              />
-              <TextBox
-                label="TextBox"
-                multi={true}
-                placeholder="Search"
-                tooltip="Help text"
-                required={true}
-              />
-            </div>
-          </Tab>
-
-          {/* checkbox */}
-          <Tab
-            text="Check"
-            icon={<FaRegSquareCheck />}
-            className="flex-col gap-md"
-          >
-            <CheckBox
-              label="Accept terms and conditions"
-              name="accept"
-              onChange={console.info}
-            />
-          </Tab>
-
-          {/* slider */}
-          <Tab text="Slider" icon={<FaSliders />} className="flex-col gap-md">
-            <Slider
-              label="Single"
-              tooltip="Help text"
-              min={0}
-              max={100}
-              step={1}
-              onChange={console.info}
-            />
-            <Slider
-              label="Range"
-              multi={true}
-              layout="horizontal"
-              tooltip="Help text"
-              min={0}
-              max={10000}
-              step={1}
-              onChange={console.info}
-            />
-          </Tab>
-
-          {/* number box */}
-          <Tab text="Number" icon={<FaHashtag />} className="flex-col gap-md">
-            <NumberBox
-              tooltip="Help text"
-              min={0}
-              max={100}
-              step={1}
-              onChange={console.info}
-            />
-            <NumberBox
-              label="Range"
-              layout="horizontal"
-              tooltip="Help text"
-              min={-10000}
-              max={10000}
-              step={100}
-              onChange={console.info}
-            />
-          </Tab>
-
-          {/* ago */}
-          <Tab text="Ago" icon={<FaRegHourglass />} className="flex-row gap-sm">
-            <Ago date="" />
-            <Ago date="Nov 12 2023" />
-            <Ago date="Jun 1 2020" />
-          </Tab>
-
-          {/* alert */}
-          <Tab text="Alert" icon={<FaCircleInfo />} className="flex-col gap-md">
-            <Alert>
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Alert>
-            <Alert type="loading">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Alert>
-            <Alert type="success">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Alert>
-            <Alert type="warning">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Alert>
-            <Alert type="error">
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </Alert>
-          </Tab>
-
-          {/* toast */}
-          <Tab
-            text="Toast"
-            icon={<FaChampagneGlasses />}
-            className="flex-row gap-sm"
-          >
-            <Button
-              text="Unique Toast"
-              design="accent"
-              onClick={() =>
-                toast(
-                  sample([
-                    "Apple",
-                    "Banana",
-                    "Cantaloupe",
-                    "Durian",
-                    "Elderberry",
-                  ]),
-                )
-              }
-            />
-            <Button
-              text="Overwriting Toast"
-              design="accent"
-              onClick={() =>
-                toast(
-                  `ABC`,
-                  sample(["info", "loading", "success", "warning", "error"]),
-                  "abc",
-                )
-              }
-            />
-          </Tab>
-
-          {/* collapsible */}
-          <Tab
-            text="Collapsible"
-            icon={<FaArrowsUpDown />}
-            className="narrow flex-col gap-md"
-          >
-            <Collapsible text="Expand Me" className="flex-col gap-md">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Facilisis sed odio morbi quis commodo odio aenean sed. Urna
-                cursus eget nunc scelerisque viverra mauris in aliquam.
-                Elementum integer enim neque volutpat ac tincidunt vitae semper
-                quis. Non diam phasellus vestibulum lorem sed risus. Amet luctus
-                venenatis lectus magna.
-              </p>
-              <div className="flex-row gap-md">
-                <span>abc</span>
-                <span>123</span>
-                <span>xyz</span>
-              </div>
-            </Collapsible>
-          </Tab>
-
-          {/* tile */}
-          <Tab text="Tile" icon={<CustomIcon />} className="flex-row gap-md">
-            <Tile
-              icon={<FaRegHourglass />}
-              primary={formatNumber(1234)}
-              secondary="Sequences"
-            />
-            <Tile
-              icon={<CustomIcon />}
-              primary={formatNumber(5678)}
-              secondary="Proteins"
-            />
-            <Tile
-              icon={<FaBars />}
-              primary={formatNumber(99999)}
-              secondary="Analyses"
-            />
-          </Tab>
-
-          {/* form */}
-          <Tab
-            text="Form"
-            icon={<FaClipboardList />}
-            className="flex-col gap-md"
-          >
-            <Form onSubmit={console.info}>
-              <div className="grid">
-                <TextBox
-                  label="Name"
-                  placeholder="Name"
-                  name="name"
-                  tooltip="Help text"
-                />
-                <TextBox
-                  label="Describe your issue"
-                  multi={true}
-                  name="description"
-                  required={true}
-                  tooltip="Help text"
-                />
-              </div>
-              <CheckBox label="Send me a copy of my response" name="copy" />
-              <Button text="Submit" design="accent" />
-            </Form>
+          <Tab text="Colors" icon={<FaPalette />}>
+            <ul>
+              <li>Red</li>
+              <li>Purple</li>
+              <li>Blue</li>
+            </ul>
           </Tab>
         </Tabs>
+      </Section>
+
+      {/* toast */}
+      <Section>
+        <Heading level={3} icon={<FaChampagneGlasses />}>
+          Toast
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Button
+            text="Unique Toast"
+            design="accent"
+            onClick={() =>
+              toast(
+                sample([
+                  "Apple",
+                  "Banana",
+                  "Cantaloupe",
+                  "Durian",
+                  "Elderberry",
+                ]),
+              )
+            }
+          />
+          <Button
+            text="Overwriting Toast"
+            design="accent"
+            onClick={() =>
+              toast(
+                `ABC`,
+                sample(["info", "loading", "success", "warning", "error"]),
+                "abc",
+              )
+            }
+          />
+        </div>
+      </Section>
+
+      {/* collapsible */}
+      <Section>
+        <Heading level={3} icon={<FaArrowsUpDown />}>
+          Collapsible
+        </Heading>
+        <div className="narrow flex-col gap-md">
+          <Collapsible text="Expand Me" className="flex-col gap-md">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus
+              eget nunc scelerisque viverra mauris in aliquam. Elementum integer
+              enim neque volutpat ac tincidunt vitae semper quis. Non diam
+              phasellus vestibulum lorem sed risus. Amet luctus venenatis lectus
+              magna.
+            </p>
+            <div className="flex-row gap-md">
+              <span>abc</span>
+              <span>123</span>
+              <span>xyz</span>
+            </div>
+          </Collapsible>
+        </div>
+      </Section>
+
+      {/* tile */}
+      <Section>
+        <Heading level={3} icon={<CustomIcon />}>
+          Tile
+        </Heading>
+        <div className="flex-row gap-md">
+          <Tile
+            icon={<FaRegHourglass />}
+            primary={formatNumber(1234)}
+            secondary="Sequences"
+          />
+          <Tile
+            icon={<CustomIcon />}
+            primary={formatNumber(5678)}
+            secondary="Proteins"
+          />
+          <Tile
+            icon={<FaBars />}
+            primary={formatNumber(99999)}
+            secondary="Analyses"
+          />
+        </div>
+      </Section>
+
+      {/* form */}
+      <Section>
+        <Heading level={3} icon={<FaClipboardList />}>
+          Form
+        </Heading>
+        <div className="flex-col gap-md">
+          <Form onSubmit={console.info}>
+            <div className="grid">
+              <TextBox label="Name" name="name" />
+              <TextBox
+                label="Description"
+                multi={true}
+                name="description"
+                required={true}
+              />
+              <NumberBox label="Age" name="age" />
+              <Slider label="Cutoff" name="cutoff" />
+              <Radios
+                options={[
+                  { id: "1", primary: "One" },
+                  { id: "2", primary: "Two" },
+                  { id: "3", primary: "Three" },
+                ]}
+                name="radio"
+              />
+            </div>
+            <CheckBox label="I consent" name="consent" />
+            <Button text="Submit" design="accent" />
+          </Form>
+        </div>
       </Section>
 
       <Section fill={true}>

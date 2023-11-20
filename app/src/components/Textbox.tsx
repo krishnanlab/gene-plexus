@@ -1,4 +1,4 @@
-import { ComponentProps, ReactElement, useId } from "react";
+import { ComponentProps, ReactElement } from "react";
 import { FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
 import Field from "@/components/Field";
@@ -35,16 +35,12 @@ const TextBox = ({
   onChange,
   ...props
 }: Props) => {
-  /** unique id to connect label and input */
-  const id = useId();
-
   /** local copy of state */
   const [text, setText] = useLocal("", value, onChange);
 
   /** input field */
   const input = multi ? (
     <textarea
-      id={id}
       className={classNames(classes.textarea, "shadow")}
       value={text}
       onChange={(event) => setText(event.target.value)}
@@ -52,7 +48,6 @@ const TextBox = ({
     />
   ) : (
     <input
-      id={id}
       className={classNames(classes.input, "shadow")}
       value={text}
       onChange={(event) => setText(event.target.value)}
@@ -72,7 +67,6 @@ const TextBox = ({
 
   return (
     <Field
-      id={id}
       label={label}
       layout={layout}
       tooltip={tooltip}

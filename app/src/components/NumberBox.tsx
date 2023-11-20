@@ -1,4 +1,4 @@
-import { ComponentProps, useId, useState } from "react";
+import { ComponentProps, useState } from "react";
 import { useEvent } from "react-use";
 import Field from "@/components/Field";
 import { useLocal } from "@/util/hooks";
@@ -10,9 +10,9 @@ type Props = {
   /** on number state change */
   onChange?: (value: number) => void;
 } & Omit<ComponentProps<"input">, "value" | "onChange"> &
-  Omit<ComponentProps<typeof Field>, "id" | "children">;
+  Omit<ComponentProps<typeof Field>, "children">;
 
-/** number input box */
+/** number input box. use for numeric values that need precise adjustment. */
 const NumberBox = ({
   label,
   layout,
@@ -21,9 +21,6 @@ const NumberBox = ({
   onChange,
   ...props
 }: Props) => {
-  /** unique id to connect label and field */
-  const id = useId();
-
   /** local copy of state */
   const [number, setNumber] = useLocal("0", String(value || "0"), (value) => {
     const number = Number(value);
@@ -38,14 +35,12 @@ const NumberBox = ({
 
   return (
     <Field
-      id={id}
       label={label}
       layout={layout}
       tooltip={tooltip}
       required={props.required}
     >
       <input
-        id={id}
         className={classes.input}
         type="number"
         value={number}

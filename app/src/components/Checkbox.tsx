@@ -1,4 +1,4 @@
-import { ReactNode, useId } from "react";
+import { ReactNode } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { CheckboxProps, Indicator, Root } from "@radix-ui/react-checkbox";
 import Help from "@/components/Help";
@@ -18,18 +18,13 @@ type Props = {
 
 /** simple checkbox with label */
 const CheckBox = ({ label, tooltip, value, onChange, ...props }: Props) => {
-  /** unique id to connect label and field */
-  const id = useId();
-
   /** local copy of state */
   const [checked, setChecked] = useLocal(false, value, onChange);
 
   return (
-    <div className={classes.wrapper}>
-      {/* checkbox */}
+    <label className={classes.label}>
       <Root
         {...props}
-        id={id}
         className={classes.root}
         checked={checked}
         onCheckedChange={(checked) => setChecked(!!checked)}
@@ -38,13 +33,9 @@ const CheckBox = ({ label, tooltip, value, onChange, ...props }: Props) => {
           <FaCheck />
         </Indicator>
       </Root>
-
-      {/* label */}
-      <label className={classes.label} htmlFor={id}>
-        {label}
-        {tooltip && <Help tooltip={tooltip} className={classes.help} />}
-      </label>
-    </div>
+      {label}
+      {tooltip && <Help tooltip={tooltip} className={classes.help} />}
+    </label>
   );
 };
 

@@ -26,18 +26,28 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
   const [value, setValue] = useQueryParam(syncWithUrl, StringParam);
 
   /** tab props */
-  const tabs = children.map((child) => child.props);
+  const tabs = children.map((child) => ({
+    ...child.props,
+    /**
+     * make unique id from text. text should be unique too to avoid user
+     * confusion.
+     */
+    id: kebabCase(child.props.text),
+  }));
 
   return (
     <Root
       className={classNames(classes.root, "flex-col", "gap-lg")}
-      value={syncWithUrl && value ? value : undefined}
-      onValueChange={(value) => syncWithUrl && setValue(value)}
+      value={syncWithUrl && value ? value : tabs[0]?.id}
+      onValueChange={(value) => {
+        syncWithUrl && setValue(value);
+        console.log(value);
+      }}
     >
       {/* tab list */}
       <List className="flex-row gap-sm">
-        {tabs.map(({ text, icon, tooltip }, index) => (
-          <Trigger key={index} asChild value={kebabCase(text)}>
+        {tabs.map(({ id, text, icon, tooltip }, index) => (
+          <Trigger key={index} asChild value={id}>
             <Tooltip content={tooltip}>
               <button className={classes.button}>
                 {text}
@@ -64,7 +74,10 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
 export default Tabs;
 
 type TabProps = {
-  /** tab button text */
+  /**
+   * tab button text. should be unique to avoid user confusion, and because
+   * kebab-cased to create unique id.
+   */
   text: string;
   /** tab button icon */
   icon?: ReactElement;

@@ -1,6 +1,18 @@
 .input {
   border: none;
-  border-bottom: solid 2px var(--accent);
+  border-bottom: solid 2px currentColor;
   border-radius: var(--rounded) var(--rounded) 0 0;
   background: none;
+  color: var(--gray);
+  text-align: center;
+  transition: color var(--fast);
+  width: unset;
+}
+
+.input:hover {
+  color: var(--accent);
+}
+
+.input:not(:focus, :hover)::-webkit-inner-spin-button {
+  opacity: 0.25;
 }

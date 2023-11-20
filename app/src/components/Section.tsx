@@ -11,8 +11,8 @@ type Props = {
 
 /**
  * vertically stacked section. background color spans full width of screen, but
- * contents limited to readable width by default. alternating background
- * colors.
+ * contents limited to readable width by default. alternating background colors.
+ * do not nest sections.
  */
 const Section = ({ fill, full, className, ...props }: Props) => {
   return (
