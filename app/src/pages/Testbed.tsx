@@ -499,7 +499,7 @@ const Testbed = () => {
         <div className="flex-col gap-lg">
           <Form onSubmit={console.info}>
             <div className="grid">
-              <TextBox label="Name" name="name" />
+              <TextBox label="Email" name="email" type="email" />
               <TextBox
                 label="Description"
                 multi={true}
@@ -508,6 +508,7 @@ const Testbed = () => {
               />
               <NumberBox label="Age" name="age" />
               <Slider label="Cutoff" name="cutoff" />
+              <Slider label="Range" multi={true} name="range" />
               <Radios
                 label="Order"
                 options={[

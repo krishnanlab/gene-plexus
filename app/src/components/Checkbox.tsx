@@ -17,6 +17,10 @@ type Props = {
   onChange?: (value: boolean) => void;
 } & Omit<CheckboxProps, "value" | "onChange">;
 
+/** obscure value to be able to distinguish boolean (checkbox) in FormData */
+export const checkedValue = "__checkedValue__";
+export const uncheckedValue = "__uncheckedValue__";
+
 /** simple checkbox with label */
 const CheckBox = ({ label, tooltip, value, onChange, ...props }: Props) => {
   /** local copy of state */
@@ -29,6 +33,7 @@ const CheckBox = ({ label, tooltip, value, onChange, ...props }: Props) => {
         className={classes.root}
         checked={checked}
         onCheckedChange={(checked) => setChecked(!!checked)}
+        value={checked ? checkedValue : uncheckedValue}
         aria-label={reactToText(label)}
       >
         <Indicator className={classes.indicator}>

@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { ComponentProps, useEffect, useRef } from "react";
 import reactToText from "react-to-text";
 import { Range, Root, SliderProps, Thumb, Track } from "@radix-ui/react-slider";
 import Field from "@/components/Field";
@@ -41,6 +41,8 @@ const Slider = ({
   onChange,
   ...props
 }: Props) => {
+  const ref = useRef<HTMLSpanElement>(null);
+
   const min = props.min ?? 0;
   const max = props.max ?? 100;
 
@@ -59,10 +61,21 @@ const Slider = ({
   const showMin = (_numbers[0] || 0) > (max - min) * 0.1;
   const showMax = (_numbers.at(-1) || 0) < (max - min) * 0.7;
 
+  /** https://github.com/radix-ui/primitives/issues/2454 */
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    const inputs = [...(root.parentElement?.querySelectorAll("input") || [])];
+    if (inputs.length > 1)
+      for (const [index, input] of Object.entries(inputs))
+        input.name = props.name + "-" + index;
+  });
+
   return (
     <Field label={label} layout={layout} tooltip={tooltip}>
       {/* slider */}
       <Root
+        ref={ref}
         className={classes.root}
         value={_numbers}
         onValueChange={(values) => setNumbers(multi ? values : values[0] || 0)}
