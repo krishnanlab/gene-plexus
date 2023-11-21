@@ -10,6 +10,7 @@ import {
   FaFlaskVial,
   FaFont,
   FaHashtag,
+  FaListCheck,
   FaMagnifyingGlass,
   FaPalette,
   FaRegCircleDot,
@@ -33,6 +34,7 @@ import Meta from "@/components/Meta";
 import NumberBox from "@/components/NumberBox";
 import Radios from "@/components/Radios";
 import Section from "@/components/Section";
+import Select from "@/components/Select";
 import Slider from "@/components/Slider";
 import Tabs, { Tab } from "@/components/Tabs";
 import TextBox from "@/components/TextBox";
@@ -232,6 +234,37 @@ const Testbed = () => {
             placeholder="Search"
             tooltip="Help text"
             required={true}
+          />
+        </div>
+      </Section>
+
+      {/* select */}
+      <Section>
+        <Heading level={3} icon={<FaListCheck />}>
+          Select
+        </Heading>
+        <div className="flex-row gap-md">
+          {/*  */}
+          <Select
+            options={
+              [
+                { id: "1", text: "Lorem" },
+                { id: "2", text: "Ipsum" },
+                { id: "3", text: "Dolor" },
+              ] as const
+            }
+            onChange={console.info}
+          />
+          <Select
+            multi={true}
+            options={
+              [
+                { id: "a", text: "Lorem" },
+                { id: "2", text: "Ipsum" },
+                { id: "3", text: "Dolor" },
+              ] as const
+            }
+            onChange={console.info}
           />
         </div>
       </Section>
