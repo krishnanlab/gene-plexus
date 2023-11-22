@@ -3,7 +3,7 @@ import classNames from "classnames";
 import classes from "./Section.module.css";
 
 type Props = {
-  /** accent background color */
+  /** highlighted background color */
   fill?: boolean;
   /** contents fill full available screen width */
   full?: boolean;

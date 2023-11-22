@@ -15,7 +15,7 @@
 
 .button[data-state="inactive"]:hover {
   border-width: 1px;
-  background: var(--off-white);
+  background: var(--accent-light);
 }
 
 .button[data-state="active"] {

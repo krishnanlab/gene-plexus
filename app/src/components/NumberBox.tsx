@@ -32,6 +32,8 @@ const NumberBox = ({ min, max, step, value, onChange, ...props }: Props) => {
     numberInput.machine({
       /** unique id for component instance */
       id: useId(),
+      /** FormData name */
+      name: props.name,
       /** settings */
       allowMouseWheel: true,
       /** regular number box props */
@@ -47,8 +49,6 @@ const NumberBox = ({ min, max, step, value, onChange, ...props }: Props) => {
 
   /** interact with zag */
   const api = numberInput.connect(state, send, normalizeProps);
-
-  console.log(api.inputProps.id);
 
   return (
     <Label

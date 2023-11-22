@@ -1,5 +1,7 @@
 import "@/global/styles.css";
-import "@/global/util.css";
+import "@/global/text.css";
+import "@/global/layout.css";
+import "@/global/effects.css";
 import { useEffect } from "react";
 import { IconContext } from "react-icons";
 import {
@@ -19,8 +21,7 @@ import Analyses from "@/pages/Analyses";
 import Home from "@/pages/Home";
 import NewAnalysis from "@/pages/NewAnalysis";
 import Testbed from "@/pages/Testbed";
-import { scrollTo, waitFor } from "@/util/dom";
-import { sleep } from "@/util/misc";
+import { scrollTo } from "@/util/dom";
 
 /** app entrypoint */
 const App = () => <RouterProvider router={router} />;

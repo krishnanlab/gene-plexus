@@ -17,8 +17,3 @@
   height: 20px;
   color: var(--accent);
 }
-
-.label:has(input:focus-visible) {
-  outline: solid 2px var(--accent);
-  outline-offset: 2px;
-}

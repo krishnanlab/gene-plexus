@@ -8,22 +8,22 @@
 
     @keyframes logo-draw {
       0% {
-        stroke-dashoffset: calc(3px * var(--length));
+        stroke-dashoffset: calc(2px * var(--length));
       }
       20% {
-        stroke-dashoffset: calc(3px * var(--length));
+        stroke-dashoffset: calc(2px * var(--length));
       }
       40% {
-        stroke-dashoffset: calc(2px * var(--length));
+        stroke-dashoffset: calc(1px * var(--length));
       }
       60% {
-        stroke-dashoffset: calc(2px * var(--length));
+        stroke-dashoffset: calc(1px * var(--length));
       }
       80% {
-        stroke-dashoffset: calc(1px * var(--length));
+        stroke-dashoffset: 0;
       }
       100% {
-        stroke-dashoffset: calc(1px * var(--length));
+        stroke-dashoffset: 0;
       }
     }
   </style>

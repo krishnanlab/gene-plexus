@@ -47,7 +47,7 @@
 .option:hover,
 .option[data-highlighted],
 .option[data-selected] {
-  background: var(--off-white);
+  background: var(--accent-light);
 }
 
 .check {

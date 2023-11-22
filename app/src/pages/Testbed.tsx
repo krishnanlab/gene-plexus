@@ -224,7 +224,7 @@ const Testbed = () => {
         <Heading level={3} icon={<FaFont />}>
           Text Box
         </Heading>
-        <div className="grid">
+        <div className="grid full">
           <TextBox placeholder="Search" icon="clear" onChange={logChange} />
           <TextBox
             placeholder="Search"
@@ -232,7 +232,12 @@ const Testbed = () => {
             icon={<FaMagnifyingGlass />}
           />
           <TextBox label="Label" placeholder="Search" />
-          <TextBox label="Label" multi={true} placeholder="Search" />
+          <TextBox
+            label="Label"
+            layout="horizontal"
+            multi={true}
+            placeholder="Search"
+          />
         </div>
       </Section>
 
@@ -244,8 +249,6 @@ const Testbed = () => {
         <div className="flex-row gap-md">
           <Select
             label="Single"
-            layout="horizontal"
-            tooltip="Tooltip"
             options={
               [
                 { id: "1", text: "Lorem" },
@@ -257,6 +260,7 @@ const Testbed = () => {
           />
           <Select
             label="Multi"
+            layout="horizontal"
             multi={true}
             options={
               [
@@ -275,7 +279,7 @@ const Testbed = () => {
         <Heading level={3} icon={<FaRegSquareCheck />}>
           Check Box
         </Heading>
-        <div className="flex-col gap-md">
+        <div className="flex-row gap-md">
           <CheckBox
             label="Accept terms and conditions"
             tooltip="Tooltip"
@@ -290,10 +294,9 @@ const Testbed = () => {
         <Heading level={3} icon={<FaSliders />}>
           Slider
         </Heading>
-        <div className="flex-col gap-md">
+        <div className="flex-row gap-md">
           <Slider
             label="Single"
-            tooltip="Tooltip"
             min={0}
             max={100}
             step={1}
@@ -301,12 +304,11 @@ const Testbed = () => {
           />
           <Slider
             label="Range"
-            multi={true}
             layout="horizontal"
-            tooltip="Tooltip"
+            multi={true}
             min={0}
             max={10000}
-            step={1}
+            step={100}
             onChange={logChange}
           />
         </div>
@@ -317,9 +319,9 @@ const Testbed = () => {
         <Heading level={3} icon={<FaHashtag />}>
           Number Box
         </Heading>
-        <div className="flex-col gap-md">
+        <div className="flex-row gap-md">
           <NumberBox
-            tooltip="Tooltip"
+            label="Small"
             min={0}
             max={100}
             step={1}
@@ -328,7 +330,6 @@ const Testbed = () => {
           <NumberBox
             label="Big"
             layout="horizontal"
-            tooltip="Tooltip"
             min={-10000}
             max={10000}
             step={100}
@@ -566,7 +567,7 @@ const Testbed = () => {
         </Heading>
         <div className="flex-col gap-lg">
           <Form onSubmit={console.info}>
-            <div className="grid">
+            <div className="grid full">
               <TextBox label="Email" name="email" type="email" />
               <TextBox
                 label="Description"
@@ -580,9 +581,9 @@ const Testbed = () => {
               <Radios
                 label="Order"
                 options={[
-                  { id: "1", primary: "One" },
-                  { id: "2", primary: "Two" },
-                  { id: "3", primary: "Three" },
+                  { id: "A", primary: "One" },
+                  { id: "B", primary: "Two" },
+                  { id: "C", primary: "Three" },
                 ]}
                 name="order"
               />

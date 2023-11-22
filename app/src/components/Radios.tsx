@@ -1,19 +1,19 @@
-import { cloneElement, ReactElement, ReactNode } from "react";
-import { FaCircle } from "react-icons/fa6";
-import reactToText from "react-to-text";
 import {
-  Indicator,
-  Item,
-  RadioGroupProps,
-  Root,
-} from "@radix-ui/react-radio-group";
-import Field from "@/components/Field";
-import { useLocal } from "@/util/hooks";
+  cloneElement,
+  ComponentProps,
+  ReactElement,
+  ReactNode,
+  useId,
+} from "react";
+import { FaRegCircle, FaRegCircleDot } from "react-icons/fa6";
+import * as radio from "@zag-js/radio-group";
+import { normalizeProps, useMachine } from "@zag-js/react";
+import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
 import classes from "./Radios.module.css";
 
-type Props<Value extends string> = {
-  /** label content */
-  label: ReactNode;
+type Input = Omit<ComponentProps<"input">, "value" | "onChange">;
+
+type Base<Value extends string> = {
   /** selected option id */
   value?: Value;
   /** when selected option changes */
@@ -29,53 +29,59 @@ type Props<Value extends string> = {
     /** icon next to content */
     icon?: ReactElement;
   }[];
-} & Omit<RadioGroupProps, "value" | "onChange">;
+};
+
+type Props<Value extends string> = Base<Value> & LabelProps & Input;
 
 /**
- * group of mutually-exclusive options. only use for 2-4 important options that
- * all need to be simultaneously visible, otherwise use select.
+ * group of mutually-exclusive options. only use for 2-4 very important options
+ * that all need to be simultaneously visible, otherwise use select.
  */
 const Radios = <Value extends string>({
-  label,
   value,
   onChange,
   options,
   ...props
 }: Props<Value>) => {
-  /** local copy of state */
-  const [selected, setSelected] = useLocal(
-    options[0]?.id as Value,
-    value,
-    onChange,
+  /** set up zag */
+  const [state, send] = useMachine(
+    radio.machine({
+      /** unique id for component instance */
+      id: useId(),
+      /** FormData name */
+      name: props.name,
+      /** initialize selected value state */
+      value: String(value || options[0]?.id || 0),
+      /** when selected value changes */
+      onValueChange: (details) => onChange?.(details.value as Value),
+    }),
   );
 
+  /** interact with zag */
+  const api = radio.connect(state, send, normalizeProps);
+
+  /** check icon */
+  const Check = ({ selected = false, ...props }) =>
+    selected ? <FaRegCircleDot {...props} /> : <FaRegCircle {...props} />;
+
   return (
-    <Field layout="vertical" label={label}>
-      <Root
-        className={classes.root}
-        value={selected}
-        onValueChange={(value) => setSelected(value as Value)}
-        {...props}
-      >
-        {options.map((option, index) => (
+    <Label {...api.labelProps} {...forwardLabelProps(props)} layout="vertical">
+      <div {...api.rootProps} className={classes.list}>
+        {options.map((option) => (
           <label
-            key={index}
+            key={option.id}
+            {...api.getItemProps({ value: option.id })}
             className={classes.option}
-            data-checked={selected === option.id}
           >
             {/* check */}
-            <Item
-              className={classes.item}
-              value={option.id}
-              aria-label={reactToText(option.primary)}
-            >
-              <Indicator className={classes.indicator}>
-                <FaCircle />
-              </Indicator>
-            </Item>
+            <Check
+              className={classes.check}
+              selected={option.id === api.value}
+              {...api.getItemControlProps({ value: option.id })}
+            />
 
             {/* text content */}
-            <div>
+            <div {...api.getItemTextProps({ value: option.id })}>
               <span className="primary">{option.primary}</span>
               <br />
               {option.secondary && (
@@ -86,10 +92,12 @@ const Radios = <Value extends string>({
             {/* icon */}
             {option.icon &&
               cloneElement(option.icon, { className: classes.icon })}
+
+            <input {...api.getItemHiddenInputProps({ value: option.id })} />
           </label>
         ))}
-      </Root>
-    </Field>
+      </div>
+    </Label>
   );
 };
 
