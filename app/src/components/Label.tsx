@@ -1,10 +1,4 @@
-import {
-  cloneElement,
-  ComponentProps,
-  ReactElement,
-  ReactNode,
-  useId,
-} from "react";
+import { ComponentProps, ReactElement, ReactNode } from "react";
 import { FaAsterisk } from "react-icons/fa6";
 import { pick } from "lodash";
 import Help from "@/components/Help";
@@ -45,14 +39,6 @@ const Label = ({
   children,
   ...props
 }: Props) => {
-  /** local unique id */
-  const _id = useId();
-  /** connect label to control. passed id or local fallback. */
-  const id = children.props.id ?? _id;
-
-  /** attach props to children */
-  children = cloneElement(children, { id });
-
   /** if no label but need to show tooltip, put tooltip around children instead */
   if (!label && tooltip)
     children = <Tooltip content={tooltip}>{children}</Tooltip>;
@@ -60,7 +46,7 @@ const Label = ({
   return (
     <div className={classes[layout]}>
       {label && (
-        <label {...props} className={classes.label} htmlFor={id}>
+        <label {...props} className={classes.label}>
           {/* label */}
           {label}
 

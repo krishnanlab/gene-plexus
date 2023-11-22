@@ -10,6 +10,11 @@
   border-bottom: currentColor 2px solid;
   border-radius: var(--rounded) var(--rounded) 0 0;
   color: var(--accent);
+  transition: background var(--fast);
+}
+
+.button:hover {
+  background: var(--accent-light);
 }
 
 .button > span {

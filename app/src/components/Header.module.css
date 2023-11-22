@@ -11,7 +11,7 @@
   background: var(--deep);
   box-shadow: var(--shadow);
   color: var(--white);
-  transition: padding var(--fast);
+  transition: padding var(--slow);
 }
 
 .header[data-scrolled] {

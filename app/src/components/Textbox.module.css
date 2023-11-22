@@ -32,6 +32,11 @@ button.icon:hover {
   width: 100%;
   padding: 5px 10px;
   border: none;
+  transition: background var(--fast);
+}
+
+:is(.input, .textarea):hover {
+  background: var(--accent-light);
 }
 
 .input {

@@ -1,53 +1,71 @@
-import { ComponentProps, useState } from "react";
-import { useEvent } from "react-use";
-import Field from "@/components/Field";
-import { useLocal } from "@/util/hooks";
+import { ComponentProps, useId } from "react";
+import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
+import * as numberInput from "@zag-js/number-input";
+import { normalizeProps, useMachine } from "@zag-js/react";
+import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
 import classes from "./NumberBox.module.css";
 
-type Props = {
+type Base = {
+  /** min value */
+  min?: number;
+  /** max value */
+  max?: number;
+  /** inc/dec interval */
+  step?: number;
   /** number state */
   value?: number;
   /** on number state change */
   onChange?: (value: number) => void;
-} & Omit<ComponentProps<"input">, "value" | "onChange"> &
-  Omit<ComponentProps<typeof Field>, "children">;
+};
+
+type Input = Omit<
+  ComponentProps<"input">,
+  "min" | "max" | "step" | "value" | "onChange"
+>;
+
+type Props = Base & LabelProps & Input;
 
 /** number input box. use for numeric values that need precise adjustment. */
-const NumberBox = ({
-  label,
-  layout,
-  tooltip,
-  value,
-  onChange,
-  ...props
-}: Props) => {
-  /** local copy of state */
-  const [number, setNumber] = useLocal("0", String(value || "0"), (value) => {
-    const number = Number(value);
-    if (!Number.isNaN(number)) onChange?.(number);
-  });
+const NumberBox = ({ min, max, step, value, onChange, ...props }: Props) => {
+  /** set up zag */
+  const [state, send] = useMachine(
+    numberInput.machine({
+      /** unique id for component instance */
+      id: useId(),
+      /** settings */
+      allowMouseWheel: true,
+      /** regular number box props */
+      min: min ?? 0,
+      max: max ?? 100,
+      step: step ?? 1,
+      /** initialize value state */
+      value: String(value || 0),
+      /** when value changes */
+      onValueChange: (details) => onChange?.(details.valueAsNumber),
+    }),
+  );
 
-  /** https://github.com/facebook/react/issues/22794 */
-  const [ref] = useState<HTMLInputElement>();
-  useEvent("wheel", (event) => event.stopPropagation(), ref, {
-    passive: false,
-  });
+  /** interact with zag */
+  const api = numberInput.connect(state, send, normalizeProps);
+
+  console.log(api.inputProps.id);
 
   return (
-    <Field
-      label={label}
-      layout={layout}
-      tooltip={tooltip}
-      required={props.required}
+    <Label
+      {...forwardLabelProps(props)}
+      {...api.labelProps}
+      htmlFor={api.inputProps.id}
     >
-      <input
-        className={classes.input}
-        type="number"
-        value={number}
-        onChange={(event) => setNumber(event.target.value)}
-        {...props}
-      />
-    </Field>
+      <div className={classes.root}>
+        <button {...api.incrementTriggerProps} className={classes.inc}>
+          <FaAngleUp />
+        </button>
+        <input {...api.inputProps} className={classes.input} />
+        <button {...api.decrementTriggerProps} className={classes.dec}>
+          <FaAngleDown />
+        </button>
+      </div>
+    </Label>
   );
 };
 

@@ -17,6 +17,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@zag-js/checkbox": "^0.30.0",
+    "@zag-js/number-input": "^0.30.0",
     "@zag-js/react": "^0.30.0",
     "@zag-js/select": "^0.30.0",
     "classnames": "^2.3.2",

@@ -1,18 +1,42 @@
+.root {
+  position: relative;
+}
+
 .input {
   width: 100px;
+  padding-right: 30px;
   border: none;
   border-bottom: solid 2px currentColor;
   border-radius: var(--rounded) var(--rounded) 0 0;
   background: none;
-  color: var(--gray);
+  color: var(--accent);
   text-align: center;
-  transition: color var(--fast);
+  transition: background var(--fast);
 }
 
 .input:hover {
-  color: var(--accent);
+  background: var(--accent-light);
 }
 
-.input:not(:focus, :hover)::-webkit-inner-spin-button {
-  opacity: 0.25;
+.inc,
+.dec {
+  position: absolute;
+  right: 0;
+  width: 30px;
+  height: calc(50% - 2px);
+  border-radius: var(--rounded);
+  color: var(--accent);
+  transition: background var(--fast);
+}
+
+:is(.inc, .dec):hover {
+  background: var(--accent-light);
+}
+
+.inc {
+  top: 0;
+}
+
+.dec {
+  top: 50%;
 }

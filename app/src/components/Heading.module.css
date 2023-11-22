@@ -7,7 +7,7 @@
 
 .icon {
   height: 1em;
-  opacity: 0.5;
+  color: var(--deep-mid);
 }
 
 .anchor {

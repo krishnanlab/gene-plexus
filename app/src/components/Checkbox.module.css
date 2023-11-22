@@ -6,6 +6,11 @@
   gap: 10px;
   border-radius: var(--rounded);
   cursor: pointer;
+  transition: background var(--fast);
+}
+
+.label:hover {
+  background: var(--accent-light);
 }
 
 .check {

@@ -1,4 +1,4 @@
-import { ComponentProps, ReactElement } from "react";
+import { ComponentProps, ReactElement, useId } from "react";
 import { FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
 import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
@@ -32,12 +32,16 @@ type Props = Base & LabelProps & ((Single & Input) | (Multi & Textarea));
 
 /** single or multi-line text input box */
 const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
+  /** unique id for component instance */
+  const id = useId();
+
   /** local copy of state */
   const [text, setText] = useLocal("", value, onChange);
 
   /** input field */
   const input = multi ? (
     <textarea
+      id={id}
       className={classNames(classes.textarea, "shadow")}
       value={text}
       onChange={(event) => setText(event.target.value)}
@@ -45,6 +49,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
     />
   ) : (
     <input
+      id={id}
       className={classNames(classes.input, "shadow")}
       value={text}
       onChange={(event) => setText(event.target.value)}
@@ -68,7 +73,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
   else if (icon) iconElement = <div className={classes.icon}>{icon}</div>;
 
   return (
-    <Label {...forwardLabelProps(props)}>
+    <Label {...forwardLabelProps(props)} htmlFor={id}>
       <div className={classes.field}>
         {input}
 
