@@ -95,6 +95,7 @@ const Slider = ({
   /** interact with zag */
   const api = slider.connect(state, send, normalizeProps);
 
+  /** whether to show min/max marks */
   const active = api.isFocused || api.isDragging;
   const showMin = (api.value[0] ?? _min) > (_max - _min) * 0.2;
   const showMax = (api.value.at(-1) ?? _max) < (_max - _min) * 0.8;

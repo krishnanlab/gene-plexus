@@ -31,10 +31,9 @@ const Toasts = () => {
   const api = toast.group.connect(state, send, normalizeProps);
 
   /** listen for global toast window event */
-  useEvent("toast", (event: CustomEvent<ToastProps>) => {
-    console.log(event.detail);
-    api.upsert(event.detail);
-  });
+  useEvent("toast", (event: CustomEvent<ToastProps>) =>
+    api.upsert(event.detail),
+  );
 
   return (
     <Portal>
