@@ -1,8 +1,11 @@
+.label {
+  width: 150px;
+}
+
 .control {
   display: flex;
   position: relative;
   align-items: center;
-  width: 100px;
   padding: 15px 10px;
   border-radius: var(--rounded);
   color: var(--accent);

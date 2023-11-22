@@ -1,5 +1,5 @@
 .root {
-  width: 100%;
+  display: contents;
 }
 
 .button {
@@ -13,20 +13,16 @@
     color var(--fast);
 }
 
-.button[data-state="inactive"]:hover {
+.button:hover {
   border-width: 1px;
   background: var(--accent-light);
 }
 
-.button[data-state="active"] {
+.button[data-selected] {
   border-width: 3px;
   color: var(--accent);
 }
 
 .content {
   width: 100%;
-}
-
-.content[data-state="inactive"] {
-  display: none;
 }

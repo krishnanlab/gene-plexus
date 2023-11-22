@@ -1,5 +1,6 @@
 import { ComponentProps, ReactElement, ReactNode } from "react";
 import { FaAsterisk } from "react-icons/fa6";
+import classNames from "classnames";
 import { pick } from "lodash";
 import Help from "@/components/Help";
 import Tooltip from "@/components/Tooltip";
@@ -14,18 +15,26 @@ type Props = {
   tooltip?: ReactNode;
   /** required field */
   required?: boolean;
+  /** class on label */
+  className?: string;
   /** input/control to be associated with label */
   children: ReactElement;
 } & ComponentProps<"label">;
 
-export type LabelProps = Pick<
-  Props,
-  "label" | "layout" | "tooltip" | "required"
->;
+const labelProps = [
+  "label",
+  "layout",
+  "tooltip",
+  "required",
+  "className",
+  "style",
+] as const;
+
+export type LabelProps = Pick<Props, (typeof labelProps)[number]>;
 
 /** forward specific props to label component */
 export const forwardLabelProps = (props: { [key: PropertyKey]: unknown }) =>
-  pick(props, ["label", "layout", "tooltip", "required"]) as LabelProps;
+  pick<LabelProps>(props, labelProps);
 
 /**
  * adds layout, label, help, etc. to input component. for use in other
@@ -36,6 +45,8 @@ const Label = ({
   layout = "vertical",
   tooltip,
   required,
+  className,
+  style,
   children,
   ...props
 }: Props) => {
@@ -44,7 +55,7 @@ const Label = ({
     children = <Tooltip content={tooltip}>{children}</Tooltip>;
 
   return (
-    <div className={classes[layout]}>
+    <div className={classNames(classes[layout], className)} style={style}>
       {label && (
         <label {...props} className={classes.label}>
           {/* label */}

@@ -74,7 +74,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
 
   return (
     <Label {...forwardLabelProps(props)} htmlFor={id}>
-      <div className={classes.field}>
+      <div className={classes.wrapper}>
         {input}
 
         {/* side icon */}

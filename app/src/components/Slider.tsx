@@ -114,7 +114,7 @@ const Slider = ({
               key={index}
               {...api.getThumbProps({ index })}
               className={classes.thumb}
-              aria-label={"Thumb " + index}
+              aria-label={reactToText(props.label || "") + " " + index}
             >
               <input
                 {...api.getHiddenInputProps({ index })}

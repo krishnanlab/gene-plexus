@@ -1,14 +1,9 @@
-import {
-  cloneElement,
-  ComponentPropsWithoutRef,
-  Fragment,
-  ReactElement,
-  ReactNode,
-} from "react";
+import { cloneElement, Fragment, ReactElement, ReactNode, useId } from "react";
 import classNames from "classnames";
-import { kebabCase, omit } from "lodash";
+import { kebabCase } from "lodash";
 import { StringParam, useQueryParam } from "use-query-params";
-import { Content, List, Root, Trigger } from "@radix-ui/react-tabs";
+import { normalizeProps, useMachine } from "@zag-js/react";
+import * as tabs from "@zag-js/tabs";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Tabs.module.css";
 
@@ -26,45 +21,56 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
   const [value, setValue] = useQueryParam(syncWithUrl, StringParam);
 
   /** tab props */
-  const tabs = children.map((child) => ({
+  const tabProps = children.map((child) => ({
     ...child.props,
-    /**
-     * make unique id from text. text should be unique too to avoid user
-     * confusion.
-     */
+    /** make unique tab id from text */
     id: kebabCase(child.props.text),
   }));
 
-  return (
-    <Root
-      className={classNames(classes.root, "flex-col", "gap-lg")}
-      value={syncWithUrl && value ? value : tabs[0]?.id}
-      onValueChange={(value) => syncWithUrl && setValue(value)}
-    >
-      {/* tab list */}
-      <List className="flex-row gap-sm">
-        {tabs.map(({ id, text, icon, tooltip }, index) => (
-          <Trigger key={index} asChild value={id}>
-            <Tooltip content={tooltip}>
-              <button className={classes.button} type="button">
-                {text}
-                {icon && cloneElement(icon, { className: "icon" })}
-              </button>
-            </Tooltip>
-          </Trigger>
-        ))}
-      </List>
+  /** set up zag */
+  const [state, send] = useMachine(
+    tabs.machine({
+      /** unique id for component instance */
+      id: useId(),
+      /** initialize selected tab state */
+      value: syncWithUrl ? value : tabProps[0]?.id,
+      /** when selected tab changes */
+      onValueChange: (details) => syncWithUrl && setValue(details.value),
+    }),
+  );
 
-      {/* tab content panels */}
-      {tabs.map(({ text, className, ...props }, index) => (
-        <Content
+  /** interact with zag */
+  const api = tabs.connect(state, send, normalizeProps);
+
+  return (
+    <div {...api.rootProps} className={classes.root}>
+      {/* list */}
+      <div {...api.tablistProps} className="flex-row gap-sm">
+        {tabProps.map((tab, index) => (
+          <Tooltip key={index} content={tab.tooltip}>
+            <button
+              {...api.getTriggerProps({ value: tab.id })}
+              className={classes.button}
+              type="button"
+            >
+              {tab.text}
+              {tab.icon && cloneElement(tab.icon, { className: "icon" })}
+            </button>
+          </Tooltip>
+        ))}
+      </div>
+
+      {/* panels */}
+      {tabProps.map((tab, index) => (
+        <div
           key={index}
-          className={classNames(classes.content, className)}
-          value={kebabCase(text)}
-          {...omit(props, ["id", "icon", "tooltip"])}
-        />
+          {...api.getContentProps({ value: tab.id })}
+          className={classNames(classes.content, tab.className)}
+        >
+          {tab.children}
+        </div>
       ))}
-    </Root>
+    </div>
   );
 };
 
@@ -80,7 +86,11 @@ type TabProps = {
   icon?: ReactElement;
   /** tab button tooltip content */
   tooltip?: ReactNode;
-} & Pick<ComponentPropsWithoutRef<"div">, "children" | "className">;
+  /** class on panel content container */
+  className?: string;
+  /** tab panel content */
+  children: ReactNode;
+};
 
 /** use within a Tabs component */
 const Tab = (props: TabProps) => {

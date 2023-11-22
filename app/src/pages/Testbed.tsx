@@ -8,7 +8,6 @@ import {
   FaChampagneGlasses,
   FaCircleInfo,
   FaClipboardList,
-  FaFlaskVial,
   FaFont,
   FaHashtag,
   FaHorse,
@@ -45,7 +44,7 @@ import Slider from "@/components/Slider";
 import Tabs, { Tab } from "@/components/Tabs";
 import TextBox from "@/components/TextBox";
 import Tile from "@/components/Tile";
-import { toast } from "@/components/Toast";
+import { toast } from "@/components/Toasts";
 import Tooltip from "@/components/Tooltip";
 import { formatDate, formatNumber } from "@/util/string";
 
@@ -565,7 +564,7 @@ const Testbed = () => {
         <Heading level={3} icon={<FaClipboardList />}>
           Form
         </Heading>
-        <div className="flex-col gap-lg">
+        <div className="flex-col gap-lg full">
           <Form onSubmit={console.info}>
             <div className="grid full">
               <TextBox label="Email" name="email" type="email" />
@@ -576,7 +575,7 @@ const Testbed = () => {
                 required={true}
               />
               <NumberBox label="Age" name="age" />
-              <Slider label="Cutoff" name="cutoff" />
+              <Slider label="Cutoff" name="cutoff" className="full" />
               <Slider label="Range" multi={true} name="range" />
               <Radios
                 label="Order"

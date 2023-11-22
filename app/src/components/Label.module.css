@@ -4,6 +4,10 @@
   gap: 10px;
 }
 
+.horizontal > *:nth-child(2) {
+  flex-grow: 1;
+}
+
 .vertical {
   display: flex;
   flex-direction: column;
