@@ -1,17 +1,13 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="-50 -50 100 100"
-  data-id="loading"
->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100">
   <style>
-    [data-id="loading"] circle.spin {
+    .loading-spin {
       animation:
-        draw 2s linear infinite,
-        spin 4s linear infinite;
+        loading-draw 2s linear infinite,
+        loading-spin 4s linear infinite;
       stroke-dasharray: 251.3274;
     }
 
-    @keyframes draw {
+    @keyframes loading-draw {
       from {
         stroke-dashoffset: var(--length);
       }
@@ -21,7 +17,7 @@
       }
     }
 
-    @keyframes spin {
+    @keyframes loading-spin {
       from {
         transform: rotate(0);
       }
@@ -32,7 +28,7 @@
     }
   </style>
   <circle
-    class="spin"
+    class="loading-spin"
     r="40"
     fill="none"
     stroke="currentColor"

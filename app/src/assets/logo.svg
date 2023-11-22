@@ -1,50 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-33 -48 66 96">
-  <script>
-    const duration = 2000;
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-33 -48 66 96" data-id="logo">
+  <style>
+    [data-id="logo"]:hover .logo-draw {
+      animation: logo-draw 2s linear infinite both;
+      animation-delay: var(--delay);
+      stroke-dasharray: var(--length);
+    }
 
-    const svg = document.currentScript.parentElement;
-    const elements = [...document.querySelectorAll(".draw")];
-
-    const getProp = (element, prop) =>
-      parseFloat(window.getComputedStyle(element).getPropertyValue(prop)) || 0;
-
-    const animations = elements.map((element) => {
-      const l = getProp(element, "--l");
-      const a = getProp(element, "--a") / 100;
-      const b = getProp(element, "--b") / 100;
-      const c = getProp(element, "--c") / 100;
-      const d = getProp(element, "--d") / 100;
-
-      element.style.strokeDasharray = l;
-
-      const keyframes = [
-        [3 * l, 0],
-        [3 * l, a],
-        [2 * l, b],
-        [2 * l, c],
-        [l, d],
-        [l, 1],
-      ].map(([strokeDashoffset, offset]) => ({ strokeDashoffset, offset }));
-
-      const options = { duration, fill: "both", easing: "linear" };
-
-      return new Animation(
-        new KeyframeEffect(element, keyframes, options),
-        document.timeline,
-      );
-    });
-
-    const play = () => {
-      for (const animation of animations) {
-        animation.cancel();
-        animation.play();
+    @keyframes logo-draw {
+      0% {
+        stroke-dashoffset: calc(3px * var(--length));
       }
-    };
-
-    play();
-    svg.addEventListener("mouseenter", play);
-    svg.addEventListener("click", play);
-  </script>
+      20% {
+        stroke-dashoffset: calc(3px * var(--length));
+      }
+      40% {
+        stroke-dashoffset: calc(2px * var(--length));
+      }
+      60% {
+        stroke-dashoffset: calc(2px * var(--length));
+      }
+      80% {
+        stroke-dashoffset: calc(1px * var(--length));
+      }
+      100% {
+        stroke-dashoffset: calc(1px * var(--length));
+      }
+    }
+  </style>
 
   <g
     fill="none"
@@ -55,16 +37,16 @@
   >
     <!-- helix -->
     <path
-      class="draw"
-      style="--l: 41.6174240112; --a: 0%; --b: 25%; --c: 50%; --d: 75%"
+      class="logo-draw"
+      style="--length: 41.6174240112; --delay: 0s"
       d="
         M -30 -45
         C -30 -25 -10 -10 -10 -10
       "
     />
     <path
-      class="draw"
-      style="--l: 41.6174316406; --a: 25%; --b: 50%; --c: 75%; --d: 100%"
+      class="logo-draw"
+      style="--length: 41.6174316406; --delay: 0.5s"
       d="
         M 10 10
         C 10 10 30 25 30 45
@@ -72,8 +54,8 @@
     />
     <!-- slash -->
     <path
-      class="draw"
-      style="--l: 84.8528137207; --a: 10%; --b: 35%; --c: 60%; --d: 85%"
+      class="logo-draw"
+      style="--length: 84.8528137207; --delay: 0.2s"
       d="
         M 30 -30
         L -30 30
@@ -81,32 +63,32 @@
     />
     <!-- pairs -->
     <path
-      class="draw"
-      style="--l: 47; --a: 10%; --b: 30%; --c: 50%; --d: 70%"
+      class="logo-draw"
+      style="--length: 47; --delay: 0.1s"
       d="
         M -28 -35
         L 16 -35
       "
     />
     <path
-      class="draw"
-      style="--l: 25; --a: 20%; --b: 40%; --c: 60%; --d: 80%"
+      class="logo-draw"
+      style="--length: 25; --delay: 0.3s"
       d="
         M -20 -21
         L 2 -21
       "
     />
     <path
-      class="draw"
-      style="--l: 25; --a: 30%; --b: 50%; --c: 70%; --d: 90%"
+      class="logo-draw"
+      style="--length: 25; --delay: 0.6s"
       d="
         M 20 21
         L -2 21
       "
     />
     <path
-      class="draw"
-      style="--l: 47; --a: 40%; --b: 50%; --c: 80%; --d: 100%"
+      class="logo-draw"
+      style="--length: 47; --delay: 0.8s"
       d="
         M 28 35
         L -16 35
