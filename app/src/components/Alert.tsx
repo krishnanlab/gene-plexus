@@ -9,8 +9,9 @@ import Loading from "@/assets/loading.svg?react";
 import classes from "./Alert.module.css";
 
 type Props = {
-  /** category of alert */
+  /** category of alert, determines style */
   type?: keyof typeof types;
+  /** content next to icon */
   children: ReactNode;
 };
 

@@ -3,6 +3,7 @@ import {
   FaArrowsUpDown,
   FaBars,
   FaBeerMugEmpty,
+  FaBrush,
   FaCat,
   FaChampagneGlasses,
   FaCircleInfo,
@@ -11,8 +12,10 @@ import {
   FaFont,
   FaHashtag,
   FaHorse,
+  FaLink,
   FaListCheck,
   FaMagnifyingGlass,
+  FaMessage,
   FaPalette,
   FaRegCircleDot,
   FaRegFolder,
@@ -20,6 +23,7 @@ import {
   FaRegSquareCheck,
   FaSliders,
   FaStop,
+  FaTag,
 } from "react-icons/fa6";
 import { sample } from "lodash";
 import CustomIcon from "@/assets/custom-icon.svg?react";
@@ -30,6 +34,7 @@ import CheckBox from "@/components/CheckBox";
 import Collapsible from "@/components/Collapsible";
 import Form from "@/components/Form";
 import Heading from "@/components/Heading";
+import Label from "@/components/Label";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
 import NumberBox from "@/components/NumberBox";
@@ -41,7 +46,13 @@ import Tabs, { Tab } from "@/components/Tabs";
 import TextBox from "@/components/TextBox";
 import Tile from "@/components/Tile";
 import { toast } from "@/components/Toast";
+import Tooltip from "@/components/Tooltip";
 import { formatDate, formatNumber } from "@/util/string";
+
+/** util func to log change to components for testing */
+const logChange = (...args: unknown[]) => {
+  // console.info(...args);
+};
 
 /** test and example usage of formatting, elements, components, etc. */
 const Testbed = () => {
@@ -55,13 +66,10 @@ const Testbed = () => {
         </Heading>
       </Section>
 
+      {/* regular html elements and css classes for basic formatting */}
       <Section>
-        <Heading level={2} icon="B">
-          Basic Formatting
-        </Heading>
-
-        <Heading level={3} icon={<FaFlaskVial />}>
-          Heading 3
+        <Heading level={2} icon={<FaBrush />}>
+          Elements
         </Heading>
 
         <p>
@@ -73,20 +81,12 @@ const Testbed = () => {
           risus. Amet luctus venenatis lectus magna.
         </p>
 
-        <p>
+        <p className="narrow">
           Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt.
           Turpis nunc eget lorem dolor sed viverra ipsum nunc aliquet.
           Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at
           augue. Blandit cursus risus at ultrices mi tempus. Odio aenean sed
           adipiscing diam donec.
-        </p>
-
-        <Heading level={4}>Heading 4</Heading>
-
-        <p className="center">
-          <Link to="/">Internal Link</Link>
-          <br />
-          <Link to="https://medschool.cuanschutz.edu/dbmi">External Link</Link>
         </p>
 
         <div className="mini-table">
@@ -108,7 +108,8 @@ const Testbed = () => {
         </p>
 
         <p className="narrow center primary bold">
-          Key sentence at start of section.
+          Key sentence at start of section, maybe a brief 1-2 sentence
+          description
         </p>
 
         <hr />
@@ -141,21 +142,36 @@ const Testbed = () => {
 
         <pre>
           <code>
-            const popup = document.querySelector("#popup");
-            <br />
-            popup.style.width = "100%";
-            <br />
-            popup.innerText = "Lorem ipsum dolor sit amet, consectetur
+            const popup = document.querySelector("#popup"); popup.style.width =
+            "100%"; popup.innerText = "Lorem ipsum dolor sit amet, consectetur
             adipiscing elit, sed do eiusmod tempor incididunt ut labore et
             dolore magna aliqua.";
           </code>
         </pre>
       </Section>
 
+      {/* heading */}
       <Section>
-        <Heading level={2} icon="C">
-          Components
+        <Heading level={2} icon="X">
+          Heading 2
         </Heading>
+        <Heading level={3} icon="Y">
+          Heading 3
+        </Heading>
+        <Heading level={4} icon="Z">
+          Heading 4
+        </Heading>
+      </Section>
+
+      {/* link */}
+      <Section>
+        <Heading level={3} icon={<FaLink />}>
+          Link
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Link to="/">Internal Link</Link>
+          <Link to="https://medschool.cuanschutz.edu/dbmi">External Link</Link>
+        </div>
       </Section>
 
       {/* button */}
@@ -166,45 +182,39 @@ const Testbed = () => {
         <div className="flex-row gap-sm">
           <Button
             to="/about"
-            text="About"
+            text="As Link"
             icon={<FaArrowRight />}
-            tooltip={<>Hello World</>}
+            tooltip="Tooltip"
           />
           <Button
             to="/about"
-            text="Learn More"
+            text="As Link"
             design="accent"
-            tooltip={
-              <>
-                <b>Hello</b> <i>World</i>
-              </>
-            }
+            tooltip="Tooltip"
           />
           <Button
             to="/about"
             icon={<CustomIcon />}
             design="critical"
-            tooltip={
-              <Link to="https://medschool.cuanschutz.edu/dbmi">Test Link</Link>
-            }
+            tooltip="Tooltip"
           />
           <Button
             onClick={() => window.alert("Hello World")}
-            text="About"
-            tooltip={<>Hello World</>}
+            text="As Button"
+            tooltip="Tooltip"
           />
           <Button
             onClick={() => window.alert("Hello World")}
-            text="Learn More"
+            text="As Button"
             icon={<FaArrowRight />}
             design="accent"
-            tooltip={<>Hello World</>}
+            tooltip="Tooltip"
           />
           <Button
             onClick={() => window.alert("Hello World")}
             icon={<CustomIcon />}
             design="critical"
-            tooltip={<>Hello World</>}
+            tooltip="Tooltip"
           />
         </div>
       </Section>
@@ -215,27 +225,14 @@ const Testbed = () => {
           Text Box
         </Heading>
         <div className="grid">
-          <TextBox
-            placeholder="Search"
-            tooltip="Help text"
-            required={true}
-            icon="clear"
-            onChange={console.info}
-          />
+          <TextBox placeholder="Search" icon="clear" onChange={logChange} />
           <TextBox
             placeholder="Search"
             multi={true}
-            tooltip="Help text"
             icon={<FaMagnifyingGlass />}
           />
-          <TextBox label="TextBox" placeholder="Search" tooltip="Help text" />
-          <TextBox
-            label="TextBox"
-            multi={true}
-            placeholder="Search"
-            tooltip="Help text"
-            required={true}
-          />
+          <TextBox label="Label" placeholder="Search" />
+          <TextBox label="Label" multi={true} placeholder="Search" />
         </div>
       </Section>
 
@@ -245,9 +242,10 @@ const Testbed = () => {
           Select
         </Heading>
         <div className="flex-row gap-md">
-          {/*  */}
           <Select
             label="Single"
+            layout="horizontal"
+            tooltip="Tooltip"
             options={
               [
                 { id: "1", text: "Lorem" },
@@ -255,7 +253,7 @@ const Testbed = () => {
                 { id: "3", text: "Dolor" },
               ] as const
             }
-            onChange={console.info}
+            onChange={logChange}
           />
           <Select
             label="Multi"
@@ -267,7 +265,7 @@ const Testbed = () => {
                 { id: "3", text: "Dolor", info: "123", icon: <FaHorse /> },
               ] as const
             }
-            onChange={console.info}
+            onChange={logChange}
           />
         </div>
       </Section>
@@ -280,8 +278,9 @@ const Testbed = () => {
         <div className="flex-col gap-md">
           <CheckBox
             label="Accept terms and conditions"
+            tooltip="Tooltip"
             name="accept"
-            onChange={console.info}
+            onChange={logChange}
           />
         </div>
       </Section>
@@ -294,21 +293,21 @@ const Testbed = () => {
         <div className="flex-col gap-md">
           <Slider
             label="Single"
-            tooltip="Help text"
+            tooltip="Tooltip"
             min={0}
             max={100}
             step={1}
-            onChange={console.info}
+            onChange={logChange}
           />
           <Slider
             label="Range"
             multi={true}
             layout="horizontal"
-            tooltip="Help text"
+            tooltip="Tooltip"
             min={0}
             max={10000}
             step={1}
-            onChange={console.info}
+            onChange={logChange}
           />
         </div>
       </Section>
@@ -320,20 +319,20 @@ const Testbed = () => {
         </Heading>
         <div className="flex-col gap-md">
           <NumberBox
-            tooltip="Help text"
+            tooltip="Tooltip"
             min={0}
             max={100}
             step={1}
-            onChange={console.info}
+            onChange={logChange}
           />
           <NumberBox
             label="Big"
             layout="horizontal"
-            tooltip="Help text"
+            tooltip="Tooltip"
             min={-10000}
             max={10000}
             step={100}
-            onChange={console.info}
+            onChange={logChange}
           />
         </div>
       </Section>
@@ -359,7 +358,7 @@ const Testbed = () => {
                 icon: <FaCat />,
               },
             ]}
-            onChange={console.info}
+            onChange={logChange}
           />
         </div>
       </Section>
@@ -411,22 +410,14 @@ const Testbed = () => {
           Tabs
         </Heading>
         <Tabs syncWithUrl="tab">
-          <Tab text="Animals" icon={<FaCat />} tooltip="Help text">
+          <Tab text="Animals" icon={<FaCat />} tooltip="Tooltip">
             <ul>
               <li>Cat</li>
               <li>Dog</li>
               <li>Bird</li>
             </ul>
           </Tab>
-          <Tab
-            text="Drinks"
-            icon={<FaBeerMugEmpty />}
-            tooltip={
-              <>
-                <b>Help</b> text
-              </>
-            }
-          >
+          <Tab text="Drinks" icon={<FaBeerMugEmpty />} tooltip="Tooltip">
             <ul>
               <li>Soda</li>
               <li>Beer</li>
@@ -483,24 +474,26 @@ const Testbed = () => {
         <Heading level={3} icon={<FaArrowsUpDown />}>
           Collapsible
         </Heading>
-        <div className="narrow flex-col gap-md">
-          <Collapsible text="Expand Me" className="flex-col gap-md">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus
-              eget nunc scelerisque viverra mauris in aliquam. Elementum integer
-              enim neque volutpat ac tincidunt vitae semper quis. Non diam
-              phasellus vestibulum lorem sed risus. Amet luctus venenatis lectus
-              magna.
-            </p>
-            <div className="flex-row gap-md">
-              <span>abc</span>
-              <span>123</span>
-              <span>xyz</span>
-            </div>
-          </Collapsible>
-        </div>
+        <Collapsible
+          text="Expand Me"
+          tooltip="Tooltip"
+          className="flex-col gap-md"
+        >
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Facilisis sed odio morbi quis commodo odio aenean sed. Urna cursus
+            eget nunc scelerisque viverra mauris in aliquam. Elementum integer
+            enim neque volutpat ac tincidunt vitae semper quis. Non diam
+            phasellus vestibulum lorem sed risus. Amet luctus venenatis lectus
+            magna.
+          </p>
+          <div className="flex-row gap-md">
+            <span>abc</span>
+            <span>123</span>
+            <span>xyz</span>
+          </div>
+        </Collapsible>
       </Section>
 
       {/* tile */}
@@ -524,6 +517,45 @@ const Testbed = () => {
             primary={formatNumber(99999)}
             secondary="Analyses"
           />
+        </div>
+      </Section>
+
+      {/* tooltip (for testing; not typically used directly) */}
+      <Section>
+        <Heading level={3} icon={<FaMessage />}>
+          Tooltip
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Tooltip content="Minimal, non-interactive help or contextual info">
+            <span className="text-tooltip">Plain text</span>
+          </Tooltip>
+          <Tooltip
+            content={
+              <>
+                <i>Minimal</i>, <b>non-interactive</b> help or contextual info
+              </>
+            }
+          >
+            <span className="text-tooltip">Rich content</span>
+          </Tooltip>
+        </div>
+      </Section>
+
+      {/* label (for testing; not typically used directly) */}
+      <Section>
+        <Heading level={3} icon={<FaTag />}>
+          Label
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Label label="Label" required={true} tooltip="Tooltip">
+            <input placeholder="Search" />
+          </Label>
+          <Label label="Label" layout="horizontal">
+            <input placeholder="Search" />
+          </Label>
+          <Label label="Label" layout="none">
+            <input placeholder="Search" />
+          </Label>
         </div>
       </Section>
 
@@ -556,7 +588,7 @@ const Testbed = () => {
               />
             </div>
             <CheckBox label="I consent" name="consent" />
-            <Button text="Submit" design="accent" />
+            <Button type="submit" text="Submit" design="accent" />
           </Form>
         </div>
       </Section>

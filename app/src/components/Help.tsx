@@ -10,11 +10,15 @@ type Props = {
   tooltip: ReactNode;
 } & ComponentProps<"button">;
 
-/** ? button to hover/click for help tooltip */
+/**
+ * ? button to hover/click for help tooltip. for use in other components, not
+ * directly.
+ */
 const Help = ({ tooltip, className }: Props) => {
   return (
     <Tooltip content={tooltip}>
       <button
+        type="button"
         className={classNames(classes.help, className)}
         aria-label="Help"
         onClick={async (event) => {

@@ -5,7 +5,16 @@ import { omit } from "lodash";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
 import * as select from "@zag-js/select";
 import { PropTypes } from "@zag-js/types";
+import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
 import classes from "./Select.module.css";
+
+type Base = {
+  /**
+   * pass with "as const" to make sure value and onChange value can only be one
+   * of passed options
+   */
+  options: readonly Option[];
+};
 
 type Option = {
   /** unique id */
@@ -18,42 +27,37 @@ type Option = {
   icon?: ReactElement;
 };
 
-type Props = (
-  | {
-      /** multiple selected values allowed */
-      multi?: false;
-      /** selected option state */
-      value?: Option;
-      /** on selected option state change */
-      onChange?: (value: Option) => void;
-    }
-  | {
-      multi: true;
-      /** selected options state */
-      value?: Option[];
-      /** on selected options state change */
-      onChange?: (value: Option[]) => void;
-    }
-) & {
-  /** label */
-  label: string;
-  /**
-   * pass with "as const" to make sure value and onChange value can only be one
-   * of passed options
-   */
-  options: readonly Option[];
+type Single = {
+  /** multiple selected values allowed */
+  multi?: false;
+  /** selected option state */
+  value?: Option;
+  /** on selected option state change */
+  onChange?: (value: Option) => void;
 };
 
+type Multi = {
+  multi: true;
+  /** selected options state */
+  value?: Option[];
+  /** on selected options state change */
+  onChange?: (value: Option[]) => void;
+};
+
+type Props = Base & LabelProps & (Single | Multi);
+
 /** dropdown select box, multi or single */
-const Select = ({ label, multi, value, onChange, options }: Props) => {
-  /** setup zag state */
+const Select = ({ multi, value, onChange, options, ...props }: Props) => {
+  /** set up zag */
   const [state, send] = useMachine(
     select.machine<Option>({
-      multiple: multi,
-      /** initialize selected values as array of ids */
-      value: value ? [value].flat().map((value) => value.id) : [],
       /** unique id for component instance */
       id: useId(),
+      /** multiple selections allowed */
+      multiple: multi,
+      /** initialize selected values (array of ids) */
+      value: value ? [value].flat().map((value) => value.id) : [],
+      /** options */
       collection: select.collection({
         /** options */
         items: options.map((option) => omit(option, "icon")),
@@ -89,11 +93,12 @@ const Select = ({ label, multi, value, onChange, options }: Props) => {
     <div {...api.rootProps} className={classes.root}>
       <div {...api.controlProps} className={classes.control}>
         {/* eslint-disable-next-line */}
-        <label {...api.labelProps}>{label}</label>
-        <button {...api.triggerProps} className={classes.button}>
-          <span className="truncate">{selectedLabel}</span>
-          <FaCaretDown />
-        </button>
+        <Label {...api.labelProps} {...forwardLabelProps(props)}>
+          <button {...api.triggerProps} className={classes.button}>
+            <span className="truncate">{selectedLabel}</span>
+            <FaCaretDown />
+          </button>
+        </Label>
       </div>
 
       <Portal>

@@ -5,6 +5,8 @@ import Tooltip from "@/components/Tooltip";
 import classes from "./Field.module.css";
 
 type Props = {
+  /** id to connect label and input */
+  id: string;
   /** label content */
   label?: ReactNode;
   /** whether to put label above, to left, or have no wrapping element at all */
@@ -18,6 +20,7 @@ type Props = {
 
 /** adds label and help text to wrapped input component. do not use directly. */
 const Field = ({
+  id,
   label,
   layout = "vertical",
   tooltip,
@@ -25,9 +28,10 @@ const Field = ({
   children,
 }: Props) => {
   return (
-    <label className={classes[layout]}>
+    <div className={classes[layout]}>
+      {/* if label */}
       {label && (
-        <div className={classes.text}>
+        <label htmlFor={id} className={classes.label}>
           {/* label */}
           {label}
 
@@ -36,7 +40,7 @@ const Field = ({
 
           {/* if label and tooltip, show help icon */}
           {tooltip && <Help tooltip={tooltip} className={classes.help} />}
-        </div>
+        </label>
       )}
 
       {/* if no label but need to show tooltip, put tooltip around child instead */}
@@ -45,7 +49,7 @@ const Field = ({
       ) : (
         children
       )}
-    </label>
+    </div>
   );
 };
 

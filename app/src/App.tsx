@@ -1,5 +1,5 @@
-import "./styles.css";
-import "./util.css";
+import "@/global/styles.css";
+import "@/global/util.css";
 import { useEffect } from "react";
 import { IconContext } from "react-icons";
 import {
@@ -19,8 +19,10 @@ import Analyses from "@/pages/Analyses";
 import Home from "@/pages/Home";
 import NewAnalysis from "@/pages/NewAnalysis";
 import Testbed from "@/pages/Testbed";
-import { scrollTo } from "@/util/dom";
+import { scrollTo, waitFor } from "@/util/dom";
+import { sleep } from "@/util/misc";
 
+/** app entrypoint */
 const App = () => <RouterProvider router={router} />;
 
 export default App;
@@ -29,8 +31,10 @@ export default App;
 const Layout = () => {
   const { hash } = useLocation();
 
+  /** scroll to hash in url */
   useEffect(() => {
-    if (hash) scrollTo(hash);
+    if (!hash) return;
+    scrollTo(hash);
   }, [hash]);
 
   return (

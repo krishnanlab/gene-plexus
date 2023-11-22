@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
+import { useWindowScroll } from "react-use";
 import classNames from "classnames";
 import Logo from "@/assets/logo.svg?react";
 import Link from "@/components/Link";
@@ -11,8 +12,17 @@ const Header = () => {
   /** nav menu expanded/collapsed state */
   const [open, setOpen] = useState(false);
 
+  /** document scroll */
+  const { y } = useWindowScroll();
+
+  useEffect(() => {
+    /** make sure all scrolls take into account header height */
+    document.documentElement.style.scrollPaddingTop =
+      (document.querySelector("header")?.clientHeight || 0) + "px";
+  });
+
   return (
-    <header className={classes.header}>
+    <header className={classes.header} data-scrolled={y > 0 ? "" : undefined}>
       {/* logo and text */}
       <div className={classes.title}>
         <Logo className={classes.logo} />

@@ -1,7 +1,5 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useId, useState } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
-import classNames from "classnames";
-import { Content, Root, Trigger } from "@radix-ui/react-collapsible";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Collapsible.module.css";
 
@@ -10,31 +8,40 @@ type Props = {
   text: string;
   /** tooltip content */
   tooltip?: ReactNode;
+  /** class on content panel */
   className: string;
+  /** panel content */
   children: ReactNode;
 };
 
 /** button with content beneath expandable/collapsible */
 const Collapsible = ({ text, tooltip, className, children }: Props) => {
+  /** unique id for component instance */
+  const id = useId();
+
   /** track open state */
   const [open, setOpen] = useState(false);
 
   return (
-    <Root
-      className={classNames(classes.root, "flex-col", "gap-md")}
-      open={open}
-      onOpenChange={setOpen}
-    >
-      <Trigger asChild>
-        <Tooltip content={tooltip}>
-          <button className={classes.button}>
-            {text}
-            {open ? <FaAngleUp /> : <FaAngleDown />}
-          </button>
-        </Tooltip>
-      </Trigger>
-      <Content className={className}>{children}</Content>
-    </Root>
+    <>
+      <Tooltip content={tooltip}>
+        <button
+          type="button"
+          className={classes.button}
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls={open ? id : undefined}
+        >
+          {text}
+          {open ? <FaAngleUp /> : <FaAngleDown />}
+        </button>
+      </Tooltip>
+      {open && (
+        <div id={id} className={className}>
+          {children}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -53,7 +53,7 @@ const Toast = () => {
 
           {/* x */}
           <Close asChild>
-            <button>
+            <button type="button">
               <FaXmark />
             </button>
           </Close>

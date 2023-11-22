@@ -2,13 +2,19 @@ import { useEffect } from "react";
 import { truncate } from "lodash";
 
 type Props = {
-  /** tab and document title */
+  /**
+   * tab and document title. can be multiple parts (which get separated by
+   * delimiter)
+   */
   title: string | Array<string>;
   /** page description */
   description?: string;
 };
 
-/** set page meta data, akin to react-helmet */
+/**
+ * set specific metadata for current page (overrides site-wide metadata in
+ * .env), akin to react-helmet
+ */
 export const Meta = ({ title, description }: Props) => {
   /** set title */
   useEffect(() => {

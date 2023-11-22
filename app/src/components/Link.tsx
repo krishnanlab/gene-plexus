@@ -13,10 +13,11 @@ import classes from "./Link.module.css";
 type Props = {
   /** url to link to, local or external */
   to: string;
-  /** disable arrow icon for external links */
+  /** force-disable arrow icon for external links */
   noIcon?: boolean;
   /** tooltip content */
   tooltip?: ReactNode;
+  /** link content */
   children: ReactNode;
 } & ComponentPropsWithoutRef<"a">;
 

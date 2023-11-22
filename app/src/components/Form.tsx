@@ -2,14 +2,14 @@ import { ComponentProps } from "react";
 import { mapValues } from "lodash";
 import { checkedValue, uncheckedValue } from "@/components/CheckBox";
 
+type FormData = { [key: string]: FormDataEntryValue | number | boolean };
+
 type Props = {
   /** called when form submitted */
-  onSubmit: (data: {
-    [key: string]: FormDataEntryValue | number | boolean;
-  }) => unknown;
+  onSubmit: (data: FormData) => unknown;
 } & ComponentProps<"form">;
 
-/** util form component to put around fields */
+/** form wrapper around set of fields */
 const Form = ({ onSubmit, ...props }: Props) => {
   return (
     <form
@@ -17,8 +17,8 @@ const Form = ({ onSubmit, ...props }: Props) => {
       onSubmit={(event) => {
         event.preventDefault();
         const form = event.target as HTMLFormElement;
-        /** pass form data in nice format to callback */
         onSubmit(
+          /** pass form data to callback in nice format */
           mapValues(Object.fromEntries(new FormData(form)), (value) => {
             if (
               typeof value === "string" &&

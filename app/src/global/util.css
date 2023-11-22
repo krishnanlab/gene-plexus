@@ -50,6 +50,14 @@
   --lines: 5;
 }
 
+.text-tooltip {
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--gray);
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
 /** effects */
 
 .shadow {

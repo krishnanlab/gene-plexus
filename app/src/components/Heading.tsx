@@ -7,7 +7,6 @@ import {
 } from "react";
 import { FaLink } from "react-icons/fa6";
 import reactToText from "react-to-text";
-import classNames from "classnames";
 import { kebabCase } from "lodash";
 import Badge from "@/components/Badge";
 import classes from "./Heading.module.css";
@@ -46,22 +45,20 @@ const Heading = ({
     typeof icon === "string" ? (
       <Badge text={icon} className={classes.badge} />
     ) : (
-      cloneElement(icon, {
-        className: classNames(classes.icon, "inline-icon"),
-      })
+      cloneElement(icon, { className: classes.icon })
     );
 
   return (
-    <Tag id={id} ref={ref} {...props}>
+    <Tag id={id} ref={ref} {...props} className={classes.heading}>
       {iconElement}
 
       {/* content */}
-      {children}
+      <span className={classes.content}>{children}</span>
 
       {/* link to section */}
       {id && (
         <a href={"#" + id} className={classes.anchor} aria-label="Heading link">
-          <FaLink className="inline-icon" />
+          <FaLink />
         </a>
       )}
     </Tag>

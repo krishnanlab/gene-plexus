@@ -46,7 +46,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
         {tabs.map(({ id, text, icon, tooltip }, index) => (
           <Trigger key={index} asChild value={id}>
             <Tooltip content={tooltip}>
-              <button className={classes.button}>
+              <button className={classes.button} type="button">
                 {text}
                 {icon && cloneElement(icon, { className: "icon" })}
               </button>

@@ -1,9 +1,8 @@
-import { ReactNode } from "react";
-import { FaCheck } from "react-icons/fa6";
-import reactToText from "react-to-text";
-import { CheckboxProps, Indicator, Root } from "@radix-ui/react-checkbox";
+import { ComponentProps, ReactNode, useId } from "react";
+import { FaRegSquare, FaRegSquareCheck } from "react-icons/fa6";
+import * as checkbox from "@zag-js/checkbox";
+import { normalizeProps, useMachine } from "@zag-js/react";
 import Help from "@/components/Help";
-import { useLocal } from "@/util/hooks";
 import classes from "./CheckBox.module.css";
 
 type Props = {
@@ -15,33 +14,40 @@ type Props = {
   value?: boolean;
   /** on checked state change */
   onChange?: (value: boolean) => void;
-} & Omit<CheckboxProps, "value" | "onChange">;
+} & ComponentProps<"input">;
 
-/** obscure value to be able to distinguish boolean (checkbox) in FormData */
+/** obscure values to be able to distinguish boolean (checkbox) in FormData */
 export const checkedValue = "__checkedValue__";
 export const uncheckedValue = "__uncheckedValue__";
 
 /** simple checkbox with label */
 const CheckBox = ({ label, tooltip, value, onChange, ...props }: Props) => {
-  /** local copy of state */
-  const [checked, setChecked] = useLocal(false, value, onChange);
+  /** set up zag */
+  const [state, send] = useMachine(
+    checkbox.machine({
+      /** unique id for component instance */
+      id: useId(),
+      /** value of checked for FormData */
+      value: checkedValue,
+      /** initialize state */
+      checked: value,
+      /** when state changes */
+      onCheckedChange: (details) => onChange?.(!!details.checked),
+    }),
+  );
+
+  /** interact with zag */
+  const api = checkbox.connect(state, send, normalizeProps);
+
+  /** check icon */
+  const Check = api.isChecked ? FaRegSquareCheck : FaRegSquare;
 
   return (
-    <label className={classes.label}>
-      <Root
-        {...props}
-        className={classes.root}
-        checked={checked}
-        onCheckedChange={(checked) => setChecked(!!checked)}
-        value={checked ? checkedValue : uncheckedValue}
-        aria-label={reactToText(label)}
-      >
-        <Indicator className={classes.indicator}>
-          <FaCheck />
-        </Indicator>
-      </Root>
-      {label}
-      {tooltip && <Help tooltip={tooltip} className={classes.help} />}
+    <label {...api.rootProps} className={classes.label}>
+      <Check {...api.controlProps} className={classes.check} />
+      <span {...api.labelProps}>{label}</span>
+      <input {...api.hiddenInputProps} {...props} />
+      {tooltip && <Help tooltip={tooltip} />}
     </label>
   );
 };

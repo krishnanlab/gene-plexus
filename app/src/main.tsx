@@ -9,6 +9,7 @@ const { handlers } = await import("../fixtures");
 await setupWorker(...handlers).start();
 // }
 
+/** render app entrypoint */
 createRoot(document.getElementById("app")!).render(
   <StrictMode>
     <App />

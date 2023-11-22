@@ -24,8 +24,15 @@ export const scrollTo = async (selector: string) => {
   await sleep(100);
 
   /** scroll to element */
-  window.scrollTo({
-    top: element.getBoundingClientRect().top + window.scrollY,
-    behavior: "smooth",
-  });
+  element.scrollIntoView({ behavior: "smooth" });
+};
+
+/** restart animations on element */
+export const restartAnimations = (element: Element): void => {
+  for (const animation of document.getAnimations()) {
+    if (element.contains((animation.effect as KeyframeEffect).target)) {
+      animation.cancel();
+      animation.play();
+    }
+  }
 };

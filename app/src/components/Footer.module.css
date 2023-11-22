@@ -1,11 +1,12 @@
 .footer {
   padding: 40px 20px;
   background: var(--deep);
+  box-shadow: var(--shadow);
   color: var(--white);
 }
 
 .footer a {
-  color: var(--white);
+  color: currentColor;
   transition: opacity var(--fast);
 }
 

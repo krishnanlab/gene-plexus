@@ -11,28 +11,27 @@ import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";
 import classes from "./Button.module.css";
 
-/** <a> or <RouterLink> */
-type LinkProps = Omit<ComponentProps<typeof Link>, "children">;
-/** <button> */
-type ButtonProps = Omit<ComponentProps<"button">, "children">;
+type Base = {
+  /** icon to show next to text */
+  icon?: ReactElement;
+  /** look */
+  design?: "normal" | "accent" | "critical";
+};
 
-type CustomProps =
+type Content =
   /** require text and/or tooltip for accessibility */
-  (
-    | { text: string; tooltip?: ReactNode }
-    | { text?: string; tooltip: ReactNode }
-  ) & {
-    /** icon to show next to text */
-    icon?: ReactElement;
-    /** look */
-    design?: "normal" | "accent" | "critical";
-  };
+  { text: string; tooltip?: ReactNode } | { text?: string; tooltip: ReactNode };
 
-type Props = CustomProps & (LinkProps | ButtonProps);
+/** <a> or <RouterLink> */
+type Link = Omit<ComponentProps<typeof Link>, "children">;
+/** <button> */
+type _Button = Omit<ComponentProps<"button">, "children">;
+
+type Props = Base & Content & (Link | _Button);
 
 /**
- * looks like a button and either goes somewhere (anchor) or does something
- * (button)
+ * looks like a button and either goes somewhere (<a>) or does something
+ * (<button>)
  */
 const Button = forwardRef(
   (
@@ -58,7 +57,7 @@ const Button = forwardRef(
         <Link
           ref={ref as ForwardedRef<HTMLAnchorElement>}
           className={className}
-          {...(props as LinkProps)}
+          {...(props as Link)}
         >
           {children}
         </Link>
@@ -66,7 +65,8 @@ const Button = forwardRef(
         <button
           ref={ref as ForwardedRef<HTMLButtonElement>}
           className={className}
-          {...(props as ButtonProps)}
+          type="button"
+          {...(props as _Button)}
         >
           {children}
         </button>

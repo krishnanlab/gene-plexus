@@ -1,6 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100">
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="-50 -50 100 100"
+  data-id="loading"
+>
   <style>
-    circle.spin {
+    [data-id="loading"] circle.spin {
       animation:
         draw 2s linear infinite,
         spin 4s linear infinite;
@@ -9,7 +13,7 @@
 
     @keyframes draw {
       from {
-        stroke-dashoffset: 502.6548;
+        stroke-dashoffset: var(--length);
       }
 
       to {
@@ -33,5 +37,6 @@
     fill="none"
     stroke="currentColor"
     stroke-width="20"
+    style="--length: 502.6548"
   />
 </svg>

@@ -20,13 +20,16 @@ import {
 import classes from "./Tooltip.module.css";
 
 type Props = {
-  /** text/jsx/etc. content of tooltip */
+  /**
+   * content of tooltip. use raw string for plain text, <>react element for
+   * <b>rich text</b></>.
+   */
   content?: ReactNode;
   children: ReactElement & { ref?: Ref<unknown> };
 };
 
 /**
- * shows a popup of minimal and non-interactive contextual info when hovering or
+ * popup of minimal, non-interactive help or contextual info when hovering or
  * focusing children
  */
 const Tooltip = forwardRef(
