@@ -10,6 +10,7 @@ import {
   FaFlaskVial,
   FaFont,
   FaHashtag,
+  FaHorse,
   FaListCheck,
   FaMagnifyingGlass,
   FaPalette,
@@ -246,6 +247,7 @@ const Testbed = () => {
         <div className="flex-row gap-md">
           {/*  */}
           <Select
+            label="Single"
             options={
               [
                 { id: "1", text: "Lorem" },
@@ -256,12 +258,13 @@ const Testbed = () => {
             onChange={console.info}
           />
           <Select
+            label="Multi"
             multi={true}
             options={
               [
                 { id: "a", text: "Lorem" },
-                { id: "2", text: "Ipsum" },
-                { id: "3", text: "Dolor" },
+                { id: "2", text: "Ipsum", info: "123" },
+                { id: "3", text: "Dolor", info: "123", icon: <FaHorse /> },
               ] as const
             }
             onChange={console.info}

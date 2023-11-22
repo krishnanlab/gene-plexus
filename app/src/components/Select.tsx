@@ -1,6 +1,10 @@
-import { ReactElement } from "react";
-import { Listbox } from "@headlessui/react";
-import { useLocal } from "@/util/hooks";
+import { cloneElement, ReactElement, useId } from "react";
+import { FaCaretDown, FaCheck, FaCircle } from "react-icons/fa6";
+import classNames from "classnames";
+import { omit } from "lodash";
+import { normalizeProps, Portal, useMachine } from "@zag-js/react";
+import * as select from "@zag-js/select";
+import { PropTypes } from "@zag-js/types";
 import classes from "./Select.module.css";
 
 type Option = {
@@ -14,63 +18,110 @@ type Option = {
   icon?: ReactElement;
 };
 
-type Props<Options extends readonly Option[]> = (
+type Props = (
   | {
       /** multiple selected values allowed */
       multi?: false;
       /** selected option state */
-      value?: Options[number];
+      value?: Option;
       /** on selected option state change */
-      onChange?: (value: Options[number]) => void;
+      onChange?: (value: Option) => void;
     }
   | {
       multi: true;
       /** selected options state */
-      value?: Options[number][];
+      value?: Option[];
       /** on selected options state change */
-      onChange?: (value: Options[number][]) => void;
+      onChange?: (value: Option[]) => void;
     }
 ) & {
+  /** label */
+  label: string;
   /**
    * pass with "as const" to make sure value and onChange value can only be one
    * of passed options
    */
-  options: Options;
+  options: readonly Option[];
 };
 
 /** dropdown select box, multi or single */
-const Select = <Options extends readonly Option[]>({
-  multi,
-  value,
-  onChange,
-  options,
-}: Props<Options>) => {
-  const [selected, setSelected] = useLocal<Options[number] | Options[number][]>(
-    [],
-    value,
-    // @ts-expect-error ts not smart enough
-    onChange,
+const Select = ({ label, multi, value, onChange, options }: Props) => {
+  /** setup zag state */
+  const [state, send] = useMachine(
+    select.machine<Option>({
+      multiple: multi,
+      /** initialize selected values as array of ids */
+      value: value ? [value].flat().map((value) => value.id) : [],
+      /** unique id for component instance */
+      id: useId(),
+      collection: select.collection({
+        /** options */
+        items: options.map((option) => omit(option, "icon")),
+        /** for uniquely identifying option */
+        itemToValue: (option) => option.id,
+        /** string to use for type-ahead */
+        itemToString: (option) => option.text,
+      }),
+      /** when selected items change */
+      onValueChange: (details) =>
+        multi
+          ? onChange?.(details.items)
+          : details.items[0] && onChange?.(details.items[0]),
+    }),
   );
 
-  const count = [selected].flat().length;
+  /** interact with zag */
+  const api = select.connect<PropTypes, Option>(state, send, normalizeProps);
 
+  /** label to show in button trigger */
   let selectedLabel = "";
+  const selected = api.selectedItems;
+  const count = [selected].flat().length;
   if (count === 0) selectedLabel = "None selected";
   else if (count === 1) selectedLabel = [selected].flat()[0]?.text || "";
   else if (count === options.length) selectedLabel = "All selected";
   else selectedLabel = count + " selected";
 
+  /** check icon */
+  const Check = multi ? FaCheck : FaCircle;
+
   return (
-    <Listbox value={selected} onChange={setSelected} multiple={multi}>
-      <Listbox.Button>{selectedLabel}</Listbox.Button>
-      <Listbox.Options>
-        {options.map((option, index) => (
-          <Listbox.Option key={index} value={option}>
-            {option.text}
-          </Listbox.Option>
-        ))}
-      </Listbox.Options>
-    </Listbox>
+    <div {...api.rootProps} className={classes.root}>
+      <div {...api.controlProps} className={classes.control}>
+        {/* eslint-disable-next-line */}
+        <label {...api.labelProps}>{label}</label>
+        <button {...api.triggerProps} className={classes.button}>
+          <span className="truncate">{selectedLabel}</span>
+          <FaCaretDown />
+        </button>
+      </div>
+
+      <Portal>
+        <div {...api.positionerProps} className={classes.popover}>
+          <ul {...api.contentProps} className={classes.list}>
+            {options.map((option) => (
+              <li
+                key={option.id}
+                {...api.getItemProps({ item: option })}
+                className={classes.option}
+              >
+                <Check
+                  {...api.getItemIndicatorProps({ item: option })}
+                  className={classes.check}
+                  style={{ height: multi ? "" : "8px" }}
+                />
+                <span className={classes.text}>{option.text}</span>
+                <span className="secondary">{option.info}</span>
+                {option.icon &&
+                  cloneElement(option.icon, {
+                    className: classNames(classes.icon, "secondary"),
+                  })}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Portal>
+    </div>
   );
 };
 
