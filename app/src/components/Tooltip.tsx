@@ -1,22 +1,8 @@
-import {
-  cloneElement,
-  ForwardedRef,
-  forwardRef,
-  ReactElement,
-  ReactNode,
-  Ref,
-} from "react";
-import { mergeRefs } from "react-merge-refs";
+import { cloneElement, ReactElement, ReactNode, Ref, useId } from "react";
 import reactToText from "react-to-text";
 import classNames from "classnames";
-import {
-  Arrow,
-  Content,
-  Portal,
-  Provider,
-  Root,
-  Trigger,
-} from "@radix-ui/react-tooltip";
+import { normalizeProps, Portal, useMachine } from "@zag-js/react";
+import * as tooltip from "@zag-js/tooltip";
 import classes from "./Tooltip.module.css";
 
 type Props = {
@@ -25,6 +11,7 @@ type Props = {
    * <b>rich text</b></>.
    */
   content?: ReactNode;
+  /** trigger */
   children: ReactElement & { ref?: Ref<unknown> };
 };
 
@@ -32,50 +19,63 @@ type Props = {
  * popup of minimal, non-interactive help or contextual info when hovering or
  * focusing children
  */
-const Tooltip = forwardRef(
-  ({ content, children, ...props }: Props, ref: ForwardedRef<unknown>) => {
-    /** forward refs to children */
-    const newChildren = cloneElement(children, {
-      ref: mergeRefs([ref, children.ref]),
-      ...props,
-    });
+const Tooltip = ({ content, children }: Props) => {
+  /** set up zag */
+  const [state, send] = useMachine(
+    tooltip.machine({
+      /** unique id for component instance */
+      id: useId(),
+      /** settings */
+      openDelay: 200,
+      closeDelay: 0,
+      closeOnPointerDown: false,
+      positioning: {
+        placement: "top",
+      },
+    }),
+  );
 
-    if (content)
-      return (
-        <Provider delayDuration={200}>
-          <Root>
-            {/* children elements that trigger opening on hover/focus */}
-            <Trigger
-              asChild
-              aria-label={
-                /**
-                 * set aria label to tooltip content if trigger has no visible
-                 * text, e.g. button with only icon
-                 */
-                !reactToText(newChildren).trim() &&
-                !newChildren.props["aria-label"]
-                  ? reactToText(content)
-                  : undefined
-              }
-            >
-              {newChildren}
-            </Trigger>
+  /** interact with zag */
+  const api = tooltip.connect(state, send, normalizeProps);
 
-            {/* tooltip and content */}
-            <Portal>
-              <Content
+  /** add props to children */
+  const newChildren = cloneElement(children, {
+    ...api.triggerProps,
+    /**
+     * set aria label to tooltip content if trigger has no visible text, e.g.
+     * button with only icon
+     */
+    "aria-label":
+      !reactToText(children).trim() && !children.props["aria-label"]
+        ? reactToText(content)
+        : undefined,
+  });
+
+  if (content)
+    return (
+      <>
+        {/* children elements that trigger opening on hover/focus */}
+        {newChildren}
+
+        {/* tooltip and content */}
+        <Portal>
+          {api.isOpen && (
+            <div {...api.positionerProps}>
+              <div
+                {...api.contentProps}
                 className={classNames(classes.content, "shadow")}
-                sideOffset={5}
               >
-                {content}
-                <Arrow className={classes.arrow} />
-              </Content>
-            </Portal>
-          </Root>
-        </Provider>
-      );
-    else return newChildren;
-  },
-);
+                Tooltip
+              </div>
+              <div {...api.arrowProps} className={classes.arrow}>
+                <div {...api.arrowTipProps} />
+              </div>
+            </div>
+          )}
+        </Portal>
+      </>
+    );
+  else return children;
+};
 
 export default Tooltip;

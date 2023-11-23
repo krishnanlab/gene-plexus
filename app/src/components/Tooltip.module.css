@@ -5,33 +5,11 @@
 }
 
 .arrow {
-  fill: var(--white);
-  /* var(--shadow) */
-  filter: drop-shadow(0 0 3px #00000020) drop-shadow(2px 2px 8px #00000020);
+  --arrow-size: 10px;
+  --arrow-background: var(--white);
 }
 
-.content[data-side="top"] .arrow {
-  clip-path: inset(0 -10px -10px -10px);
-}
-.content[data-side="right"] .arrow {
-  clip-path: inset(-10px 0 -10px -10px);
-}
-.content[data-side="bottom"] .arrow {
-  clip-path: inset(-10px -10px 0 -10px);
-}
-.content[data-side="left"] .arrow {
-  clip-path: inset(-10px -10px -10px 0);
-}
-
-.content[data-state="delayed-open"] {
-  animation: fade 200ms;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.arrow div {
+  box-shadow: var(--shadow);
+  clip-path: polygon(-50% -50%, 150% -50%, -50% 150%);
 }
