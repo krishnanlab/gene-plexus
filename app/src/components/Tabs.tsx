@@ -33,7 +33,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
       /** unique id for component instance */
       id: useId(),
       /** initialize selected tab state */
-      value: syncWithUrl ? value : tabProps[0]?.id,
+      value: syncWithUrl ? value || tabProps[0]?.id : tabProps[0]?.id,
       /** when selected tab changes */
       onValueChange: (details) => syncWithUrl && setValue(details.value),
     }),
@@ -43,7 +43,7 @@ const Tabs = ({ syncWithUrl = "", children }: Props) => {
   const api = tabs.connect(state, send, normalizeProps);
 
   return (
-    <div {...api.rootProps} className={classes.root}>
+    <div {...api.rootProps} className={classes.container}>
       {/* list */}
       <div {...api.tablistProps} className="flex-row gap-sm">
         {tabProps.map((tab, index) => (

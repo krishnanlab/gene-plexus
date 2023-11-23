@@ -19,6 +19,7 @@ import {
   FaRegCircleDot,
   FaRegFolder,
   FaRegHourglass,
+  FaRegMessage,
   FaRegSquareCheck,
   FaSliders,
   FaStop,
@@ -37,6 +38,7 @@ import Label from "@/components/Label";
 import Link from "@/components/Link";
 import Meta from "@/components/Meta";
 import NumberBox from "@/components/NumberBox";
+import Popover from "@/components/Popover";
 import Radios from "@/components/Radios";
 import Section from "@/components/Section";
 import Select from "@/components/Select";
@@ -50,7 +52,7 @@ import { formatDate, formatNumber } from "@/util/string";
 
 /** util func to log change to components for testing */
 const logChange = (...args: unknown[]) => {
-  // console.info(...args);
+  console.info(...args);
 };
 
 /** test and example usage of formatting, elements, components, etc. */
@@ -522,7 +524,7 @@ const Testbed = () => {
 
       {/* tooltip (for testing; not typically used directly) */}
       <Section>
-        <Heading level={3} icon={<FaMessage />}>
+        <Heading level={3} icon={<FaRegMessage />}>
           Tooltip
         </Heading>
         <div className="flex-row gap-sm">
@@ -538,6 +540,44 @@ const Testbed = () => {
           >
             <span className="text-tooltip">Rich content</span>
           </Tooltip>
+        </div>
+      </Section>
+
+      {/* popover (for testing; not typically used directly) */}
+      <Section>
+        <Heading level={3} icon={<FaMessage />}>
+          Popover
+        </Heading>
+        <div className="flex-row gap-sm">
+          <Popover
+            label="Menu"
+            content={
+              <>
+                <p>
+                  Rich, interactive content. Lorem ipsum{" "}
+                  <Link to="https://medschool.cuanschutz.edu/dbmi">
+                    dolor sit
+                  </Link>{" "}
+                  amet consectetur adipiscing elit
+                </p>
+                <div className="flex-row gap-sm">
+                  <Button text="Save" design="accent" />
+                  <Select
+                    options={
+                      [
+                        { id: "csv", text: "CSV" },
+                        { id: "tsv", text: "TSV" },
+                        { id: "pdf", text: "PDF" },
+                      ] as const
+                    }
+                    onChange={logChange}
+                  />
+                </div>
+              </>
+            }
+          >
+            <Button text="Menu" />
+          </Popover>
         </div>
       </Section>
 
@@ -559,7 +599,7 @@ const Testbed = () => {
         </div>
       </Section>
 
-      {/* form */}
+      {/* form (usually not needed) */}
       <Section>
         <Heading level={3} icon={<FaClipboardList />}>
           Form

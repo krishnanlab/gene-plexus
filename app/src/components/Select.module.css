@@ -4,7 +4,7 @@
 }
 
 .button {
-  width: 150px;
+  max-width: 150px;
   padding: 5px;
   gap: 10px;
   border-bottom: currentColor 2px solid;
@@ -22,7 +22,8 @@
   text-align: left;
 }
 
-.popover {
+.popup {
+  z-index: 999 !important;
   border-radius: var(--rounded);
   background: var(--white);
   box-shadow: var(--shadow);

@@ -55,8 +55,6 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
       id: useId(),
       /** multiple selections allowed */
       multiple: multi,
-      /** initialize selected values (array of ids) */
-      value: value ? [value].flat().map((value) => value.id) : [],
       /** options */
       collection: select.collection({
         /** options */
@@ -66,6 +64,14 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
         /** string to use for type-ahead */
         itemToString: (option) => option.text,
       }),
+      /** initialize selected values (array of ids) */
+      value: value
+        ? [value].flat().map((value) => value.id)
+        : multi
+          ? []
+          : options[0]
+            ? [options[0].id]
+            : [],
       /** when selected items change */
       onValueChange: (details) =>
         multi
@@ -91,6 +97,7 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
 
   return (
     <div {...api.rootProps} className={classes.root}>
+      {/* trigger */}
       <div {...api.controlProps} className={classes.control}>
         {/* eslint-disable-next-line */}
         <Label {...forwardLabelProps(props)} {...api.labelProps}>
@@ -103,30 +110,33 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
         </Label>
       </div>
 
+      {/* popup */}
       <Portal>
-        <div {...api.positionerProps} className={classes.popover}>
-          <ul {...api.contentProps} className={classes.list}>
-            {options.map((option) => (
-              <li
-                key={option.id}
-                {...api.getItemProps({ item: option })}
-                className={classes.option}
-              >
-                <Check
-                  {...api.getItemIndicatorProps({ item: option })}
-                  className={classes.check}
-                  style={{ height: multi ? "" : "8px" }}
-                />
-                <span className={classes.text}>{option.text}</span>
-                <span className="secondary">{option.info}</span>
-                {option.icon &&
-                  cloneElement(option.icon, {
-                    className: classNames(classes.icon, "secondary"),
-                  })}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {api.isOpen && (
+          <div {...api.positionerProps} className={classes.popup}>
+            <ul {...api.contentProps} className={classes.list}>
+              {options.map((option) => (
+                <li
+                  key={option.id}
+                  {...api.getItemProps({ item: option })}
+                  className={classes.option}
+                >
+                  <Check
+                    {...api.getItemIndicatorProps({ item: option })}
+                    className={classes.check}
+                    style={{ height: multi ? "" : "8px" }}
+                  />
+                  <span className={classes.text}>{option.text}</span>
+                  <span className="secondary">{option.info}</span>
+                  {option.icon &&
+                    cloneElement(option.icon, {
+                      className: classNames(classes.icon, "secondary"),
+                    })}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </Portal>
     </div>
   );

@@ -56,7 +56,7 @@ const NumberBox = ({ min, max, step, value, onChange, ...props }: Props) => {
       {...api.labelProps}
       htmlFor={api.inputProps.id}
     >
-      <div className={classes.root}>
+      <div className={classes.container}>
         <button {...api.incrementTriggerProps} className={classes.inc}>
           <FaAngleUp />
         </button>

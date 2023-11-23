@@ -37,14 +37,16 @@ const Toasts = () => {
 
   return (
     <Portal>
-      <div
-        {...api.getGroupProps({ placement: "bottom-end" })}
-        className={classes.list}
-      >
-        {api.toasts.map((toast, index) => (
-          <Toast key={index} actor={toast} />
-        ))}
-      </div>
+      {api.toasts.length && (
+        <div
+          {...api.getGroupProps({ placement: "bottom-end" })}
+          className={classes.list}
+        >
+          {api.toasts.map((toast, index) => (
+            <Toast key={index} actor={toast} />
+          ))}
+        </div>
+      )}
     </Portal>
   );
 };
@@ -64,7 +66,7 @@ const Toast = ({ actor }: { actor: toast.Service<ToastProps> }) => {
   return (
     <div
       {...api.rootProps}
-      className={classNames(classes.toast, "shadow")}
+      className={classNames(classes.toast, "card")}
       style={{ "--color": types[_type].color } as CSSProperties}
     >
       {/* type icon */}

@@ -102,7 +102,7 @@ const Slider = ({
 
   return (
     <Label {...forwardLabelProps(props)}>
-      <div {...api.rootProps} className={classes.root}>
+      <div {...api.rootProps} className={classes.container}>
         <div {...api.controlProps} className={classes.control}>
           {/* track */}
           <div {...api.trackProps} className={classes.track}>

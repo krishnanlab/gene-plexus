@@ -1,4 +1,4 @@
-import { cloneElement, ReactElement, ReactNode, Ref, useId } from "react";
+import { cloneElement, ReactElement, ReactNode, useId } from "react";
 import reactToText from "react-to-text";
 import classNames from "classnames";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
@@ -7,12 +7,12 @@ import classes from "./Tooltip.module.css";
 
 type Props = {
   /**
-   * content of tooltip. use raw string for plain text, <>react element for
+   * content of popup. use raw string for plain text, <>react element for
    * <b>rich text</b></>.
    */
   content?: ReactNode;
   /** trigger */
-  children: ReactElement & { ref?: Ref<unknown> };
+  children: ReactElement;
 };
 
 /**
@@ -44,13 +44,13 @@ const Tooltip = ({ content, children }: Props) => {
       <>
         {/* children elements that trigger opening on hover/focus */}
         {cloneElement(children, {
-          /** pass props necessary to trigger tooltip */
+          /** pass props necessary to trigger */
           ...api.triggerProps,
           /** make sure original props preserved */
           ...children.props,
           /**
-           * set aria label to tooltip content if trigger has no visible text,
-           * e.g. button with only icon
+           * set aria label to content if trigger has no visible text, e.g.
+           * button with only icon
            */
           "aria-label":
             !reactToText(children).trim() && !children.props["aria-label"]
@@ -58,16 +58,19 @@ const Tooltip = ({ content, children }: Props) => {
               : children.props["aria-label"],
         })}
 
-        {/* tooltip and content */}
+        {/* popup */}
         <Portal>
           {api.isOpen && (
-            <div {...api.positionerProps} className={classes.root}>
+            <div {...api.positionerProps} className={classes.popup}>
+              {/* content */}
               <div
                 {...api.contentProps}
-                className={classNames(classes.content, "shadow")}
+                className={classNames(classes.content, "card")}
               >
                 {content}
               </div>
+
+              {/* caret */}
               <div {...api.arrowProps} className={classes.arrow}>
                 <div {...api.arrowTipProps} />
               </div>

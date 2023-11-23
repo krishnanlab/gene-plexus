@@ -42,7 +42,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
   const input = multi ? (
     <textarea
       id={id}
-      className={classNames(classes.textarea, "shadow")}
+      className={classNames(classes.textarea, "card")}
       value={text}
       onChange={(event) => setText(event.target.value)}
       {...(props as Textarea)}
@@ -50,7 +50,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
   ) : (
     <input
       id={id}
-      className={classNames(classes.input, "shadow")}
+      className={classNames(classes.input, "card")}
       value={text}
       onChange={(event) => setText(event.target.value)}
       {...(props as Input)}
@@ -74,7 +74,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
 
   return (
     <Label {...forwardLabelProps(props)} htmlFor={id}>
-      <div className={classes.wrapper}>
+      <div className={classes.container}>
         {input}
 
         {/* side icon */}

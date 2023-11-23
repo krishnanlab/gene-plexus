@@ -1,17 +1,21 @@
-.horizontal {
+.horizontal,
+.vertical {
   display: flex;
   align-items: center;
+  max-width: 100%;
   gap: 10px;
 }
 
-.horizontal > *:nth-child(2) {
+.horizontal > :first-child {
+  flex-shrink: 0;
+}
+
+.horizontal > :last-child {
   flex-grow: 1;
 }
 
 .vertical {
-  display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .none {

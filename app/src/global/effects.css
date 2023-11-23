@@ -1,6 +1,6 @@
-/** depth */
+/** card with depth */
 
-.shadow {
+.card {
   border-radius: var(--rounded);
   box-shadow: var(--shadow);
 }
