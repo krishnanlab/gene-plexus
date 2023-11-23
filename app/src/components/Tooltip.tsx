@@ -44,7 +44,10 @@ const Tooltip = ({ content, children }: Props) => {
       <>
         {/* children elements that trigger opening on hover/focus */}
         {cloneElement(children, {
+          /** pass props necessary to trigger tooltip */
           ...api.triggerProps,
+          /** make sure original props preserved */
+          ...children.props,
           /**
            * set aria label to tooltip content if trigger has no visible text,
            * e.g. button with only icon
@@ -52,7 +55,7 @@ const Tooltip = ({ content, children }: Props) => {
           "aria-label":
             !reactToText(children).trim() && !children.props["aria-label"]
               ? reactToText(content)
-              : undefined,
+              : children.props["aria-label"],
         })}
 
         {/* tooltip and content */}
