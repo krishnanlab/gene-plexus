@@ -28,6 +28,7 @@ const Tooltip = ({ content, children }: Props) => {
       /** settings */
       openDelay: 200,
       closeDelay: 0,
+      // closeDelay: 999999, // debug
       closeOnPointerDown: false,
       positioning: {
         placement: "top",
@@ -38,34 +39,31 @@ const Tooltip = ({ content, children }: Props) => {
   /** interact with zag */
   const api = tooltip.connect(state, send, normalizeProps);
 
-  /** add props to children */
-  const newChildren = cloneElement(children, {
-    ...api.triggerProps,
-    /**
-     * set aria label to tooltip content if trigger has no visible text, e.g.
-     * button with only icon
-     */
-    "aria-label":
-      !reactToText(children).trim() && !children.props["aria-label"]
-        ? reactToText(content)
-        : undefined,
-  });
-
   if (content)
     return (
       <>
         {/* children elements that trigger opening on hover/focus */}
-        {newChildren}
+        {cloneElement(children, {
+          ...api.triggerProps,
+          /**
+           * set aria label to tooltip content if trigger has no visible text,
+           * e.g. button with only icon
+           */
+          "aria-label":
+            !reactToText(children).trim() && !children.props["aria-label"]
+              ? reactToText(content)
+              : undefined,
+        })}
 
         {/* tooltip and content */}
         <Portal>
           {api.isOpen && (
-            <div {...api.positionerProps}>
+            <div {...api.positionerProps} className={classes.root}>
               <div
                 {...api.contentProps}
                 className={classNames(classes.content, "shadow")}
               >
-                Tooltip
+                {content}
               </div>
               <div {...api.arrowProps} className={classes.arrow}>
                 <div {...api.arrowTipProps} />

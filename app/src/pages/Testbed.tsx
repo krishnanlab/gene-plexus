@@ -527,9 +527,7 @@ const Testbed = () => {
         </Heading>
         <div className="flex-row gap-sm">
           <Tooltip content="Minimal, non-interactive help or contextual info">
-            <span className="text-tooltip" tabIndex={0}>
-              Plain content
-            </span>
+            <span className="text-tooltip">Plain content</span>
           </Tooltip>
           <Tooltip
             content={
