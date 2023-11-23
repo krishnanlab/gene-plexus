@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+import reactToText from "react-to-text";
 import { sleep } from "@/util/misc";
 
 /** wait for element matching selector to appear, checking periodically */
@@ -35,4 +37,22 @@ export const restartAnimations = (element: Element): void => {
       animation.play();
     }
   }
+};
+
+/** get text content of react node */
+export const renderText = (node: ReactNode) => {
+  /** try normally */
+  let text = reactToText(node);
+  if (text) return text;
+
+  /** https://github.com/lhansford/react-to-text/issues/332 */
+  try {
+    // @ts-expect-error not checking deep props
+    text = reactToText(node.type.render(node.props));
+  } catch (e) {
+    //
+  }
+  if (text) return text;
+
+  return "";
 };

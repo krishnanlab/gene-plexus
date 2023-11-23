@@ -51,29 +51,30 @@ const Button = forwardRef(
       [classes.square!]: !text && !!icon,
     });
 
-    /** full element to render */
-    const element =
-      "to" in props ? (
+    if ("to" in props)
+      return (
         <Link
           ref={ref as ForwardedRef<HTMLAnchorElement>}
           className={className}
+          tooltip={tooltip}
           {...(props as Link)}
         >
           {children}
         </Link>
-      ) : (
-        <button
-          ref={ref as ForwardedRef<HTMLButtonElement>}
-          className={className}
-          type="button"
-          {...(props as _Button)}
-        >
-          {children}
-        </button>
       );
-
-    /** wrap in tooltip */
-    return <Tooltip content={tooltip}>{element}</Tooltip>;
+    else
+      return (
+        <Tooltip content={tooltip}>
+          <button
+            ref={ref as ForwardedRef<HTMLButtonElement>}
+            className={className}
+            type="button"
+            {...(props as _Button)}
+          >
+            {children}
+          </button>
+        </Tooltip>
+      );
   },
 );
 

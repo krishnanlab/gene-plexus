@@ -550,15 +550,16 @@ const Testbed = () => {
         </Heading>
         <div className="flex-row gap-sm">
           <Popover
-            label="Menu"
+            label="Rich, interactive content"
             content={
               <>
                 <p>
-                  Rich, interactive content. Lorem ipsum{" "}
+                  Lorem ipsum{" "}
                   <Link to="https://medschool.cuanschutz.edu/dbmi">
                     dolor sit
                   </Link>{" "}
-                  amet consectetur adipiscing elit
+                  amet consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.
                 </p>
                 <div className="flex-row gap-sm">
                   <Button text="Save" design="accent" />
@@ -576,7 +577,7 @@ const Testbed = () => {
               </>
             }
           >
-            <Button text="Menu" />
+            <Button text="Menu" design="accent" />
           </Popover>
         </div>
       </Section>

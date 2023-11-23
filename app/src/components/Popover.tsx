@@ -1,6 +1,6 @@
 import { cloneElement, ReactElement, ReactNode, useId } from "react";
 import { FaXmark } from "react-icons/fa6";
-import reactToText from "react-to-text";
+import { renderText } from "@/util/dom";
 import classNames from "classnames";
 import * as popover from "@zag-js/popover";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
@@ -33,8 +33,6 @@ const Popover = ({ label, content, children }: Props) => {
   /** interact with zag */
   const api = popover.connect(state, send, normalizeProps);
 
-  console.log("hi", reactToText(<Button text="Menu" />));
-
   return (
     <>
       {/* children elements that trigger opening on hover/focus */}
@@ -48,8 +46,8 @@ const Popover = ({ label, content, children }: Props) => {
          * with only icon
          */
         "aria-label":
-          !reactToText(children).trim() && !children.props["aria-label"]
-            ? reactToText(content)
+          !renderText(children).trim() && !children.props["aria-label"]
+            ? renderText(content)
             : children.props["aria-label"],
       })}
 

@@ -6,9 +6,9 @@ import {
   useRef,
 } from "react";
 import { FaLink } from "react-icons/fa6";
-import reactToText from "react-to-text";
 import { kebabCase } from "lodash";
 import Badge from "@/components/Badge";
+import { renderText } from "@/util/dom";
 import classes from "./Heading.module.css";
 
 type Props = {
@@ -38,7 +38,7 @@ const Heading = ({
   const Tag: keyof JSX.IntrinsicElements = `h${level}`;
 
   /** url-compatible, "slugified" id */
-  const id = kebabCase(anchor ?? reactToText(children));
+  const id = kebabCase(anchor ?? renderText(children));
 
   /** icon or badge */
   const iconElement =

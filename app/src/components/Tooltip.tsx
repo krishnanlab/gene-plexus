@@ -1,5 +1,5 @@
 import { cloneElement, ReactElement, ReactNode, useId } from "react";
-import reactToText from "react-to-text";
+import { renderText } from "@/util/dom";
 import classNames from "classnames";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
 import * as tooltip from "@zag-js/tooltip";
@@ -53,8 +53,8 @@ const Tooltip = ({ content, children }: Props) => {
            * button with only icon
            */
           "aria-label":
-            !reactToText(children).trim() && !children.props["aria-label"]
-              ? reactToText(content)
+            !renderText(children).trim() && !children.props["aria-label"]
+              ? renderText(content)
               : children.props["aria-label"],
         })}
 

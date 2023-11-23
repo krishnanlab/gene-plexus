@@ -1,5 +1,5 @@
 import { ComponentProps, useId, useState } from "react";
-import reactToText from "react-to-text";
+import { renderText } from "@/util/dom";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import * as slider from "@zag-js/slider";
 import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
@@ -115,7 +115,7 @@ const Slider = ({
               key={index}
               {...api.getThumbProps({ index })}
               className={classes.thumb}
-              aria-label={reactToText(props.label || "") + " " + index}
+              aria-label={renderText(props.label || "") + " " + index}
             >
               <input
                 {...api.getHiddenInputProps({ index })}
