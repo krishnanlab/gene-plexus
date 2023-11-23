@@ -1,9 +1,12 @@
 .horizontal,
 .vertical {
   display: flex;
-  align-items: center;
   max-width: 100%;
   gap: 10px;
+}
+
+.horizontal {
+  align-items: center;
 }
 
 .horizontal > :first-child {
