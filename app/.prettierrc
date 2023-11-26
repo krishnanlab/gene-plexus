@@ -14,5 +14,6 @@
     "^../"
   ],
   "cssDeclarationSorterOrder": "smacss",
-  "jsdocCapitalizeDescription": false
+  "jsdocCapitalizeDescription": false,
+  "htmlWhitespaceSensitivity": "strict"
 }

@@ -142,12 +142,10 @@ const Testbed = () => {
         </p>
 
         <pre>
-          <code>
-            const popup = document.querySelector("#popup"); popup.style.width =
-            "100%"; popup.innerText = "Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.";
-          </code>
+          {`const popup = document.querySelector("#popup"); 
+popup.style.width = "100%";
+popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+`}
         </pre>
       </Section>
 

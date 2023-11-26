@@ -1,4 +1,4 @@
-import { ComponentProps, Fragment, ReactElement, ReactNode } from "react";
+import { ComponentProps, ReactElement, ReactNode } from "react";
 import { FaAsterisk } from "react-icons/fa6";
 import { pick } from "lodash";
 import Help from "@/components/Help";
@@ -43,10 +43,15 @@ const Label = ({
     children = <Tooltip content={tooltip}>{children}</Tooltip>;
 
   /** no container if layout none */
-  const Container = layout === "none" ? Fragment : "div";
+  const Container = ({ children }: { children: ReactNode }) =>
+    layout === "none" ? (
+      <>{children}</>
+    ) : (
+      <div className={classes[layout]}>{children}</div>
+    );
 
   return (
-    <Container className={classes[layout]}>
+    <Container>
       {label && (
         <label {...props} className={classes.label}>
           {/* label */}
