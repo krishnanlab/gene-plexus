@@ -1,8 +1,8 @@
 import { cloneElement, ReactElement, ReactNode, useId } from "react";
-import { renderText } from "@/util/dom";
 import classNames from "classnames";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
 import * as tooltip from "@zag-js/tooltip";
+import { renderText } from "@/util/dom";
 import classes from "./Tooltip.module.css";
 
 type Props = {

@@ -1,0 +1,112 @@
+import { useRef, useState } from "react";
+import { FaBars, FaXmark } from "react-icons/fa6";
+import { useEvent } from "react-use";
+import classNames from "classnames";
+import { startCase } from "lodash";
+import Tooltip from "@/components/Tooltip";
+import { firstInView } from "@/util/dom";
+import { useMutation } from "@/util/hooks";
+import classes from "./TableOfContents.module.css";
+
+/** all used heading elements */
+const headingSelector = "h1, h2, h3, h4";
+/** get all used heading elements */
+const getHeadings = () => [
+  ...document.querySelectorAll<HTMLHeadingElement>(headingSelector),
+];
+
+const TableOfContents = () => {
+  /** list element */
+  const ref = useRef<HTMLDivElement>(null);
+
+  /** open/closed state */
+  const [open, setOpen] = useState(window.innerWidth > 1500);
+
+  /** full heading details */
+  const [headings, setHeadings] = useState<
+    { text: string; html: string; id: string; level: number }[]
+  >([]);
+
+  /** active heading (first in view) */
+  const [active, setActive] = useState("");
+
+  /** on window scroll */
+  useEvent("scroll", () => {
+    /** get active heading */
+    setActive(firstInView(getHeadings())?.id || "");
+
+    /** scroll toc list active item into view */
+    ref.current
+      ?.querySelector("[data-active]")
+      ?.scrollIntoView({ block: "center" });
+  });
+
+  /** read page headings */
+  useMutation(
+    document.documentElement,
+    {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      characterData: true,
+    },
+    () => {
+      getHeadings();
+      setHeadings(
+        getHeadings().map((heading) => {
+          const clone = heading.cloneNode(true) as HTMLHeadingElement;
+          clone.querySelector("a")?.remove();
+          return {
+            text: startCase(heading.innerText.toLowerCase()),
+            html: clone.innerHTML,
+            id: heading.id,
+            level: parseInt(heading.tagName.slice(1)) || 0,
+          };
+        }),
+      );
+    },
+  );
+
+  /** if too few headings, not much value in showing toc */
+  if (headings.length <= 1) return <></>;
+
+  return (
+    <aside
+      className={classNames(classes.table, "card")}
+      aria-label="Table of contents"
+    >
+      <div className={classes.heading}>
+        {open && (
+          <span className={classNames(classes.title, "primary", "bold")}>
+            Table Of Contents
+          </span>
+        )}
+        <Tooltip content={open ? "Close" : "Table of contents"}>
+          <button
+            className={classes.button}
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <FaXmark /> : <FaBars />}
+          </button>
+        </Tooltip>
+      </div>
+      {open && (
+        <div ref={ref} className={classes.list}>
+          {headings.map((heading, index) => (
+            <a
+              key={index}
+              className={classes.link}
+              href={"#" + heading.id}
+              dangerouslySetInnerHTML={{ __html: heading.html }}
+              data-active={heading.id === active ? "" : undefined}
+              style={{ paddingLeft: heading.level * 10 }}
+            />
+          ))}
+        </div>
+      )}
+    </aside>
+  );
+};
+
+export default TableOfContents;

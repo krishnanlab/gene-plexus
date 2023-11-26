@@ -1,0 +1,24 @@
+import { FaAngleUp } from "react-icons/fa6";
+import { useWindowScroll } from "react-use";
+import classes from "./FloatButtons.module.css";
+
+const FloatButtons = () => {
+  const { y } = useWindowScroll();
+
+  return (
+    <div className={classes.list}>
+      {y > 1000 && (
+        <button
+          className={classes.button}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <FaAngleUp />
+        </button>
+      )}
+
+      {/* possibly other buttons/actions in future */}
+    </div>
+  );
+};
+
+export default FloatButtons;

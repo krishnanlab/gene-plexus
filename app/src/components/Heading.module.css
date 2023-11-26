@@ -27,10 +27,3 @@
 .anchor:focus {
   opacity: 1;
 }
-
-.badge {
-  position: relative;
-  top: -0.05em;
-  margin-right: 15px;
-  vertical-align: middle;
-}

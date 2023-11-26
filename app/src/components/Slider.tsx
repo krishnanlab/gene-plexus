@@ -1,8 +1,8 @@
 import { ComponentProps, useId, useState } from "react";
-import { renderText } from "@/util/dom";
 import { normalizeProps, useMachine } from "@zag-js/react";
 import * as slider from "@zag-js/slider";
 import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
+import { renderText } from "@/util/dom";
 import { formatNumber } from "@/util/string";
 import classes from "./Slider.module.css";
 

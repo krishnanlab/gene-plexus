@@ -49,10 +49,19 @@ export const renderText = (node: ReactNode) => {
   try {
     // @ts-expect-error not checking deep props
     text = reactToText(node.type.render(node.props));
-  } catch (e) {
+  } catch (error) {
     //
   }
   if (text) return text;
 
   return "";
+};
+
+/** find index of first element "in view". model behavior off of wikiwand.com. */
+export const firstInView = (elements: HTMLElement[]) => {
+  const offset = parseInt(
+    window.getComputedStyle(document.documentElement).scrollPaddingTop,
+  );
+  for (const element of elements.reverse())
+    if (element.getBoundingClientRect()?.top < offset + 10) return element;
 };

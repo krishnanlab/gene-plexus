@@ -1,0 +1,32 @@
+:root {
+  /* colors */
+  --accent: #ba3960;
+  --accent-light: #fff2f5;
+  --deep: #22577a;
+  --deep-mid: #5a92b7;
+  --deep-light: #ceebff;
+  --black: #000000;
+  --dark-gray: #404040;
+  --gray: #707070;
+  --light-gray: #e0e0e0;
+  --white: #ffffff;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #f43f5e;
+
+  /* font weights */
+  --regular: 300;
+  --bold: 500;
+
+  /* effects */
+  --rounded: 5px;
+  --fast: 0.15s ease;
+  --slow: 0.35s ease;
+  --shadow: 0 0 3px #00000020, 2px 2px 8px #00000020;
+  --focus: 0 0 5px var(--accent);
+  --spacing: 2;
+  --compact: 1.5;
+
+  /** sizes */
+  --content: 1000px;
+}

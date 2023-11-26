@@ -1,10 +1,9 @@
 import { cloneElement, ReactElement, ReactNode, useId } from "react";
 import { FaXmark } from "react-icons/fa6";
-import { renderText } from "@/util/dom";
 import classNames from "classnames";
 import * as popover from "@zag-js/popover";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
-import Button from "@/components/Button";
+import { renderText } from "@/util/dom";
 import classes from "./Popover.module.css";
 
 type Props = {

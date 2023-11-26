@@ -1,3 +1,4 @@
+import "@/global/theme.css";
 import "@/global/styles.css";
 import "@/global/text.css";
 import "@/global/layout.css";
@@ -13,8 +14,10 @@ import {
 } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
+import FloatButtons from "@/components/FloatButtons";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import TableOfContents from "@/components/TableOfContents";
 import Toasts from "@/components/Toasts";
 import About from "@/pages/About";
 import Analyses from "@/pages/Analyses";
@@ -46,10 +49,12 @@ const Layout = () => {
       >
         <Header />
         <main>
+          <TableOfContents />
           <Outlet />
         </main>
         <Footer />
         <Toasts />
+        <FloatButtons />
       </QueryParamProvider>
     </IconContext.Provider>
   );

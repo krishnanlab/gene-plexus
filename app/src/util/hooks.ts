@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /** local copy of state for allowing component to be controlled or uncontrolled */
 export const useLocal = <Type>(
@@ -19,4 +19,24 @@ export const useLocal = <Type>(
   }, [onChange, local]);
 
   return [local, setLocal] as const;
+};
+
+/** listen for changes to dom */
+export const useMutation = (
+  /** element to listen to (otherwise use returned ref) */
+  element: Element | undefined,
+  options: MutationObserverInit | undefined,
+  callback: MutationCallback,
+) => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const target = element || ref.current;
+    if (!target) return;
+    const observer = new MutationObserver(callback);
+    observer.observe(target, options);
+    return () => {
+      observer.disconnect();
+    };
+  });
 };

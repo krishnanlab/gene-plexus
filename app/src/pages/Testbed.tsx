@@ -385,22 +385,10 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
             Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
           </Alert>
-          <Alert type="loading">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Alert>
-          <Alert type="success">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Alert>
-          <Alert type="warning">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Alert>
-          <Alert type="error">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </Alert>
+          <Alert type="loading">Loading</Alert>
+          <Alert type="success">Success</Alert>
+          <Alert type="warning">Warning</Alert>
+          <Alert type="error">Error</Alert>
         </div>
       </Section>
 
@@ -560,7 +548,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
                   incididunt ut labore et dolore magna aliqua.
                 </p>
                 <div className="flex-row gap-sm">
-                  <Button text="Save" design="accent" />
+                  <Button text="Save" />
                   <Select
                     options={
                       [
@@ -575,7 +563,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
               </>
             }
           >
-            <Button text="Menu" design="accent" />
+            <Button text="Menu" />
           </Popover>
         </div>
       </Section>
@@ -629,7 +617,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
               />
             </div>
             <CheckBox label="I consent" name="consent" />
-            <Button type="submit" text="Submit" design="accent" />
+            <Button type="submit" text="Submit" design="critical" />
           </Form>
         </div>
       </Section>

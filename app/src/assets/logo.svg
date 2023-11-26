@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-33 -48 66 96" data-id="logo">
   <style>
+    [data-id="logo"][data-animated] .logo-draw,
     [data-id="logo"]:hover .logo-draw {
       animation: logo-draw 2s linear infinite both;
       animation-delay: var(--delay);
@@ -33,7 +34,7 @@
     stroke="currentColor"
     stroke-linejoin="round"
     stroke-linecap="round"
-    stroke-width="5"
+    stroke-width="var(--stroke, 5)"
   >
     <!-- helix -->
     <path
