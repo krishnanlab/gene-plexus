@@ -1,6 +1,5 @@
 .container {
-  width: 150px;
-  max-width: 100%;
+  min-width: 150px;
 }
 
 .control {

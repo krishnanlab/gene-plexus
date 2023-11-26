@@ -21,10 +21,6 @@
   flex-direction: column;
 }
 
-.none {
-  display: contents;
-}
-
 .label {
   display: flex;
   align-items: center;

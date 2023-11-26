@@ -1,6 +1,5 @@
-import { ComponentProps, ReactElement, ReactNode } from "react";
+import { ComponentProps, Fragment, ReactElement, ReactNode } from "react";
 import { FaAsterisk } from "react-icons/fa6";
-import classNames from "classnames";
 import { pick } from "lodash";
 import Help from "@/components/Help";
 import Tooltip from "@/components/Tooltip";
@@ -15,20 +14,11 @@ type Props = {
   tooltip?: ReactNode;
   /** required field */
   required?: boolean;
-  /** class on label */
-  className?: string;
   /** input/control to be associated with label */
   children: ReactElement;
 } & ComponentProps<"label">;
 
-const labelProps = [
-  "label",
-  "layout",
-  "tooltip",
-  "required",
-  "className",
-  "style",
-] as const;
+const labelProps = ["label", "layout", "tooltip", "required"] as const;
 
 export type LabelProps = Pick<Props, (typeof labelProps)[number]>;
 
@@ -45,8 +35,6 @@ const Label = ({
   layout = "vertical",
   tooltip,
   required,
-  className,
-  style,
   children,
   ...props
 }: Props) => {
@@ -54,8 +42,11 @@ const Label = ({
   if (!label && tooltip)
     children = <Tooltip content={tooltip}>{children}</Tooltip>;
 
+  /** no container if layout none */
+  const Container = layout === "none" ? Fragment : "div";
+
   return (
-    <div className={classNames(classes[layout], className)} style={style}>
+    <Container className={classes[layout]}>
       {label && (
         <label {...props} className={classes.label}>
           {/* label */}
@@ -70,7 +61,7 @@ const Label = ({
       )}
 
       {children}
-    </div>
+    </Container>
   );
 };
 

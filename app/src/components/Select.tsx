@@ -99,7 +99,6 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
     <div {...api.rootProps} className={classes.root}>
       {/* trigger */}
       <div {...api.controlProps} className={classes.control}>
-        {/* eslint-disable-next-line */}
         <Label {...forwardLabelProps(props)} {...api.labelProps}>
           <button {...api.triggerProps} className={classes.button}>
             <span className="truncate" aria-hidden={true}>

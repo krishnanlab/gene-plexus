@@ -616,8 +616,10 @@ const Testbed = () => {
                 required={true}
               />
               <NumberBox label="Age" name="age" />
-              <Slider label="Cutoff" name="cutoff" className="full" />
-              <Slider label="Range" multi={true} name="range" />
+              <Slider label="Cutoff" name="cutoff" />
+              <div className="flex-col" style={{ alignItems: "stretch" }}>
+                <Slider label="Range" multi={true} name="range" layout="none" />
+              </div>
               <Radios
                 label="Order"
                 options={[
