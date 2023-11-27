@@ -11,6 +11,7 @@
     "test:types": "tsc"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.10.7",
     "@zag-js/checkbox": "^0.30.0",
     "@zag-js/number-input": "^0.30.0",
     "@zag-js/popover": "^0.30.0",

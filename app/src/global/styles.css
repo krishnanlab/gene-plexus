@@ -126,6 +126,12 @@ img {
   max-height: 100%;
 }
 
+/** table */
+
+table {
+  border-collapse: collapse;
+}
+
 /** interactive */
 
 button {
