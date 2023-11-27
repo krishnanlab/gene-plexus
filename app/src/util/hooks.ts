@@ -39,4 +39,6 @@ export const useMutation = (
       observer.disconnect();
     };
   });
+
+  return ref;
 };

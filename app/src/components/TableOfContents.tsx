@@ -41,17 +41,14 @@ const TableOfContents = () => {
       ?.scrollIntoView({ block: "center" });
   });
 
-  /** read page headings */
+  /** read headings whenever page changes */
   useMutation(
     document.documentElement,
     {
       subtree: true,
       childList: true,
-      attributes: true,
-      characterData: true,
     },
     () => {
-      getHeadings();
       setHeadings(
         getHeadings().map((heading) => {
           const clone = heading.cloneNode(true) as HTMLHeadingElement;
@@ -67,8 +64,12 @@ const TableOfContents = () => {
     },
   );
 
-  /** if too few headings, not much value in showing toc */
-  if (headings.length <= 1) return <></>;
+  /** if not much value in showing toc, hide */
+  if (
+    headings.length <= 1 ||
+    document.documentElement.getBoundingClientRect().height < 2000
+  )
+    return <></>;
 
   return (
     <aside

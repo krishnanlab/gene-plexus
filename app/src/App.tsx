@@ -11,6 +11,8 @@ import {
   Outlet,
   RouterProvider,
   useLocation,
+  useMatches,
+  useRouteLoaderData,
 } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
@@ -33,7 +35,14 @@ export default App;
 
 /** route layout */
 const Layout = () => {
+  /** current route info */
   const { hash } = useLocation();
+
+  /** current route id */
+  const id = useMatches().at(-1)?.id || "";
+
+  /** loader data */
+  const { toc } = (useRouteLoaderData(id) as Meta) || {};
 
   /** scroll to hash in url */
   useEffect(() => {
@@ -49,7 +58,7 @@ const Layout = () => {
       >
         <Header />
         <main>
-          <TableOfContents />
+          {toc && <TableOfContents />}
           <Outlet />
         </main>
         <Footer />
@@ -59,6 +68,9 @@ const Layout = () => {
     </IconContext.Provider>
   );
 };
+
+/** route metadata */
+type Meta = { toc?: true } | undefined;
 
 /** route definitions */
 const router = createBrowserRouter([
@@ -81,10 +93,12 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+        loader: () => ({ toc: true }) satisfies Meta,
       },
       {
         path: "testbed",
         element: <Testbed />,
+        loader: () => ({ toc: true }) satisfies Meta,
       },
       {
         /** not found */
