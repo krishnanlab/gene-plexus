@@ -6,7 +6,7 @@ type Props = {
    * tab and document title. can be multiple parts (which get separated by
    * delimiter)
    */
-  title: string | Array<string>;
+  title: string | string[];
   /** page description */
   description?: string;
 };

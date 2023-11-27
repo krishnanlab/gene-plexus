@@ -16,7 +16,6 @@ const getHeadings = () => [
 ];
 
 const TableOfContents = () => {
-  /** list element */
   const ref = useRef<HTMLDivElement>(null);
 
   /** open/closed state */

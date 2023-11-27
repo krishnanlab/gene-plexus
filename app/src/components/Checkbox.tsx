@@ -1,4 +1,5 @@
-import { ComponentProps, ReactNode, useId } from "react";
+import type { ComponentProps, ReactNode } from "react";
+import { useId } from "react";
 import { FaRegSquare, FaRegSquareCheck } from "react-icons/fa6";
 import * as checkbox from "@zag-js/checkbox";
 import { normalizeProps, useMachine } from "@zag-js/react";

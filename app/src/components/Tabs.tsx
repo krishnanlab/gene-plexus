@@ -1,4 +1,5 @@
-import { cloneElement, Fragment, ReactElement, ReactNode, useId } from "react";
+import type { ReactElement, ReactNode } from "react";
+import { cloneElement, Fragment, useId } from "react";
 import classNames from "classnames";
 import { kebabCase } from "lodash";
 import { StringParam, useQueryParam } from "use-query-params";

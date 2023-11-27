@@ -1,10 +1,5 @@
-import {
-  cloneElement,
-  ComponentProps,
-  ReactElement,
-  ReactNode,
-  useRef,
-} from "react";
+import type { ComponentProps, ReactElement, ReactNode } from "react";
+import { cloneElement, useRef } from "react";
 import { FaLink } from "react-icons/fa6";
 import { kebabCase } from "lodash";
 import Badge from "@/components/Badge";

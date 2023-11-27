@@ -1,11 +1,10 @@
-import {
-  cloneElement,
+import type {
   ComponentProps,
   ForwardedRef,
-  forwardRef,
   ReactElement,
   ReactNode,
 } from "react";
+import { cloneElement, forwardRef } from "react";
 import classNames from "classnames";
 import Link from "@/components/Link";
 import Tooltip from "@/components/Tooltip";

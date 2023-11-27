@@ -1,0 +1,17 @@
+.th {
+  display: flex;
+  gap: 5px;
+}
+
+.button {
+  color: var(--gray);
+  transition: color var(--fast);
+}
+
+.button:hover {
+  color: var(--deep);
+}
+
+.button[data-active] {
+  color: var(--accent);
+}

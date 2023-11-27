@@ -1,4 +1,5 @@
-import { ComponentProps, Fragment, ReactElement, ReactNode } from "react";
+import type { ComponentProps, ReactElement, ReactNode } from "react";
+import { Fragment } from "react";
 import { FaAsterisk } from "react-icons/fa6";
 import { pick } from "lodash";
 import Help from "@/components/Help";
@@ -23,7 +24,7 @@ const labelProps = ["label", "layout", "tooltip", "required"] as const;
 export type LabelProps = Pick<Props, (typeof labelProps)[number]>;
 
 /** forward specific props to label component */
-export const forwardLabelProps = (props: { [key: PropertyKey]: unknown }) =>
+export const forwardLabelProps = (props: Record<PropertyKey, unknown>) =>
   pick<LabelProps>(props, labelProps);
 
 /**

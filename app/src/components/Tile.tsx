@@ -1,4 +1,5 @@
-import { cloneElement, ReactElement, ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
+import { cloneElement } from "react";
 import classNames from "classnames";
 import classes from "./Tile.module.css";
 

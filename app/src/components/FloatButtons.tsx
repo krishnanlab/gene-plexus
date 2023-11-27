@@ -2,6 +2,7 @@ import { FaAngleUp } from "react-icons/fa6";
 import { useWindowScroll } from "react-use";
 import classes from "./FloatButtons.module.css";
 
+/** buttons that stay in corner of view at all times */
 const FloatButtons = () => {
   const { y } = useWindowScroll();
 

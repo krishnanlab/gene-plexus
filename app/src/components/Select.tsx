@@ -1,11 +1,13 @@
-import { cloneElement, ReactElement, useId } from "react";
+import type { ReactElement } from "react";
+import { cloneElement, useId } from "react";
 import { FaCaretDown, FaCheck, FaCircle } from "react-icons/fa6";
 import classNames from "classnames";
 import { omit } from "lodash";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
 import * as select from "@zag-js/select";
-import { PropTypes } from "@zag-js/types";
-import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
+import type { PropTypes } from "@zag-js/types";
+import type { LabelProps } from "@/components/Label";
+import Label, { forwardLabelProps } from "@/components/Label";
 import classes from "./Select.module.css";
 
 type Base = {
@@ -16,7 +18,7 @@ type Base = {
   options: readonly Option[];
 };
 
-type Option = {
+export type Option = {
   /** unique id */
   id: string;
   /** text label */

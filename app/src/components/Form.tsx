@@ -1,8 +1,8 @@
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 import { mapValues } from "lodash";
 import { checkedValue, uncheckedValue } from "@/components/CheckBox";
 
-type FormData = { [key: string]: FormDataEntryValue | number | boolean };
+type FormData = Record<string, FormDataEntryValue | number | boolean>;
 
 type Props = {
   /** called when form submitted */

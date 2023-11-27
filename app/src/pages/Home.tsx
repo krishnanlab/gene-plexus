@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { test, Test } from "@/api/test";
+import type { Test } from "@/api/test";
+import { test } from "@/api/test";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 import classes from "./Home.module.css";

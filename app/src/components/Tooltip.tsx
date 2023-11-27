@@ -1,4 +1,5 @@
-import { cloneElement, ReactElement, ReactNode, useId } from "react";
+import type { ReactElement, ReactNode } from "react";
+import { cloneElement, useId } from "react";
 import classNames from "classnames";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
 import * as tooltip from "@zag-js/tooltip";
@@ -48,14 +49,8 @@ const Tooltip = ({ content, children }: Props) => {
           ...api.triggerProps,
           /** make sure original props preserved */
           ...children.props,
-          /**
-           * set aria label to content if trigger has no visible text, e.g.
-           * button with only icon
-           */
-          "aria-label":
-            !renderText(children).trim() && !children.props["aria-label"]
-              ? renderText(content)
-              : children.props["aria-label"],
+          /** set aria label if trigger has no visible text */
+          "aria-label": !renderText(children) ? renderText(content) : undefined,
         })}
 
         {/* popup */}

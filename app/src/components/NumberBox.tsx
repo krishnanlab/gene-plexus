@@ -1,8 +1,10 @@
-import { ComponentProps, useId } from "react";
+import type { ComponentProps } from "react";
+import { useId } from "react";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa6";
 import * as numberInput from "@zag-js/number-input";
 import { normalizeProps, useMachine } from "@zag-js/react";
-import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
+import type { LabelProps } from "@/components/Label";
+import Label, { forwardLabelProps } from "@/components/Label";
 import classes from "./NumberBox.module.css";
 
 type Base = {

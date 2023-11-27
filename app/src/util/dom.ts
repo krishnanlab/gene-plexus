@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import reactToText from "react-to-text";
 import { sleep } from "@/util/misc";
 
@@ -43,7 +43,7 @@ export const restartAnimations = (element: Element): void => {
 export const renderText = (node: ReactNode) => {
   /** try normally */
   let text = reactToText(node);
-  if (text) return text;
+  if (text.trim()) return text.trim();
 
   /** https://github.com/lhansford/react-to-text/issues/332 */
   try {
@@ -52,7 +52,7 @@ export const renderText = (node: ReactNode) => {
   } catch (error) {
     //
   }
-  if (text) return text;
+  if (text.trim()) return text.trim();
 
   return "";
 };

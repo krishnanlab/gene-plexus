@@ -1,14 +1,10 @@
-import {
-  cloneElement,
-  ComponentProps,
-  ReactElement,
-  ReactNode,
-  useId,
-} from "react";
+import type { ComponentProps, ReactElement, ReactNode } from "react";
+import { cloneElement, useId } from "react";
 import { FaRegCircle, FaRegCircleDot } from "react-icons/fa6";
 import * as radio from "@zag-js/radio-group";
 import { normalizeProps, useMachine } from "@zag-js/react";
-import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
+import type { LabelProps } from "@/components/Label";
+import Label, { forwardLabelProps } from "@/components/Label";
 import classes from "./Radios.module.css";
 
 type Input = Omit<ComponentProps<"input">, "value" | "onChange">;

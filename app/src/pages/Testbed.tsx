@@ -23,6 +23,7 @@ import {
   FaRegSquareCheck,
   FaSliders,
   FaStop,
+  FaTableCells,
   FaTag,
 } from "react-icons/fa6";
 import { sample } from "lodash";
@@ -43,12 +44,14 @@ import Radios from "@/components/Radios";
 import Section from "@/components/Section";
 import Select from "@/components/Select";
 import Slider from "@/components/Slider";
+import Table from "@/components/Table";
 import Tabs, { Tab } from "@/components/Tabs";
 import TextBox from "@/components/TextBox";
 import Tile from "@/components/Tile";
 import { toast } from "@/components/Toasts";
 import Tooltip from "@/components/Tooltip";
 import { formatDate, formatNumber } from "@/util/string";
+import tableData from "../../fixtures/table.json";
 
 /** util func to log change to components for testing */
 const logChange = (...args: unknown[]) => {
@@ -65,6 +68,21 @@ const Testbed = () => {
         <Heading level={1} icon={<CustomIcon />}>
           Testbed
         </Heading>
+      </Section>
+
+      {/* table */}
+      <Section>
+        <Heading level={2} icon={<FaTableCells />}>
+          Table
+        </Heading>
+        <Table
+          cols={[
+            { key: "name", name: "Name" },
+            { key: "age", name: "Age", type: "number" },
+            { key: "status", name: "Status", type: "enum" },
+          ]}
+          rows={tableData}
+        />
       </Section>
 
       {/* regular html elements and css classes for basic formatting */}

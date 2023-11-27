@@ -1,8 +1,9 @@
-import { ComponentProps, ReactElement, useId } from "react";
+import type { ComponentProps, ReactElement } from "react";
+import { useId, useRef } from "react";
 import { FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
-import Label, { forwardLabelProps, LabelProps } from "@/components/Label";
-import { useLocal } from "@/util/hooks";
+import type { LabelProps } from "@/components/Label";
+import Label, { forwardLabelProps } from "@/components/Label";
 import classes from "./TextBox.module.css";
 
 type Base = {
@@ -32,27 +33,28 @@ type Props = Base & LabelProps & ((Single & Input) | (Multi & Textarea));
 
 /** single or multi-line text input box */
 const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
+  const ref = useRef<HTMLInputElement & HTMLTextAreaElement>(null);
+
   /** unique id for component instance */
   const id = useId();
-
-  /** local copy of state */
-  const [text, setText] = useLocal("", value, onChange);
 
   /** input field */
   const input = multi ? (
     <textarea
+      ref={ref}
       id={id}
       className={classNames(classes.textarea, "card")}
-      value={text}
-      onChange={(event) => setText(event.target.value)}
+      value={value}
+      onChange={(event) => onChange?.(event.target.value)}
       {...(props as Textarea)}
     />
   ) : (
     <input
+      ref={ref}
       id={id}
       className={classNames(classes.input, "card")}
-      value={text}
-      onChange={(event) => setText(event.target.value)}
+      value={value}
+      onChange={(event) => onChange?.(event.target.value)}
       {...(props as Input)}
     />
   );
@@ -64,7 +66,9 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
       <button
         type="button"
         className={classes.icon}
-        onClick={() => setText("")}
+        onClick={() => {
+          if (ref.current) ref.current.value = "";
+        }}
         aria-label="Clear text"
       >
         <FaXmark />

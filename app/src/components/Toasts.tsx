@@ -1,4 +1,5 @@
-import { CSSProperties, useId } from "react";
+import type { CSSProperties } from "react";
+import { useId } from "react";
 import {
   FaCircleCheck,
   FaCircleExclamation,

@@ -13,12 +13,12 @@
   width: 30px;
   height: 30px;
   border-radius: 999px;
-  background: var(--deep-mid);
+  background: var(--deep);
   box-shadow: var(--shadow);
   color: var(--white);
   transition: background var(--fast);
 }
 
 .button:hover {
-  background: var(--deep);
+  background: var(--accent);
 }

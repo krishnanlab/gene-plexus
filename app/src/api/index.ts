@@ -6,7 +6,7 @@ export const api = import.meta.env.VITE_API;
 /** primitive param type */
 type Param = string | number | boolean | undefined | null;
 /** collection of params */
-export type Params = { [key: string]: Param | Param[] };
+export type Params = Record<string, Param | Param[]>;
 
 /** generic fetch request wrapper */
 export const request = async <Response>(

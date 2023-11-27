@@ -1,9 +1,5 @@
-import {
-  ComponentPropsWithoutRef,
-  ForwardedRef,
-  forwardRef,
-  ReactNode,
-} from "react";
+import type { ComponentPropsWithoutRef, ForwardedRef, ReactNode } from "react";
+import { forwardRef } from "react";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link as RouterLink } from "react-router-dom";
 import classNames from "classnames";
