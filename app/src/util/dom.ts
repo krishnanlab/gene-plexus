@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import reactToText from "react-to-text";
+import { throttle } from "lodash";
 import { sleep } from "@/util/misc";
 
 /** wait for element matching selector to appear, checking periodically */
@@ -58,10 +59,10 @@ export const renderText = (node: ReactNode) => {
 };
 
 /** find index of first element "in view". model behavior off of wikiwand.com. */
-export const firstInView = (elements: HTMLElement[]) => {
+export const firstInView = throttle((elements: HTMLElement[]) => {
   const offset = parseInt(
     window.getComputedStyle(document.documentElement).scrollPaddingTop,
   );
   for (const element of elements.reverse())
     if (element.getBoundingClientRect()?.top < offset + 10) return element;
-};
+}, 10);

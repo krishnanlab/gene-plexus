@@ -1,5 +1,14 @@
 import { useMemo } from "react";
-import { FaFilter, FaSort, FaSortDown, FaSortUp } from "react-icons/fa6";
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaAnglesLeft,
+  FaAnglesRight,
+  FaFilter,
+  FaSort,
+  FaSortDown,
+  FaSortUp,
+} from "react-icons/fa6";
 import { throttle } from "lodash";
 import type { Column, FilterFnOption, RowData } from "@tanstack/react-table";
 import {
@@ -101,68 +110,103 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
   });
 
   return (
-    <table>
-      <thead>
-        {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <th key={header.id} style={{ width: header.getSize() }}>
-                {header.isPlaceholder ? null : (
-                  <div className={classes.th}>
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
-                    <button
-                      className={classes.button}
-                      data-active={header.column.getIsSorted() ? "" : undefined}
-                      onClick={header.column.getToggleSortingHandler()}
-                      aria-label={`Sort "${header.column.columnDef.header}"`}
-                    >
-                      {header.column.getIsSorted() ? (
-                        header.column.getIsSorted() === "asc" ? (
-                          <FaSortUp />
-                        ) : (
-                          <FaSortDown />
-                        )
-                      ) : (
-                        <FaSort />
+    <>
+      <table>
+        {/* head */}
+        <thead>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id} style={{ width: header.getSize() }}>
+                  {header.isPlaceholder ? null : (
+                    <div className={classes.th}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
                       )}
-                    </button>
-                    {header.column.getCanFilter() ? (
-                      <Popover
-                        label={`Filter "${header.column.columnDef.header}"`}
-                        content={<Filter column={header.column} />}
+                      <button
+                        className={classes["header-button"]}
+                        data-active={
+                          header.column.getIsSorted() ? "" : undefined
+                        }
+                        onClick={header.column.getToggleSortingHandler()}
+                        aria-label={`Sort "${header.column.columnDef.header}"`}
                       >
-                        <button
-                          className={classes.button}
-                          data-active={
-                            header.column.getIsFiltered() ? "" : undefined
-                          }
+                        {header.column.getIsSorted() ? (
+                          header.column.getIsSorted() === "asc" ? (
+                            <FaSortUp />
+                          ) : (
+                            <FaSortDown />
+                          )
+                        ) : (
+                          <FaSort />
+                        )}
+                      </button>
+                      {header.column.getCanFilter() ? (
+                        <Popover
+                          label={`Filter "${header.column.columnDef.header}"`}
+                          content={<Filter column={header.column} />}
                         >
-                          <FaFilter />
-                        </button>
-                      </Popover>
-                    ) : null}
-                  </div>
-                )}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody>
-        {table.getRowModel().rows.map((row) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id} style={{ width: cell.column.getSize() }}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                          <button
+                            className={classes["header-button"]}
+                            data-active={
+                              header.column.getIsFiltered() ? "" : undefined
+                            }
+                          >
+                            <FaFilter />
+                          </button>
+                        </Popover>
+                      ) : null}
+                    </div>
+                  )}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+
+        {/* body */}
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} style={{ width: cell.column.getSize() }}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* controls */}
+      <div>
+        {/* pagination */}
+        <div className={classes.pagination}>
+          <button
+            onClick={() => table.setPageIndex(0)}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <FaAnglesLeft />
+          </button>
+          <button
+            onClick={table.previousPage}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <FaAngleLeft />
+          </button>
+          <button onClick={table.nextPage} disabled={!table.getCanNextPage()}>
+            <FaAngleRight />
+          </button>
+          <button
+            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+            disabled={!table.getCanNextPage()}
+          >
+            <FaAnglesRight />
+          </button>
+        </div>
+      </div>
+    </>
   );
 };
 

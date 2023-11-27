@@ -8,14 +8,12 @@
   border-bottom: solid 1px currentColor;
   border-radius: var(--rounded) var(--rounded) 0 0;
   color: var(--gray);
-  transition:
-    background var(--fast),
-    color var(--fast);
+  transition: color var(--fast);
 }
 
 .button:hover {
   border-width: 1px;
-  background: var(--accent-light);
+  color: var(--deep);
 }
 
 .button[data-selected] {

@@ -1,7 +1,6 @@
 import type { ComponentProps, ReactElement } from "react";
 import { useId, useRef } from "react";
 import { FaXmark } from "react-icons/fa6";
-import classNames from "classnames";
 import type { LabelProps } from "@/components/Label";
 import Label, { forwardLabelProps } from "@/components/Label";
 import classes from "./TextBox.module.css";
@@ -43,7 +42,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
     <textarea
       ref={ref}
       id={id}
-      className={classNames(classes.textarea, "card")}
+      className={classes.textarea}
       value={value}
       onChange={(event) => onChange?.(event.target.value)}
       {...(props as Textarea)}
@@ -52,7 +51,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
     <input
       ref={ref}
       id={id}
-      className={classNames(classes.input, "card")}
+      className={classes.input}
       value={value}
       onChange={(event) => onChange?.(event.target.value)}
       {...(props as Input)}

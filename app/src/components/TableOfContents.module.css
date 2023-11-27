@@ -43,10 +43,9 @@
   gap: 10px;
   color: var(--gray);
   text-decoration: none;
-}
-
-.link:hover {
-  color: var(--accent);
+  transition:
+    background var(--fast),
+    color var(--fast);
 }
 
 .link > :first-child {
@@ -54,6 +53,10 @@
   height: 15px;
   background: none;
   color: var(--theme);
+}
+
+.link:hover {
+  color: var(--accent);
 }
 
 .link[data-active] {

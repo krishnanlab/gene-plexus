@@ -1,6 +1,12 @@
 .container {
   position: relative;
   width: 150px;
+  color: var(--accent);
+  transition: color var(--fast);
+}
+
+.container:hover {
+  color: var(--deep);
 }
 
 .input {
@@ -10,13 +16,8 @@
   border-bottom: solid 2px currentColor;
   border-radius: var(--rounded) var(--rounded) 0 0;
   background: none;
-  color: var(--accent);
+  color: currentColor;
   text-align: center;
-  transition: background var(--fast);
-}
-
-.input:hover {
-  background: var(--accent-light);
 }
 
 .inc,
@@ -25,12 +26,12 @@
   right: 0;
   width: 20px;
   height: calc(50% - 1px);
-  color: var(--accent);
-  transition: background var(--fast);
+  color: currentColor;
+  transition: color var(--fast);
 }
 
 :is(.inc, .dec):hover {
-  background: var(--accent-light);
+  color: var(--deep);
 }
 
 .inc {

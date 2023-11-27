@@ -7,14 +7,13 @@
   width: 150px;
   padding: 5px;
   gap: 10px;
-  border-bottom: currentColor 2px solid;
+  border-bottom: solid 2px currentColor;
   border-radius: var(--rounded) var(--rounded) 0 0;
   color: var(--accent);
-  transition: background var(--fast);
 }
 
 .button:hover {
-  background: var(--accent-light);
+  color: var(--deep);
 }
 
 .button > span {
@@ -46,8 +45,7 @@
 }
 
 .option:hover,
-.option[data-highlighted],
-.option[data-selected] {
+.option[data-highlighted] {
   background: var(--accent-light);
 }
 
@@ -55,7 +53,6 @@
   justify-self: center;
   height: 15px;
   color: var(--accent);
-  transition: opacity var(--fast);
 }
 
 .check[hidden] {

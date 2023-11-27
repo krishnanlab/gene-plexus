@@ -3,15 +3,31 @@
   gap: 5px;
 }
 
-.button {
+.header-button {
   color: var(--gray);
-  transition: color var(--fast);
 }
 
-.button:hover {
+.header-button:hover {
   color: var(--deep);
 }
 
-.button[data-active] {
+.header-button[data-active] {
   color: var(--accent);
+}
+
+.pagination {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination button {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--rounded);
+  color: var(--accent);
+  transition: color var(--accent);
+}
+
+.pagination button:hover {
+  color: var(--deep);
 }

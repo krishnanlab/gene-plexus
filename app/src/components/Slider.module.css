@@ -2,6 +2,10 @@
   width: 150px;
 }
 
+.container {
+  color: var(--deep);
+}
+
 .control {
   display: flex;
   position: relative;
@@ -10,11 +14,11 @@
   border-radius: var(--rounded);
   color: var(--accent);
   cursor: pointer;
-  transition: background var(--fast);
+
 }
 
 .control:hover {
-  background: var(--accent-light);
+  color: var(--deep);
 }
 
 .track {
@@ -41,10 +45,6 @@
   padding-bottom: 5px;
   transform: translateY(-5px);
   font-size: 0.9rem;
-}
-
-.marker {
-  transition: opacity var(--fast);
 }
 
 .marker[data-faded="full"] {

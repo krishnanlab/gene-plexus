@@ -91,6 +91,36 @@ const Testbed = () => {
           Elements
         </Heading>
 
+        {/* color palette */}
+        <div className="flex-row">
+          {[
+            "accent",
+            "accent-light",
+            "deep",
+            "deep-mid",
+            "deep-light",
+            "black",
+            "dark-gray",
+            "gray",
+            "light-gray",
+            "white",
+            "success",
+            "warning",
+            "error",
+          ].map((color, index) => (
+            <Tooltip key={index} content={color}>
+              <div
+                className="flex-row center"
+                style={{
+                  width: 50,
+                  height: 50,
+                  background: `var(--${color})`,
+                }}
+              />
+            </Tooltip>
+          ))}
+        </div>
+
         <p>
           Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Facilisis sed odio
@@ -640,12 +670,9 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
         </div>
       </Section>
 
-      <Section fill={true}>
+      {/* section */}
+      <Section fill={true} full={true}>
         <div className="placeholder pulse" />
-      </Section>
-
-      <Section full={true}>
-        <div className="placeholder" />
       </Section>
     </>
   );

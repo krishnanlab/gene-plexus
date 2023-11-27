@@ -5,7 +5,9 @@ html {
   font-family: "Poppins", sans-serif;
 }
 
-* {
+*,
+::before,
+::after {
   box-sizing: border-box;
   -moz-text-size-adjust: none;
   -webkit-text-size-adjust: none;
@@ -76,7 +78,6 @@ hr {
 
 a {
   color: var(--accent);
-  transition: color var(--fast);
 }
 
 a:hover {
@@ -133,6 +134,12 @@ table {
 }
 
 /** interactive */
+
+[disabled] {
+  color: unset;
+  cursor: default;
+  opacity: 0.5;
+}
 
 button {
   display: flex;
@@ -199,7 +206,7 @@ blockquote {
 
 :focus-visible,
 label:has(input:focus-visible) {
-  border-radius: var(--rounded);
-  outline: solid 2px var(--accent);
+  border-radius: var(--rounded) !important;
+  outline: solid 2px var(--dark-gray);
   outline-offset: 2px;
 }
