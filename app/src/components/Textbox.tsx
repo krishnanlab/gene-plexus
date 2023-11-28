@@ -1,13 +1,13 @@
 import type { ComponentProps, ReactElement } from "react";
-import { useId, useRef } from "react";
+import { useId, useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import type { LabelProps } from "@/components/Label";
 import Label, { forwardLabelProps } from "@/components/Label";
 import classes from "./TextBox.module.css";
 
 type Base = {
-  /** hint icon to show on side or clear button */
-  icon?: ReactElement | "clear";
+  /** hint icon to show on side */
+  icon?: ReactElement;
   /** text state */
   value?: string;
   /** on text state change */
@@ -34,6 +34,9 @@ type Props = Base & LabelProps & ((Single & Input) | (Multi & Textarea));
 const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
   const ref = useRef<HTMLInputElement & HTMLTextAreaElement>(null);
 
+  /** track whether input is blank */
+  const [blank, setBlank] = useState(!value?.trim());
+
   /** unique id for component instance */
   const id = useId();
 
@@ -44,7 +47,10 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
       id={id}
       className={classes.textarea}
       value={value}
-      onChange={(event) => onChange?.(event.target.value)}
+      onChange={(event) => {
+        onChange?.(event.target.value);
+        setBlank(!event.target.value);
+      }}
       {...(props as Textarea)}
     />
   ) : (
@@ -53,35 +59,40 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
       id={id}
       className={classes.input}
       value={value}
-      onChange={(event) => onChange?.(event.target.value)}
+      onChange={(event) => {
+        onChange?.(event.target.value);
+        setBlank(!event.target.value);
+      }}
       {...(props as Input)}
     />
   );
 
-  /** side icon */
-  let iconElement = <></>;
-  if (icon === "clear")
-    iconElement = (
+  /** side element */
+  let sideElement = <></>;
+  if (!blank)
+    sideElement = (
       <button
         type="button"
         className={classes.icon}
         onClick={() => {
           if (ref.current) ref.current.value = "";
+          onChange?.("");
+          setBlank(true);
         }}
         aria-label="Clear text"
       >
         <FaXmark />
       </button>
     );
-  else if (icon) iconElement = <div className={classes.icon}>{icon}</div>;
+  else if (icon) sideElement = <div className={classes.icon}>{icon}</div>;
 
   return (
-    <Label {...forwardLabelProps(props)} htmlFor={id}>
+    <Label width="100%" {...forwardLabelProps(props)} htmlFor={id}>
       <div className={classes.container}>
         {input}
 
-        {/* side icon */}
-        {iconElement}
+        {/* side element */}
+        {sideElement}
       </div>
     </Label>
   );

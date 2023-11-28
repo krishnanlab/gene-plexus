@@ -6,7 +6,9 @@
   width: max-content;
   max-height: 50vh;
   gap: 10px;
+  border-radius: 0 0 var(--rounded) 0;
   background: var(--white);
+  box-shadow: var(--shadow);
 }
 
 .heading {

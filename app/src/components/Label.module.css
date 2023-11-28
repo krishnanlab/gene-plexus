@@ -13,10 +13,6 @@
   flex-shrink: 0;
 }
 
-.horizontal > :last-child {
-  flex-grow: 1;
-}
-
 .vertical {
   flex-direction: column;
 }

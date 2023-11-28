@@ -43,7 +43,7 @@ type Multi = {
   /** selected options state */
   value?: Option[];
   /** on selected options state change */
-  onChange?: (value: Option[]) => void;
+  onChange?: (value: Option[], count: number | "all" | "none") => void;
 };
 
 type Props = Base & LabelProps & (Single | Multi);
@@ -77,7 +77,14 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
       /** when selected items change */
       onValueChange: (details) =>
         multi
-          ? onChange?.(details.items)
+          ? onChange?.(
+              details.items,
+              details.items.length === 0
+                ? "none"
+                : details.items.length === options.length
+                  ? "all"
+                  : details.items.length,
+            )
           : details.items[0] && onChange?.(details.items[0]),
     }),
   );
@@ -89,13 +96,16 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
   let selectedLabel = "";
   const selected = api.selectedItems;
   const count = [selected].flat().length;
-  if (count === 0) selectedLabel = "None selected";
+  if (count === 0) selectedLabel = "None";
   else if (count === 1) selectedLabel = [selected].flat()[0]?.text || "";
-  else if (count === options.length) selectedLabel = "All selected";
+  else if (count === options.length) selectedLabel = "All";
   else selectedLabel = count + " selected";
 
   /** check icon */
   const Check = multi ? FaCheck : FaCircle;
+
+  /** all selected */
+  const allSelected = api.selectedItems.length === options.length;
 
   return (
     <div {...api.rootProps} className={classes.root}>
@@ -115,7 +125,26 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
       <Portal>
         {api.isOpen && (
           <div {...api.positionerProps} className={classes.popup}>
+            {/* select all/none */}
             <ul {...api.contentProps} className={classes.list}>
+              {multi && (
+                <button
+                  className={classes.option}
+                  onClick={() =>
+                    api.setValue(
+                      allSelected ? [] : options.map((option) => option.id),
+                    )
+                  }
+                >
+                  <Check
+                    className={classes.check}
+                    style={{ opacity: allSelected ? 1 : 0 }}
+                  />
+                  <span className={classes.text}>All</span>
+                </button>
+              )}
+
+              {/* main options */}
               {options.map((option) => (
                 <li
                   key={option.id}

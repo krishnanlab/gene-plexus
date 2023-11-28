@@ -1,10 +1,25 @@
+.scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: var(--content);
+}
+
 .th {
   display: flex;
   gap: 5px;
 }
 
+.th-label {
+  padding-right: 5px;
+}
+
 .header-button {
-  color: var(--gray);
+  color: var(--light-gray);
+  transition: color var(--fast);
 }
 
 .header-button:hover {
@@ -17,10 +32,15 @@
 
 .pagination {
   display: flex;
+  align-items: center;
   gap: 5px;
 }
 
-.pagination button {
+.page-text {
+  padding: 0 5px;
+}
+
+.page-button {
   width: 30px;
   height: 30px;
   border-radius: var(--rounded);
@@ -28,6 +48,6 @@
   transition: color var(--accent);
 }
 
-.pagination button:hover {
+.page-button:hover {
   color: var(--deep);
 }

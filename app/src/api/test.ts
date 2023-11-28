@@ -1,5 +1,6 @@
 import { api, request } from "@/api";
 
+// eslint-disable-next-line
 export type Test = typeof import("../../fixtures/test.json");
 
 /** fake api call */

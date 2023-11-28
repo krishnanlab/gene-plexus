@@ -61,7 +61,12 @@ const Radios = <Value extends string>({
     selected ? <FaRegCircleDot {...props} /> : <FaRegCircle {...props} />;
 
   return (
-    <Label {...api.labelProps} {...forwardLabelProps(props)} layout="vertical">
+    <Label
+      {...api.labelProps}
+      {...forwardLabelProps(props)}
+      layout="vertical"
+      width="unset"
+    >
       <div {...api.rootProps} className={classes.list}>
         {options.map((option) => (
           <label

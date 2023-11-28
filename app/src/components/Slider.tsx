@@ -70,7 +70,6 @@ const Slider = ({
       id: useId(),
       /** FormData name */
       name: props.name,
-      /** settings */
       minStepsBetweenThumbs: _step,
       /** slider props */
       min: _min,

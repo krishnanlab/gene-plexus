@@ -1,5 +1,10 @@
-import type { ComponentProps, ReactElement, ReactNode } from "react";
-import { Fragment } from "react";
+import type {
+  ComponentProps,
+  CSSProperties,
+  ReactElement,
+  ReactNode,
+} from "react";
+import { cloneElement, Fragment } from "react";
 import { FaAsterisk } from "react-icons/fa6";
 import { pick } from "lodash";
 import Help from "@/components/Help";
@@ -15,11 +20,13 @@ type Props = {
   tooltip?: ReactNode;
   /** required field */
   required?: boolean;
+  /** width of associated input element */
+  width?: CSSProperties["width"];
   /** input/control to be associated with label */
   children: ReactElement;
 } & ComponentProps<"label">;
 
-const labelProps = ["label", "layout", "tooltip", "required"] as const;
+const labelProps = ["label", "layout", "tooltip", "required", "width"] as const;
 
 export type LabelProps = Pick<Props, (typeof labelProps)[number]>;
 
@@ -63,7 +70,9 @@ const Label = ({
         </label>
       )}
 
-      {children}
+      {cloneElement(children, {
+        style: { ...children.props.style, width: props.width || 150 },
+      })}
     </Container>
   );
 };

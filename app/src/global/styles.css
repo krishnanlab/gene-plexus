@@ -133,16 +133,33 @@ table {
   border-collapse: collapse;
 }
 
+thead {
+  border-bottom: solid 1px var(--gray);
+}
+
+th {
+  font-weight: var(--bold);
+}
+
+th,
+td {
+  padding: 5px 10px;
+}
+
+tr {
+  border-bottom: solid 1px var(--light-gray);
+}
+
 /** interactive */
 
 [disabled] {
   color: unset;
-  cursor: default;
   opacity: 0.5;
+  pointer-events: none;
 }
 
 button {
-  display: flex;
+  display: inline-flex;
   appearance: none;
   align-items: center;
   justify-content: center;

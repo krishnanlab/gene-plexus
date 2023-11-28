@@ -1,6 +1,5 @@
 import type { ReactElement, ReactNode } from "react";
 import { cloneElement, useId } from "react";
-import { FaXmark } from "react-icons/fa6";
 import classNames from "classnames";
 import * as popover from "@zag-js/popover";
 import { normalizeProps, Portal, useMachine } from "@zag-js/react";
@@ -54,7 +53,7 @@ const Popover = ({ label, content, children }: Props) => {
               {...api.contentProps}
               className={classNames(classes.content, "card")}
             >
-              <div
+              {/* <div
                 {...api.titleProps}
                 className={classNames(classes.label, "primary", "bold")}
               >
@@ -62,7 +61,7 @@ const Popover = ({ label, content, children }: Props) => {
               </div>
               <button {...api.closeTriggerProps} className={classes.close}>
                 <FaXmark />
-              </button>
+              </button> */}
               {content}
             </div>
 

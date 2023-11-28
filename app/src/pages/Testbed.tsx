@@ -70,21 +70,6 @@ const Testbed = () => {
         </Heading>
       </Section>
 
-      {/* table */}
-      <Section>
-        <Heading level={2} icon={<FaTableCells />}>
-          Table
-        </Heading>
-        <Table
-          cols={[
-            { key: "name", name: "Name" },
-            { key: "age", name: "Age", type: "number" },
-            { key: "status", name: "Status", type: "enum" },
-          ]}
-          rows={tableData}
-        />
-      </Section>
-
       {/* regular html elements and css classes for basic formatting */}
       <Section>
         <Heading level={2} icon={<FaBrush />}>
@@ -212,7 +197,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* link */}
       <Section>
-        <Heading level={3} icon={<FaLink />}>
+        <Heading level={2} icon={<FaLink />}>
           Link
         </Heading>
         <div className="flex-row gap-sm">
@@ -223,7 +208,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* button */}
       <Section>
-        <Heading level={3} icon={<FaStop />}>
+        <Heading level={2} icon={<FaStop />}>
           Button
         </Heading>
         <div className="flex-row gap-sm">
@@ -268,29 +253,23 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* textbox */}
       <Section>
-        <Heading level={3} icon={<FaFont />}>
+        <Heading level={2} icon={<FaFont />}>
           Text Box
         </Heading>
         <div className="grid full">
-          <TextBox placeholder="Search" icon="clear" onChange={logChange} />
+          <TextBox placeholder="Search" onChange={logChange} />
           <TextBox
             placeholder="Search"
             multi={true}
             icon={<FaMagnifyingGlass />}
           />
           <TextBox label="Label" placeholder="Search" />
-          <TextBox
-            label="Label"
-            layout="horizontal"
-            multi={true}
-            placeholder="Search"
-          />
         </div>
       </Section>
 
       {/* select */}
       <Section>
-        <Heading level={3} icon={<FaListCheck />}>
+        <Heading level={2} icon={<FaListCheck />}>
           Select
         </Heading>
         <div className="flex-row gap-md">
@@ -323,7 +302,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* checkbox */}
       <Section>
-        <Heading level={3} icon={<FaRegSquareCheck />}>
+        <Heading level={2} icon={<FaRegSquareCheck />}>
           Check Box
         </Heading>
         <div className="flex-row gap-md">
@@ -338,7 +317,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* slider */}
       <Section>
-        <Heading level={3} icon={<FaSliders />}>
+        <Heading level={2} icon={<FaSliders />}>
           Slider
         </Heading>
         <div className="flex-row gap-md">
@@ -363,7 +342,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* number box */}
       <Section>
-        <Heading level={3} icon={<FaHashtag />}>
+        <Heading level={2} icon={<FaHashtag />}>
           Number Box
         </Heading>
         <div className="flex-row gap-md">
@@ -387,7 +366,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* radios */}
       <Section>
-        <Heading level={3} icon={<FaRegCircleDot />}>
+        <Heading level={2} icon={<FaRegCircleDot />}>
           Radios
         </Heading>
         <div className="flex-row">
@@ -413,7 +392,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* ago */}
       <Section>
-        <Heading level={3} icon={<FaRegHourglass />}>
+        <Heading level={2} icon={<FaRegHourglass />}>
           Ago
         </Heading>
         <div className="flex-row gap-sm">
@@ -425,7 +404,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* alert */}
       <Section>
-        <Heading level={3} icon={<FaCircleInfo />}>
+        <Heading level={2} icon={<FaCircleInfo />}>
           Alert
         </Heading>
         <div className="flex-col gap-md">
@@ -442,7 +421,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* tabs */}
       <Section>
-        <Heading level={3} icon={<FaRegFolder />}>
+        <Heading level={2} icon={<FaRegFolder />}>
           Tabs
         </Heading>
         <Tabs syncWithUrl="tab">
@@ -472,7 +451,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* toast */}
       <Section>
-        <Heading level={3} icon={<FaChampagneGlasses />}>
+        <Heading level={2} icon={<FaChampagneGlasses />}>
           Toast
         </Heading>
         <div className="flex-row gap-sm">
@@ -507,7 +486,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* collapsible */}
       <Section>
-        <Heading level={3} icon={<FaArrowsUpDown />}>
+        <Heading level={2} icon={<FaArrowsUpDown />}>
           Collapsible
         </Heading>
         <Collapsible
@@ -534,7 +513,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* tile */}
       <Section>
-        <Heading level={3} icon={<CustomIcon />}>
+        <Heading level={2} icon={<CustomIcon />}>
           Tile
         </Heading>
         <div className="flex-row gap-md">
@@ -556,9 +535,30 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
         </div>
       </Section>
 
+      {/* table */}
+      <Section>
+        <Heading level={2} icon={<FaTableCells />}>
+          Table
+        </Heading>
+        <Table
+          cols={[
+            { key: "name", name: "Name" },
+            { key: "age", name: "Age", type: "number" },
+            { key: "status", name: "Status", type: "enum" },
+            {
+              key: "text",
+              name: "Long text",
+              show: false,
+              render: (cell) => <div className="truncate-5">{cell}</div>,
+            },
+          ]}
+          rows={tableData}
+        />
+      </Section>
+
       {/* tooltip (for testing; not typically used directly) */}
       <Section>
-        <Heading level={3} icon={<FaRegMessage />}>
+        <Heading level={2} icon={<FaRegMessage />}>
           Tooltip
         </Heading>
         <div className="flex-row gap-sm">
@@ -579,7 +579,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* popover (for testing; not typically used directly) */}
       <Section>
-        <Heading level={3} icon={<FaMessage />}>
+        <Heading level={2} icon={<FaMessage />}>
           Popover
         </Heading>
         <div className="flex-row gap-sm">
@@ -588,12 +588,11 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
             content={
               <>
                 <p>
-                  Lorem ipsum{" "}
+                  Rich,{" "}
                   <Link to="https://medschool.cuanschutz.edu/dbmi">
-                    dolor sit
+                    interactive
                   </Link>{" "}
-                  amet consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua.
+                  content
                 </p>
                 <div className="flex-row gap-sm">
                   <Button text="Save" />
@@ -618,7 +617,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* label (for testing; not typically used directly) */}
       <Section>
-        <Heading level={3} icon={<FaTag />}>
+        <Heading level={2} icon={<FaTag />}>
           Label
         </Heading>
         <div className="flex-row gap-sm">
@@ -636,7 +635,7 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
 
       {/* form (usually not needed) */}
       <Section>
-        <Heading level={3} icon={<FaClipboardList />}>
+        <Heading level={2} icon={<FaClipboardList />}>
           Form
         </Heading>
         <div className="flex-col gap-lg full">

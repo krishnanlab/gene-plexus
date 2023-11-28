@@ -71,10 +71,7 @@ const TableOfContents = () => {
     return <></>;
 
   return (
-    <aside
-      className={classNames(classes.table, "card")}
-      aria-label="Table of contents"
-    >
+    <aside className={classes.table} aria-label="Table of contents">
       <div className={classes.heading}>
         {open && (
           <span className={classNames(classes.title, "primary", "bold")}>

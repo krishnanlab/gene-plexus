@@ -1,6 +1,5 @@
 .container {
   position: relative;
-  width: 150px;
   color: var(--accent);
   transition: color var(--fast);
 }

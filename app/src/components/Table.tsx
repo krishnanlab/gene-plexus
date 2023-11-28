@@ -1,16 +1,24 @@
-import { useMemo } from "react";
+import type { ReactNode } from "react";
+import { useMemo, useState } from "react";
 import {
   FaAngleLeft,
   FaAngleRight,
   FaAnglesLeft,
   FaAnglesRight,
+  FaDownload,
   FaFilter,
+  FaMagnifyingGlass,
   FaSort,
   FaSortDown,
   FaSortUp,
 } from "react-icons/fa6";
-import { throttle } from "lodash";
-import type { Column, FilterFnOption, RowData } from "@tanstack/react-table";
+import { clamp, isEqual } from "lodash";
+import type {
+  Column,
+  FilterFnOption,
+  NoInfer,
+  RowData,
+} from "@tanstack/react-table";
 import {
   createColumnHelper,
   flexRender,
@@ -24,6 +32,7 @@ import {
   useReactTable,
   type Table,
 } from "@tanstack/react-table";
+import Button from "@/components/Button";
 import Popover from "@/components/Popover";
 import Select from "@/components/Select";
 import type { Option } from "@/components/Select";
@@ -43,6 +52,10 @@ type Props<Datum extends object> = {
     filterable?: boolean;
     /** type used for filtering (default string) */
     type?: "string" | "number" | "enum";
+    /** visibility (default true) */
+    show?: boolean;
+    /** custom render function for cell */
+    render?: (cell: NoInfer<Datum[keyof Datum]>) => ReactNode;
   }[];
   rows: Datum[];
 };
@@ -55,6 +68,15 @@ declare module "@tanstack/table-core" {
   }
 }
 
+/** map col def to multi-select option */
+const colToOption = <Datum extends object>(
+  col: Props<Datum>["cols"][number],
+  index: number,
+) => ({
+  id: String(index),
+  text: col.name,
+});
+
 /**
  * table with sorting, filtering, searching, pagination, etc.
  *
@@ -62,18 +84,63 @@ declare module "@tanstack/table-core" {
  * https://codesandbox.io/p/devbox/tanstack-table-example-kitchen-sink-vv4871
  */
 const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
-  const columnHelper = createColumnHelper<Datum>();
-
-  /** custom filter func for when col type is enum */
-  const enumFilter = useMemo<FilterFnOption<Datum>>(
-    () => (row, id, value: Option[]) => {
-      if (!value.length) return true;
-      const rowValue = row.getValue(id);
-      return !!value.find((option) => option.text === rowValue);
-    },
-    [],
+  /** col visibility options for multi-select */
+  const visibleOptions = cols.map(colToOption);
+  /** visible cols */
+  const [visible, setVisible] = useState<Option[]>(
+    cols
+      .filter((col) => col.show === true || col.show === undefined)
+      .map(colToOption),
   );
 
+  /** table-wide search */
+  const [search, setSearch] = useState("");
+
+  /** per page options */
+  const perPageOptions = [
+    { id: "5", text: "5" },
+    { id: "10", text: "10" },
+    { id: "50", text: "50" },
+    { id: "100", text: "100" },
+    { id: "500", text: "500" },
+  ];
+
+  /** custom filter func */
+  const filterFunc = useMemo<FilterFnOption<Datum>>(
+    () => (row, columnId, filterValue: unknown) => {
+      const type = cols[Number(columnId)]?.type ?? "string";
+
+      if (type === "string") {
+        const value = filterValue as string;
+        const cell = row.getValue(columnId) as string;
+        if (!cell.trim()) return true;
+        return !!cell.match(new RegExp(value, "i"));
+      }
+
+      if (type === "number") {
+        const value = filterValue as [number, number];
+        const cell = row.getValue(columnId) as number;
+        return cell >= value[0] && cell <= value[1];
+      }
+
+      if (type === "enum") {
+        const cell = row.getValue(columnId) as string;
+        if (Array.isArray(filterValue)) {
+          const value = filterValue as Option[];
+          if (!value.length) return true;
+          return !!value.find((option) => option.text === cell);
+        }
+        if (typeof filterValue === "string") {
+          return !!cell.match(new RegExp(filterValue, "i"));
+        }
+      }
+
+      return true;
+    },
+    [cols],
+  );
+
+  const columnHelper = createColumnHelper<Datum>();
   /** column definitions */
   const columns = cols.map((col, index) =>
     columnHelper.accessor((row: Datum) => row[col.key], {
@@ -81,8 +148,11 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
       header: col.name,
       enableSorting: col.sortable ?? true,
       enableColumnFilter: col.filterable ?? true,
+      enableGlobalFilter: true,
       meta: { type: col.type ?? "string" },
-      ...(col.type === "enum" ? { filterFn: enumFilter } : {}),
+      filterFn: filterFunc,
+      cell: (cell) =>
+        col.render ? col.render(cell.getValue()) : cell.getValue(),
     }),
   );
 
@@ -97,114 +167,205 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
-    // globalFilterFn: ,
+    globalFilterFn: filterFunc,
     autoResetPageIndex: true,
     columnResizeMode: "onChange",
-    // onColumnVisibilityChange: setColumnVisibility,
-    initialState: { sorting: [{ id: "0", desc: false }] },
+    initialState: {
+      sorting: [{ id: "0", desc: false }],
+      pagination: {
+        pageIndex: 0,
+        pageSize: Number(perPageOptions[0]!.id),
+      },
+    },
     state: {
-      // columnFilters,
-      // globalFilter,
-      // columnVisibility,
+      globalFilter: search,
+      columnVisibility: Object.fromEntries(
+        cols.map((col, index) => [
+          String(index),
+          !!visible.find((visible) => visible.id === String(index)),
+        ]),
+      ),
     },
   });
 
   return (
     <>
-      <table>
-        {/* head */}
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id} style={{ width: header.getSize() }}>
-                  {header.isPlaceholder ? null : (
-                    <div className={classes.th}>
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                      <button
-                        className={classes["header-button"]}
-                        data-active={
-                          header.column.getIsSorted() ? "" : undefined
-                        }
-                        onClick={header.column.getToggleSortingHandler()}
-                        aria-label={`Sort "${header.column.columnDef.header}"`}
-                      >
-                        {header.column.getIsSorted() ? (
-                          header.column.getIsSorted() === "asc" ? (
-                            <FaSortUp />
-                          ) : (
-                            <FaSortDown />
-                          )
-                        ) : (
-                          <FaSort />
-                        )}
-                      </button>
-                      {header.column.getCanFilter() ? (
-                        <Popover
-                          label={`Filter "${header.column.columnDef.header}"`}
-                          content={<Filter column={header.column} />}
-                        >
+      {/* top controls */}
+      <div className="flex-row gap-md">
+        {/* visible columns */}
+        <Select
+          label="Cols"
+          layout="horizontal"
+          multi={true}
+          options={visibleOptions}
+          value={visible}
+          onChange={setVisible}
+        />
+
+        {/* table-wide search */}
+        <TextBox
+          placeholder="Search"
+          width={150}
+          icon={<FaMagnifyingGlass />}
+          value={search}
+          onChange={setSearch}
+        />
+
+        {/* download */}
+        <Button
+          icon={<FaDownload />}
+          text="CSV"
+          onClick={() => window.alert("download")}
+          design="accent"
+        />
+      </div>
+
+      {/* table */}
+      {rows.length && visible.length ? (
+        <div className={classes.scroll}>
+          <table className={classes.table}>
+            {/* head */}
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id}>
+                      {header.isPlaceholder ? null : (
+                        <div className={classes.th}>
+                          {/* header label */}
+                          <span className={classes["th-label"]}>
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                          </span>
+
+                          {/* header sort */}
                           <button
                             className={classes["header-button"]}
                             data-active={
-                              header.column.getIsFiltered() ? "" : undefined
+                              header.column.getIsSorted() ? "" : undefined
                             }
+                            onClick={header.column.getToggleSortingHandler()}
+                            aria-label={`Sort "${header.column.columnDef.header}"`}
                           >
-                            <FaFilter />
+                            {header.column.getIsSorted() ? (
+                              header.column.getIsSorted() === "asc" ? (
+                                <FaSortUp />
+                              ) : (
+                                <FaSortDown />
+                              )
+                            ) : (
+                              <FaSort />
+                            )}
                           </button>
-                        </Popover>
-                      ) : null}
-                    </div>
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
 
-        {/* body */}
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} style={{ width: cell.column.getSize() }}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
+                          {/* header filter */}
+                          {header.column.getCanFilter() ? (
+                            <Popover
+                              label={`Filter "${header.column.columnDef.header}"`}
+                              content={<Filter column={header.column} />}
+                            >
+                              <button
+                                className={classes["header-button"]}
+                                data-active={
+                                  header.column.getIsFiltered() ? "" : undefined
+                                }
+                              >
+                                <FaFilter />
+                              </button>
+                            </Popover>
+                          ) : null}
+                        </div>
+                      )}
+                    </th>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            </thead>
 
-      {/* controls */}
-      <div>
+            {/* body */}
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        /** fallback */
+        <div className="placeholder">Nothing to show</div>
+      )}
+
+      {/* bottom controls */}
+      <div className="flex-row gap-md">
         {/* pagination */}
         <div className={classes.pagination}>
           <button
+            className={classes["page-button"]}
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
+            aria-label="First page"
           >
             <FaAnglesLeft />
           </button>
           <button
+            className={classes["page-button"]}
             onClick={table.previousPage}
             disabled={!table.getCanPreviousPage()}
+            aria-label="Previous page"
           >
             <FaAngleLeft />
           </button>
-          <button onClick={table.nextPage} disabled={!table.getCanNextPage()}>
+          <span className={classes["page-text"]}>
+            Page{" "}
+            <button
+              onClick={() => {
+                const page = parseInt(window.prompt("Jump to page") || "");
+                if (Number.isNaN(page)) return;
+                table.setPageIndex(clamp(page, 1, table.getPageCount()) - 1);
+              }}
+              aria-label="Jump to page"
+            >
+              {table.getState().pagination.pageIndex + 1}
+            </button>{" "}
+            of {table.getPageCount()}
+          </span>
+          <button
+            className={classes["page-button"]}
+            onClick={table.nextPage}
+            disabled={!table.getCanNextPage()}
+            aria-label="Next page"
+          >
             <FaAngleRight />
           </button>
           <button
+            className={classes["page-button"]}
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
+            aria-label="Last page"
           >
             <FaAnglesRight />
           </button>
         </div>
+
+        {/* per page */}
+        <Select
+          label="Per page"
+          layout="horizontal"
+          options={perPageOptions}
+          onChange={(option) => table.setPageSize(Number(option.id))}
+          width={70}
+        />
       </div>
     </>
   );
@@ -218,7 +379,7 @@ type FilterProps<Datum extends object> = {
 
 /** content of filter popup for column */
 const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
-  /** get facets */
+  /** get unique values in col */
   const unique = column.getFacetedUniqueValues();
   const uniqueValues = useMemo(
     () => Array.from(unique.keys()).sort(),
@@ -237,7 +398,9 @@ const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
         max={max}
         multi={true}
         value={(column.getFilterValue() as [number, number]) ?? [min, max]}
-        onChange={throttle(column.setFilterValue, 10)}
+        onChange={(value) => {
+          column.setFilterValue(isEqual(value, [min, max]) ? undefined : value);
+        }}
       />
     );
   }
@@ -251,7 +414,9 @@ const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
           text: String(value),
         }))}
         value={column.getFilterValue() as Option[]}
-        onChange={column.setFilterValue}
+        onChange={(value, count) =>
+          column.setFilterValue(count === "none" ? undefined : value)
+        }
         multi={true}
       />
     );
@@ -261,8 +426,9 @@ const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
   return (
     <TextBox
       placeholder="Search"
-      value={column.getFilterValue() as string}
+      value={(column.getFilterValue() as string) || ""}
       onChange={column.setFilterValue}
+      icon={<FaMagnifyingGlass />}
     />
   );
 };
