@@ -1,24 +1,10 @@
-import { useEffect, useState } from "react";
-import type { Test } from "@/api/test";
-import { test } from "@/api/test";
+import { FaFlaskVial } from "react-icons/fa6";
+import Button from "@/components/Button";
 import Meta from "@/components/Meta";
 import Section from "@/components/Section";
 import classes from "./Home.module.css";
 
 const Home = () => {
-  const [data, setData] = useState<Test>();
-
-  /** test api call */
-  useEffect(() => {
-    let latest = true;
-    test().then((response) => {
-      if (latest) setData(response);
-    });
-    return () => {
-      latest = false;
-    };
-  }, []);
-
   return (
     <>
       <Meta title="Home" />
@@ -29,6 +15,15 @@ const Home = () => {
           of interest based on their patterns of connectivity in human
           genome-scale networks.
         </p>
+      </Section>
+
+      <Section>
+        <Button
+          to="testbed"
+          text="Testbed"
+          icon={<FaFlaskVial />}
+          design="accent"
+        />
       </Section>
 
       <Section>
@@ -51,15 +46,6 @@ const Home = () => {
           ultrices neque ornare. Phasellus egestas tellus rutrum tellus
           pellentesque eu tincidunt tortor aliquam.
         </p>
-      </Section>
-
-      <Section>
-        {!data && "Loading data"}
-        {data?.map((item, index) => (
-          <div key={index} style={{ opacity: item.id < 200 ? 1 : 0.5 }}>
-            {item.name} ({item.id})
-          </div>
-        ))}
       </Section>
     </>
   );

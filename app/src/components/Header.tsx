@@ -10,7 +10,7 @@ import classes from "./Header.module.css";
 
 /** at top of every page */
 const Header = () => {
-  /** logo animated */
+  /** logo is animating */
   const [animated, setAnimated] = useState<true | undefined>();
 
   /** nav menu expanded/collapsed state */

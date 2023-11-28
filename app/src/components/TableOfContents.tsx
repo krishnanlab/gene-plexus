@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import { useEvent } from "react-use";
 import classNames from "classnames";
-import { startCase } from "lodash";
 import Tooltip from "@/components/Tooltip";
 import { firstInView } from "@/util/dom";
 import { useMutation } from "@/util/hooks";
@@ -23,7 +22,14 @@ const TableOfContents = () => {
 
   /** full heading details */
   const [headings, setHeadings] = useState<
-    { text: string; html: string; id: string; level: number }[]
+    {
+      /** rich html */
+      html: string;
+      /** kebab-case id */
+      id: string;
+      /** indent level */
+      level: number;
+    }[]
   >([]);
 
   /** active heading (first in view) */
@@ -40,20 +46,24 @@ const TableOfContents = () => {
       ?.scrollIntoView({ block: "center" });
   });
 
-  /** read headings whenever page changes */
   useMutation(
+    /** listen to changes on page */
     document.documentElement,
+    /** only listen for elements added/removed */
     {
       subtree: true,
       childList: true,
     },
     () => {
+      /** read headings from page */
       setHeadings(
         getHeadings().map((heading) => {
+          /** get heading html contents */
           const clone = heading.cloneNode(true) as HTMLHeadingElement;
+          /** remove heading anchor */
           clone.querySelector("a")?.remove();
+
           return {
-            text: startCase(heading.innerText.toLowerCase()),
             html: clone.innerHTML,
             id: heading.id,
             level: parseInt(heading.tagName.slice(1)) || 0,
@@ -73,11 +83,14 @@ const TableOfContents = () => {
   return (
     <aside className={classes.table} aria-label="Table of contents">
       <div className={classes.heading}>
+        {/* top text */}
         {open && (
           <span className={classNames(classes.title, "primary", "bold")}>
             Table Of Contents
           </span>
         )}
+
+        {/* toggle button */}
         <Tooltip content={open ? "Close" : "Table of contents"}>
           <button
             className={classes.button}
@@ -88,6 +101,8 @@ const TableOfContents = () => {
           </button>
         </Tooltip>
       </div>
+
+      {/* links */}
       {open && (
         <div ref={ref} className={classes.list}>
           {headings.map((heading, index) => (

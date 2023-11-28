@@ -15,7 +15,7 @@ type Props = {
   children: ReactNode;
 };
 
-/** button with content beneath expandable/collapsible */
+/** button with expandable/collapsible content beneath */
 const Collapsible = ({ text, tooltip, className, children }: Props) => {
   /** unique id for component instance */
   const id = useId();
@@ -25,6 +25,7 @@ const Collapsible = ({ text, tooltip, className, children }: Props) => {
 
   return (
     <>
+      {/* trigger */}
       <Tooltip content={tooltip}>
         <button
           type="button"
@@ -37,6 +38,8 @@ const Collapsible = ({ text, tooltip, className, children }: Props) => {
           {open ? <FaAngleUp /> : <FaAngleDown />}
         </button>
       </Tooltip>
+
+      {/* content */}
       {open && (
         <div id={id} className={className}>
           {children}

@@ -16,6 +16,7 @@ import {
 } from "react-router-dom";
 import { QueryParamProvider } from "use-query-params";
 import { ReactRouter6Adapter } from "use-query-params/adapters/react-router-6";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FloatButtons from "@/components/FloatButtons";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -52,19 +53,21 @@ const Layout = () => {
 
   return (
     <IconContext.Provider value={{ className: "icon" }}>
-      <QueryParamProvider
-        adapter={ReactRouter6Adapter}
-        options={{ updateType: "replaceIn" }}
-      >
-        <Header />
-        <main>
-          {toc && <TableOfContents />}
-          <Outlet />
-        </main>
-        <Footer />
-        <Toasts />
-        <FloatButtons />
-      </QueryParamProvider>
+      <Header />
+      <main>
+        {toc && <TableOfContents />}
+        <QueryParamProvider
+          adapter={ReactRouter6Adapter}
+          options={{ updateType: "replaceIn" }}
+        >
+          <QueryClientProvider client={queryClient}>
+            <Outlet />
+          </QueryClientProvider>
+        </QueryParamProvider>
+      </main>
+      <Footer />
+      <Toasts />
+      <FloatButtons />
     </IconContext.Provider>
   );
 };
@@ -109,7 +112,10 @@ const routes = [
   },
 ];
 
-/** router object */
+/** router */
 const router = createBrowserRouter(routes, {
   basename: import.meta.env.BASE_URL,
 });
+
+/** query client */
+const queryClient = new QueryClient();

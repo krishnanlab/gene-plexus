@@ -7,19 +7,6 @@
 
 /** animations */
 
-.spin {
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .pulse {
   animation: pulse 0.5s ease-in-out alternate infinite;
 }

@@ -14,6 +14,7 @@ type Props = {
    * no sync)
    */
   syncWithUrl?: string;
+  /** series of Tab components */
   children: ReactElement<TabProps>[];
 };
 

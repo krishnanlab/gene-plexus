@@ -18,7 +18,7 @@ type Props = {
 
 /**
  * popup of minimal, non-interactive help or contextual info when hovering or
- * focusing children
+ * focusing children. for use in other components, not directly.
  */
 const Tooltip = ({ content, children }: Props) => {
   /** set up zag */

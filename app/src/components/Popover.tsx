@@ -15,7 +15,10 @@ type Props = {
   children: ReactElement;
 };
 
-/** popup of rich, interactive content when hovering or focusing children */
+/**
+ * popup of interactive content when hovering or focusing children. for use in
+ * other components, not directly.
+ */
 const Popover = ({ label, content, children }: Props) => {
   /** set up zag */
   const [state, send] = useMachine(

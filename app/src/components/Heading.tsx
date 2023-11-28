@@ -9,10 +9,11 @@ import classes from "./Heading.module.css";
 type Props = {
   /** "indent" level */
   level: 1 | 2 | 3 | 4;
-  /** icon element or intials to show in badge */
+  /** icon element or initials to show in badge */
   icon?: ReactElement | string;
   /** manually set anchor link instead of automatically from children text */
   anchor?: string;
+  /** heading content */
   children: ReactNode;
 } & ComponentProps<"h1" | "h2" | "h3" | "h4">;
 

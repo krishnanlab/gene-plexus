@@ -10,9 +10,11 @@
     "test": "bun run test:lint && bun run test:types",
     "test:lint": "./lint.sh",
     "test:types": "tsc",
+    "test:spelling": "bunx cspell src/**/*.{tsx,ts}",
     "clean": "rm -rf node_modules bun.lockb && bun pm cache rm"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.8.7",
     "@tanstack/react-table": "^8.10.7",
     "@zag-js/checkbox": "^0.30.0",
     "@zag-js/number-input": "^0.30.0",

@@ -438,6 +438,7 @@ const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
         multi={true}
         value={(column.getFilterValue() as [number, number]) ?? [min, max]}
         onChange={(value) => {
+          /** return as "unfiltered" if value equals min/max range */
           column.setFilterValue(isEqual(value, [min, max]) ? undefined : value);
         }}
       />
@@ -454,6 +455,7 @@ const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
         }))}
         value={column.getFilterValue() as Option[]}
         onChange={(value, count) =>
+          /** return as "unfiltered" if none are selected */
           column.setFilterValue(count === "none" ? undefined : value)
         }
         multi={true}

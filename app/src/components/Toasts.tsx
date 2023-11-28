@@ -15,10 +15,7 @@ import * as toast from "@zag-js/toast";
 import Loading from "@/assets/loading.svg?react";
 import classes from "./Toasts.module.css";
 
-/**
- * singleton component that displays list of "toasts" (notifications) in corner
- * of screen
- */
+/** list of "toasts" (notifications) in corner of screen. singleton. */
 const Toasts = () => {
   /** set up zag */
   const [state, send] = useMachine(

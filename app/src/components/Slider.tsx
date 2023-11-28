@@ -43,8 +43,8 @@ type Input = Omit<
 type Props = Base & LabelProps & (Single | Multi) & Input;
 
 /**
- * single value number slider. use for numeric values that need quick or
- * imprecise adjustment.
+ * single or multi-value number slider. use for numeric values that need quick
+ * or imprecise adjustment.
  */
 const Slider = ({
   min,

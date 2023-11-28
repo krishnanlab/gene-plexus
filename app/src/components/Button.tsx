@@ -50,6 +50,7 @@ const Button = forwardRef(
       [classes.square!]: !text && !!icon,
     });
 
+    /** if "to", render as link */
     if ("to" in props)
       return (
         <Link
@@ -61,7 +62,7 @@ const Button = forwardRef(
           {children}
         </Link>
       );
-    else
+    /** otherwise, render as button */ else
       return (
         <Tooltip content={tooltip}>
           <button

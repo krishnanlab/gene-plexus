@@ -3,8 +3,8 @@ import { truncate } from "lodash";
 
 type Props = {
   /**
-   * tab and document title. can be multiple parts (which get separated by
-   * delimiter)
+   * tab and page title. can be multiple parts (which get separated by
+   * delimiter).
    */
   title: string | string[];
   /** page description */

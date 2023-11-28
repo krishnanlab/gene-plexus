@@ -34,13 +34,12 @@ export const request = async <Response>(
   /** make request object */
   const request = new Request(url, options);
 
-  if (import.meta.env.MODE !== "test")
-    groupLog(`📞 Request ${path}`, {
-      url,
-      params,
-      options,
-      request,
-    });
+  groupLog(`📞 Request ${path}`, {
+    url,
+    params,
+    options,
+    request,
+  });
 
   /* make new request */
   const response = await fetch(request);
@@ -62,14 +61,13 @@ export const request = async <Response>(
     error = `Couldn't parse response as ${parse}`;
   }
 
-  if (import.meta.env.MODE !== "test")
-    groupLog(`📣 Response ${path}`, {
-      url,
-      params,
-      options,
-      parsed,
-      response,
-    });
+  groupLog(`📣 Response ${path}`, {
+    url,
+    params,
+    options,
+    parsed,
+    response,
+  });
 
   /** throw error after details have been logged */
   if (error || parsed === undefined) throw Error(error);

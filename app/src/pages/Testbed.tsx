@@ -27,6 +27,8 @@ import {
   FaTag,
 } from "react-icons/fa6";
 import { sample } from "lodash";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { test } from "@/api/test";
 import CustomIcon from "@/assets/custom-icon.svg?react";
 import Ago from "@/components/Ago";
 import Alert from "@/components/Alert";
@@ -60,6 +62,10 @@ const logChange = (...args: unknown[]) => {
 
 /** test and example usage of formatting, elements, components, etc. */
 const Testbed = () => {
+  /** test data and api call */
+  const { data, isLoading } = useQuery({ queryKey: ["test"], queryFn: test });
+  const queryClient = useQueryClient();
+
   return (
     <>
       <Meta title="Testbed" />
@@ -68,6 +74,26 @@ const Testbed = () => {
         <Heading level={1} icon={<CustomIcon />}>
           Testbed
         </Heading>
+      </Section>
+
+      {/* data example */}
+      <Section>
+        {isLoading ? (
+          <Alert type="loading">Loading Data</Alert>
+        ) : (
+          <div className="flex-col gap-sm">
+            {data?.map((item, index) => (
+              <span key={index}>
+                {item.name} ({item.id})
+              </span>
+            ))}
+          </div>
+        )}
+        <Button
+          design="accent"
+          text="Reset"
+          onClick={() => queryClient.resetQueries({ queryKey: ["test"] })}
+        />
       </Section>
 
       {/* regular html elements and css classes for basic formatting */}
@@ -584,13 +610,12 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
         </Heading>
         <div className="flex-row gap-sm">
           <Popover
-            label="Rich, interactive content"
+            label="Interactive content"
             content={
               <>
                 <p>
-                  Rich,{" "}
                   <Link to="https://medschool.cuanschutz.edu/dbmi">
-                    interactive
+                    Interactive
                   </Link>{" "}
                   content
                 </p>
@@ -622,13 +647,13 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
         </Heading>
         <div className="flex-row gap-sm">
           <Label htmlFor="123" label="Label" required={true} tooltip="Tooltip">
-            <input id="123" placeholder="Search" name="test" />
+            <input id="123" name="suppress lighthouse" />
           </Label>
           <Label htmlFor="456" label="Label" layout="horizontal">
-            <input id="456" placeholder="Search" name="test" />
+            <input id="456" name="suppress lighthouse" />
           </Label>
           <Label htmlFor="789" label="Label" layout="none">
-            <input id="789" placeholder="Search" name="test" />
+            <input id="789" name="suppress lighthouse" />
           </Label>
         </div>
       </Section>
@@ -672,6 +697,39 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
             <Button type="submit" text="Submit" design="critical" />
           </Form>
         </div>
+      </Section>
+
+      {/* (for CSS inspection/testing; not typically used directly) */}
+      <Section>
+        <button>Test</button>
+        <input aria-label="suppress lighthouse" name="suppress lighthouse" />
+        <textarea aria-label="suppress lighthouse" name="suppress lighthouse" />
+        <table>
+          <thead>
+            <tr>
+              <th>A</th>
+              <th>B</th>
+              <th>C</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2</td>
+              <td>3</td>
+            </tr>
+          </tbody>
+        </table>
       </Section>
 
       {/* section */}

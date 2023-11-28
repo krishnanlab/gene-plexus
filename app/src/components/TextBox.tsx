@@ -69,6 +69,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
 
   /** side element */
   let sideElement = <></>;
+
   if (!blank)
     sideElement = (
       <button

@@ -55,10 +55,15 @@ const NumberBox = ({ min, max, step, value, onChange, ...props }: Props) => {
   return (
     <Label {...api.labelProps} {...forwardLabelProps(props, api.inputProps.id)}>
       <div className={classes.container}>
+        {/* ↑ */}
         <button {...api.incrementTriggerProps} className={classes.inc}>
           <FaAngleUp />
         </button>
+
+        {/* input */}
         <input {...api.inputProps} className={classes.input} />
+
+        {/* ↓ */}
         <button {...api.decrementTriggerProps} className={classes.dec}>
           <FaAngleDown />
         </button>
