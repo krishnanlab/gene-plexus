@@ -63,7 +63,7 @@ const Radios = <Value extends string>({
   return (
     <Label
       {...api.labelProps}
-      {...forwardLabelProps(props)}
+      {...forwardLabelProps(props, api.rootProps.id)}
       layout="vertical"
       width="unset"
     >

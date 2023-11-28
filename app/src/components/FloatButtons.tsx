@@ -12,6 +12,7 @@ const FloatButtons = () => {
         <button
           className={classes.button}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Scroll to top of page"
         >
           <FaAngleUp />
         </button>

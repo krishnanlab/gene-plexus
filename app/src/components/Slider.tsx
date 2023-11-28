@@ -102,7 +102,7 @@ const Slider = ({
   const showMax = (api.value.at(-1) ?? _max) < (_max - _min) * 0.8;
 
   return (
-    <Label {...forwardLabelProps(props)}>
+    <Label {...forwardLabelProps(props, api.rootProps.id)}>
       <div {...api.rootProps} className={classes.container}>
         <div {...api.controlProps} className={classes.control}>
           {/* track */}

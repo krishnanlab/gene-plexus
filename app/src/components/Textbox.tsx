@@ -87,7 +87,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
   else if (icon) sideElement = <div className={classes.icon}>{icon}</div>;
 
   return (
-    <Label width="100%" {...forwardLabelProps(props)} htmlFor={id}>
+    <Label width="100%" {...forwardLabelProps(props, id)}>
       <div className={classes.container}>
         {input}
 

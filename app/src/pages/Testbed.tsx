@@ -621,14 +621,14 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
           Label
         </Heading>
         <div className="flex-row gap-sm">
-          <Label label="Label" required={true} tooltip="Tooltip">
-            <input placeholder="Search" />
+          <Label htmlFor="123" label="Label" required={true} tooltip="Tooltip">
+            <input id="123" placeholder="Search" name="test" />
           </Label>
-          <Label label="Label" layout="horizontal">
-            <input placeholder="Search" />
+          <Label htmlFor="456" label="Label" layout="horizontal">
+            <input id="456" placeholder="Search" name="test" />
           </Label>
-          <Label label="Label" layout="none">
-            <input placeholder="Search" />
+          <Label htmlFor="789" label="Label" layout="none">
+            <input id="789" placeholder="Search" name="test" />
           </Label>
         </div>
       </Section>
@@ -641,7 +641,12 @@ popup.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed 
         <div className="flex-col gap-lg full">
           <Form onSubmit={console.info}>
             <div className="grid full">
-              <TextBox label="Email" name="email" type="email" />
+              <TextBox
+                label="Email"
+                name="email"
+                type="email"
+                autoComplete="email"
+              />
               <TextBox
                 label="Description"
                 multi={true}

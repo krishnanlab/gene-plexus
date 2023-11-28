@@ -53,11 +53,7 @@ const NumberBox = ({ min, max, step, value, onChange, ...props }: Props) => {
   const api = numberInput.connect(state, send, normalizeProps);
 
   return (
-    <Label
-      {...forwardLabelProps(props)}
-      {...api.labelProps}
-      htmlFor={api.inputProps.id}
-    >
+    <Label {...api.labelProps} {...forwardLabelProps(props, api.inputProps.id)}>
       <div className={classes.container}>
         <button {...api.incrementTriggerProps} className={classes.inc}>
           <FaAngleUp />

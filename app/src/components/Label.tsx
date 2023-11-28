@@ -31,8 +31,10 @@ const labelProps = ["label", "layout", "tooltip", "required", "width"] as const;
 export type LabelProps = Pick<Props, (typeof labelProps)[number]>;
 
 /** forward specific props to label component */
-export const forwardLabelProps = (props: Record<PropertyKey, unknown>) =>
-  pick<LabelProps>(props, labelProps);
+export const forwardLabelProps = (
+  props: Record<PropertyKey, unknown>,
+  htmlFor: string | undefined,
+) => ({ ...pick<LabelProps>(props, labelProps), htmlFor });
 
 /**
  * adds layout, label, help, etc. to input component. for use in other

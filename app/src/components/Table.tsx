@@ -373,7 +373,7 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
                 if (Number.isNaN(page)) return;
                 table.setPageIndex(clamp(page, 1, table.getPageCount()) - 1);
               }}
-              aria-label="Jump to page"
+              // aria-label="Jump to page"
             >
               {table.getState().pagination.pageIndex + 1}
             </button>{" "}

@@ -111,7 +111,10 @@ const Select = ({ multi, value, onChange, options, ...props }: Props) => {
     <div {...api.rootProps} className={classes.root}>
       {/* trigger */}
       <div {...api.controlProps} className={classes.control}>
-        <Label {...forwardLabelProps(props)} {...api.labelProps}>
+        <Label
+          {...api.labelProps}
+          {...forwardLabelProps(props, api.triggerProps.id)}
+        >
           <button {...api.triggerProps} className={classes.button}>
             <span className="truncate" aria-hidden={true}>
               {selectedLabel}
