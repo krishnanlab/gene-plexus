@@ -15,7 +15,7 @@ This project was scaffolded using Vite, and has the following key features:
 
 | Command           | Description                                       |
 | ----------------- | ------------------------------------------------- |
-| `bun run install` | Install packages                                  |
+| `bun install`     | Install packages                                  |
 | `bun run dev`     | Start local dev server with hot-reloading         |
 | `bun run build`   | Build production version of app                   |
 | `bun run preview` | Serve built version of app (must run build first) |

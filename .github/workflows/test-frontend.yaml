@@ -26,7 +26,7 @@ jobs:
 
       - name: Define cache key
         id: define-key
-        run: echo "key=${{ hashFiles('frontend/bun.lockb') }}" >> $GITHUB_OUTPUT
+        run: echo "key=${{ hashFiles('/bun.lockb') }}" >> $GITHUB_OUTPUT
 
       - name: Store cache
         uses: actions/cache@v3
@@ -44,6 +44,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
 
       - name: Restore cache
         uses: actions/cache@v3
@@ -65,6 +68,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
+
       - name: Restore cache
         uses: actions/cache@v3
         with:
@@ -84,6 +90,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v1
 
       - name: Restore cache
         uses: actions/cache@v3

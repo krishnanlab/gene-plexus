@@ -73,7 +73,7 @@ const Layout = () => {
 type Meta = { toc?: true } | undefined;
 
 /** route definitions */
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
     element: <Layout />,
@@ -107,4 +107,9 @@ const router = createBrowserRouter([
       },
     ],
   },
-]);
+];
+
+/** router object */
+const router = createBrowserRouter(routes, {
+  basename: import.meta.env.BASE_URL,
+});
