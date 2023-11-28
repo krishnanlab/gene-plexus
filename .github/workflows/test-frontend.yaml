@@ -55,7 +55,7 @@ jobs:
         uses: mxschmitt/action-tmate@v3
 
       - name: Run test
-        run: bun build
+        run: bun run build
 
   # test that app has no typescript errors
   test-types:
@@ -75,7 +75,7 @@ jobs:
         uses: mxschmitt/action-tmate@v3
 
       - name: Run test
-        run: bun test:types
+        run: bun run test:types
 
   # test that app is properly formatted and linted
   test-lint:
@@ -95,4 +95,4 @@ jobs:
         uses: mxschmitt/action-tmate@v3
 
       - name: Run test
-        run: bun test:lint
+        run: bun run test:lint
