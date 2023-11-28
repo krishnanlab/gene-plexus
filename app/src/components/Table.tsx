@@ -12,7 +12,7 @@ import {
   FaSortDown,
   FaSortUp,
 } from "react-icons/fa6";
-import { clamp, isEqual } from "lodash";
+import { clamp, isEqual, pick } from "lodash";
 import type {
   Column,
   FilterFnOption,
@@ -38,6 +38,7 @@ import Select from "@/components/Select";
 import type { Option } from "@/components/Select";
 import Slider from "@/components/Slider";
 import TextBox from "@/components/TextBox";
+import { downloadCsv } from "@/util/download";
 import classes from "./Table.module.css";
 
 type Props<Datum extends object> = {
@@ -68,7 +69,7 @@ declare module "@tanstack/table-core" {
   }
 }
 
-/** map col def to multi-select option */
+/** map column definition to multi-select option */
 const colToOption = <Datum extends object>(
   col: Props<Datum>["cols"][number],
   index: number,
@@ -84,9 +85,9 @@ const colToOption = <Datum extends object>(
  * https://codesandbox.io/p/devbox/tanstack-table-example-kitchen-sink-vv4871
  */
 const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
-  /** col visibility options for multi-select */
+  /** column visibility options for multi-select */
   const visibleOptions = cols.map(colToOption);
-  /** visible cols */
+  /** visible columns */
   const [visible, setVisible] = useState<Option[]>(
     cols
       .filter((col) => col.show === true || col.show === undefined)
@@ -110,6 +111,7 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
     () => (row, columnId, filterValue: unknown) => {
       const type = cols[Number(columnId)]?.type ?? "string";
 
+      /** string column */
       if (type === "string") {
         const value = filterValue as string;
         const cell = row.getValue(columnId) as string;
@@ -117,19 +119,25 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
         return !!cell.match(new RegExp(value, "i"));
       }
 
+      /** number col */
       if (type === "number") {
         const value = filterValue as [number, number];
         const cell = row.getValue(columnId) as number;
         return cell >= value[0] && cell <= value[1];
       }
 
+      /** enumerated col */
       if (type === "enum") {
         const cell = row.getValue(columnId) as string;
+
+        /** if filtering with multi-select */
         if (Array.isArray(filterValue)) {
           const value = filterValue as Option[];
           if (!value.length) return true;
           return !!value.find((option) => option.text === cell);
         }
+
+        /** if filtering with plain text */
         if (typeof filterValue === "string") {
           return !!cell.match(new RegExp(filterValue, "i"));
         }
@@ -144,13 +152,23 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
   /** column definitions */
   const columns = cols.map((col, index) =>
     columnHelper.accessor((row: Datum) => row[col.key], {
+      /** unique column id, from position in provided column list */
       id: String(index),
+      /** name */
       header: col.name,
+      /** sortable */
       enableSorting: col.sortable ?? true,
+      /** individually filterable */
       enableColumnFilter: col.filterable ?? true,
-      enableGlobalFilter: true,
+      /** include in table-wide search if column is visible */
+      enableGlobalFilter: !!visible.find(
+        (visible) => visible.id === String(index),
+      ),
+      /** type of column */
       meta: { type: col.type ?? "string" },
+      /** func to use for filtering */
       filterFn: filterFunc,
+      /** render func for cell */
       cell: (cell) =>
         col.render ? col.render(cell.getValue()) : cell.getValue(),
     }),
@@ -170,6 +188,7 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
     globalFilterFn: filterFunc,
     autoResetPageIndex: true,
     columnResizeMode: "onChange",
+    /** initial sort, page, etc. state */
     initialState: {
       sorting: [{ id: "0", desc: false }],
       pagination: {
@@ -177,8 +196,11 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
         pageSize: Number(perPageOptions[0]!.id),
       },
     },
+    /** sync some controls with table state */
     state: {
+      /** table-wide search */
       globalFilter: search,
+      /** which columns are visible */
       columnVisibility: Object.fromEntries(
         cols.map((col, index) => [
           String(index),
@@ -215,7 +237,24 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
         <Button
           icon={<FaDownload />}
           text="CSV"
-          onClick={() => window.alert("download")}
+          onClick={() => {
+            /** get col defs that are visible */
+            const defs = visible.map((visible) => cols[Number(visible.id)]!);
+
+            /** visible keys */
+            const keys = defs.map((def) => def.key);
+
+            /** visible names */
+            const names = defs.map((def) => def.name);
+
+            /** filtered row data */
+            const data = table
+              .getFilteredRowModel()
+              .rows.map((row) => Object.values(pick(row.original, keys)));
+
+            /** download */
+            downloadCsv([names, ...data], ["molevolver", "table"]);
+          }}
           design="accent"
         />
       </div>
@@ -379,7 +418,7 @@ type FilterProps<Datum extends object> = {
 
 /** content of filter popup for column */
 const Filter = <Datum extends object>({ column }: FilterProps<Datum>) => {
-  /** get unique values in col */
+  /** get unique values in column */
   const unique = column.getFacetedUniqueValues();
   const uniqueValues = useMemo(
     () => Array.from(unique.keys()).sort(),
