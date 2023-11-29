@@ -259,9 +259,12 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
         />
       </div>
 
-      {/* table */}
-      {rows.length && visible.length ? (
+      {/* if data */}
+      {rows.length &&
+      visible.length &&
+      table.getFilteredRowModel().rows.length ? (
         <div className={classes.scroll}>
+          {/* table */}
           <table className={classes.table}>
             {/* head */}
             <thead>
@@ -342,7 +345,7 @@ const Table = <Datum extends object>({ cols, rows }: Props<Datum>) => {
         </div>
       ) : (
         /** fallback */
-        <div className="placeholder">Nothing to show</div>
+        <div className="placeholder">No rows</div>
       )}
 
       {/* bottom controls */}

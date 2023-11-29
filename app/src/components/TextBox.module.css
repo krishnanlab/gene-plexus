@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-.icon {
+.side {
   display: flex;
   position: absolute;
   right: 0;
@@ -15,16 +15,16 @@
   color: var(--gray);
 }
 
-.icon svg {
+.side svg {
   width: 50%;
 }
 
-button.icon {
+button.side {
   color: var(--accent);
   transition: color var(--fast);
 }
 
-button.icon:hover {
+button.side:hover {
   color: var(--deep);
 }
 

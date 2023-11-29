@@ -89,20 +89,13 @@
   font-weight: var(--bold);
 }
 
-/** icon sizing and positioning */
+/** automatically applied to all icons (react-icons and imported custom icons) */
 
-.icon,
-.inline-icon {
+.icon {
   flex-shrink: 0;
   width: unset;
   height: 1em;
   overflow: visible;
-}
-
-.inline-icon {
-  position: relative;
-  top: -0.075em;
-  vertical-align: middle;
 }
 
 /** blank box for dev or loading placeholder */

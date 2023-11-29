@@ -18,7 +18,7 @@ type Props = {
 /** available categories of alerts and associated styles */
 const types = {
   info: { color: "var(--deep)", icon: <FaCircleInfo /> },
-  loading: { color: "var(--deep)", icon: <Loading className="icon" /> },
+  loading: { color: "var(--deep)", icon: <Loading /> },
   success: { color: "var(--success)", icon: <FaCircleCheck /> },
   warning: { color: "var(--warning)", icon: <FaCircleExclamation /> },
   error: { color: "var(--error)", icon: <FaTriangleExclamation /> },

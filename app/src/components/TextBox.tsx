@@ -74,7 +74,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
     sideElement = (
       <button
         type="button"
-        className={classes.icon}
+        className={classes.side}
         onClick={() => {
           if (ref.current) ref.current.value = "";
           onChange?.("");
@@ -85,7 +85,7 @@ const TextBox = ({ multi, icon, value, onChange, ...props }: Props) => {
         <FaXmark />
       </button>
     );
-  else if (icon) sideElement = <div className={classes.icon}>{icon}</div>;
+  else if (icon) sideElement = <div className={classes.side}>{icon}</div>;
 
   return (
     <Label width="100%" {...forwardLabelProps(props, id)}>
